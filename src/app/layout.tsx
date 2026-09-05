@@ -1,5 +1,7 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
+import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
+import { DrawerProductCard } from "@/components/layout/DrawerProductCard";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { MotionProvider } from "@/components/motion/MotionProvider";
@@ -37,6 +39,7 @@ export default function RootLayout({
       lang="en"
       className={`${sans.variable} ${serif.variable}`}
       data-scroll-behavior="smooth"
+      style={{ ["--header-h" as string]: siteConfig.announcement ? "7.25rem" : "4.5rem" }}
     >
       <body className="flex min-h-screen flex-col">
         <noscript>
@@ -47,7 +50,7 @@ export default function RootLayout({
           <a href="#main" className="skip-link">
             Skip to content
           </a>
-          <Navbar />
+          <Navbar announcement={<AnnouncementBar />} drawerExtra={<DrawerProductCard />} />
           <main id="main" className="flex-1">
             {children}
           </main>

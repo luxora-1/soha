@@ -32,6 +32,9 @@ export const siteConfig = {
     helper: "Takes about 10 minutes.",
   },
 
+  /* COPY_DRAFT: announcement bar above the nav (condensed from the brief's pricing subhead). Set to null to hide. */
+  announcement: "Cash-pay. No insurance maze." as string | null,
+
   /**
    * Support contact. Rendered as plain text while it is a placeholder and as a
    * mailto link once a real address is set.

@@ -34,7 +34,7 @@ export function PageIntro({
   return (
     <section
       aria-labelledby={headingId}
-      className={cn(tone === "alt" ? "bg-alt" : "bg-base", "pt-nav")}
+      className={cn(tone === "alt" ? "bg-alt" : "bg-base", "pt-header")}
     >
       <Container className="py-section lg:py-section-lg">
         <div className={cn(split && "grid items-center gap-12 lg:grid-cols-12 lg:gap-16")}>

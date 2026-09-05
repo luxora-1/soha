@@ -4,7 +4,7 @@ import { SectionWrapper } from "@/components/sections/SectionWrapper";
 /* COPY_DRAFT: 404 page copy — review before launch. */
 export default function NotFound() {
   return (
-    <div className="pt-nav">
+    <div className="pt-header">
       <SectionWrapper tone="base">
         <div className="max-w-measure">
         <h1>That page isn&apos;t here.</h1>

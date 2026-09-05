@@ -4,6 +4,8 @@ import { cn } from "@/lib/cn";
 type ContainerProps = {
   as?: ElementType;
   className?: string;
+  /** `wide` lets full-bleed tiles run nearly edge to edge. */
+  width?: "content" | "wide";
   children: ReactNode;
 };
 
@@ -14,12 +16,14 @@ type ContainerProps = {
 export function Container({
   as: Tag = "div",
   className,
+  width = "content",
   children,
 }: ContainerProps) {
   return (
     <Tag
       className={cn(
-        "mx-auto box-content max-w-content px-6 md:px-8",
+        "mx-auto box-content",
+        width === "wide" ? "max-w-[1440px] px-4 md:px-6" : "max-w-content px-6 md:px-8",
         className,
       )}
     >

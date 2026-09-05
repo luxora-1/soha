@@ -153,8 +153,12 @@ const config: Config = {
         /** Vertical rhythm for sections: py-section (mobile) / lg:py-section-lg */
         section: "5rem", // 80px  == py-20
         "section-lg": "8rem", // 128px == py-32
-        /** Navbar height, used for hero top-offset. */
+        /** Navbar row height. */
         nav: "4.5rem", // 72px
+        /** Announcement bar height. */
+        bar: "2.75rem", // 44px
+        /** Fixed header total (bar + nav, or nav only) — set on <html> by the layout. */
+        header: "var(--header-h)",
         /** Minimum tap-target size for the 45+ audience. */
         tap: "2.75rem", // 44px
       },
@@ -166,15 +170,31 @@ const config: Config = {
       },
       borderRadius: {
         card: "1rem", // == rounded-2xl
+        /** Large photo tiles and full-bleed panels. */
+        tile: "1.75rem",
       },
       backgroundImage: {
         /** Select chevron, drawn in ink-muted. Used with appearance-none selects. */
         chevron: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='none' stroke='${encodeURIComponent(palette.inkMuted)}' stroke-width='1.5' d='M3 6l5 5 5-5'/></svg>")`,
+        /** Film grain overlay for tiles and panels (use with mix-blend + low opacity). */
+        grain: `url("data:image/svg+xml;utf8,${encodeURIComponent(
+          "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>",
+        )}")`,
+        /** Warm placeholder gradient for image tiles. */
+        "tile-placeholder": `linear-gradient(160deg, ${palette.accentSoft} 0%, #D8C7B6 45%, ${palette.brand} 130%)`,
+        /** Bottom-up fade so cream text reads over any photo. */
+        "tile-fade": `linear-gradient(to top, rgb(42 39 36 / 0.82) 0%, rgb(42 39 36 / 0.35) 45%, rgb(42 39 36 / 0) 75%)`,
+        /** Soft warm glow for dark panels. */
+        glow: `radial-gradient(55% 60% at 72% 35%, rgb(124 106 90 / 0.55) 0%, rgb(124 106 90 / 0) 70%)`,
       },
       keyframes: {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(40px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "slide-in": {
+          "0%": { transform: "translateX(24px)", opacity: "0" },
+          "100%": { transform: "translateX(0)", opacity: "1" },
         },
       },
       animation: {

@@ -1,8 +1,8 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import Image from "next/image";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { AmbientVideo } from "@/components/media/AmbientVideo";
+import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { heroVideo, imageExtensions, imageManifest, type ImageSlotName } from "@/config/images";
 import { cn } from "@/lib/cn";
 
@@ -32,12 +32,16 @@ type SiteImageProps = {
   ratio?: Ratio;
   mdRatio?: Ratio;
   lgRatio?: Ratio;
+  /** `fill` covers a positioned parent (tiles/panels) instead of setting an aspect ratio. */
+  mode?: "aspect" | "fill";
   /** next/image `sizes` hint; defaults to a half-width column on large screens. */
   sizes?: string;
   priority?: boolean;
   className?: string;
   /** Layer public/video/<number>.mp4 over the still when present (hero only). */
   withVideo?: boolean;
+  /** `contain` for product shots that must not be cropped. */
+  fit?: "cover" | "contain";
 };
 
 /** Finds public/images/<number>.<ext> for a slot, if present. */
@@ -65,18 +69,20 @@ function resolveVideo(number: string): Array<{ src: string; type: string }> {
 
 /**
  * Server component. Renders the numbered photo for `slot` if a file named by
- * its number exists under public/images/, otherwise the IMAGE_PLACEHOLDER
- * block showing that number — so dropping the file in is the only step.
+ * its number exists under public/images/, otherwise the placeholder tile
+ * showing that number — so dropping the file in is the only step.
  */
 export function SiteImage({
   slot,
   ratio = "portrait",
   mdRatio,
   lgRatio,
+  mode = "aspect",
   sizes = "(min-width: 1024px) 50vw, 100vw",
   priority = false,
   className,
   withVideo = false,
+  fit = "cover",
 }: SiteImageProps) {
   const entry = imageManifest[slot];
   const src = resolveImage(slot);
@@ -88,6 +94,7 @@ export function SiteImage({
         ratio={ratio}
         mdRatio={mdRatio}
         lgRatio={lgRatio}
+        mode={mode}
         label={`IMAGE ${entry.number}`}
         brief={entry.brief}
         className={className}
@@ -95,17 +102,26 @@ export function SiteImage({
     );
   }
 
+  const frame =
+    mode === "fill"
+      ? "absolute inset-0 overflow-hidden"
+      : cn(
+          "relative w-full overflow-hidden rounded-tile bg-accent-soft",
+          ratios[ratio],
+          mdRatio && mdRatios[mdRatio],
+          lgRatio && lgRatios[lgRatio],
+        );
+
   return (
-    <div
-      className={cn(
-        "relative w-full overflow-hidden rounded-2xl border border-ink/10 bg-accent-soft",
-        ratios[ratio],
-        mdRatio && mdRatios[mdRatio],
-        lgRatio && lgRatios[lgRatio],
-        className,
-      )}
-    >
-      <Image src={src} alt={entry.alt} fill sizes={sizes} priority={priority} className="object-cover" />
+    <div className={cn(frame, className)}>
+      <Image
+        src={src}
+        alt={entry.alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className={fit === "contain" ? "object-contain" : "object-cover"}
+      />
       {video.length > 0 && (
         <AmbientVideo sources={video} className="absolute inset-0 h-full w-full object-cover" />
       )}

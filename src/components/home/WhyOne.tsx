@@ -1,3 +1,4 @@
+import { ThreeToOne } from "@/components/home/ThreeToOne";
 import { FadeUp } from "@/components/motion/FadeUp";
 import { SectionWrapper, type SectionTone } from "@/components/sections/SectionWrapper";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -15,15 +16,16 @@ export function WhyOne({ tone = "alt" }: { tone?: SectionTone }) {
 
   return (
     <SectionWrapper tone={tone} id="why-one" labelledBy="why-one-heading">
-      <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
-        <FadeUp className="lg:col-span-6">
+      <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+        <FadeUp className="lg:col-span-5">
           <Eyebrow>{whyOne.eyebrow}</Eyebrow>
           <h2 id="why-one-heading" className="mt-5">
             {whyOne.headline}
           </h2>
+          <p className="mt-6 max-w-measure text-body text-ink">{whyOne.body}</p>
         </FadeUp>
-        <FadeUp delay={0.1} className="lg:col-span-5 lg:col-start-8 lg:pt-3">
-          <p className="max-w-measure text-body text-ink">{whyOne.body}</p>
+        <FadeUp delay={0.1} className="lg:col-span-6 lg:col-start-7">
+          <ThreeToOne />
         </FadeUp>
       </div>
     </SectionWrapper>

@@ -69,6 +69,12 @@ export const imageManifest = {
     alt: "The Estrada bottle with cream swirled around it.",
     brief: "The Product page, beside \"How it's dosed\". Second Estrada render (client-supplied).",
   },
+  "home-closing": {
+    number: "09",
+    ratio: "wide",
+    alt: "",
+    brief: "Homepage closing panel, full-bleed behind the headline. Woman with a mug in her kitchen, or a garden walk. Candidates: jobs 53205941, f98ece6c.",
+  },
 } as const satisfies Record<string, ImageSlot>;
 
 /**

@@ -1,4 +1,4 @@
-import { SectionWrapper } from "@/components/sections/SectionWrapper";
+import { SectionWrapper, type SectionTone } from "@/components/sections/SectionWrapper";
 
 /**
  * TESTIMONIAL_PLACEHOLDER — NOT FOR LAUNCH.
@@ -7,9 +7,9 @@ import { SectionWrapper } from "@/components/sections/SectionWrapper";
  * on purpose to sit outside the design system. Do not "tidy" this component;
  * replace it with real, approved social proof or delete it before launch.
  */
-export function SocialProofPlaceholder() {
+export function SocialProofPlaceholder({ tone = "base" }: { tone?: SectionTone }) {
   return (
-    <SectionWrapper tone="base" label="Testimonials placeholder">
+    <SectionWrapper tone={tone} label="Testimonials placeholder">
       <div
         data-not-for-launch="true"
         style={{

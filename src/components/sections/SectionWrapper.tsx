@@ -17,6 +17,8 @@ type SectionWrapperProps = {
   label?: string;
   className?: string;
   containerClassName?: string;
+  /** Container width; `wide` for full-bleed tiles. */
+  width?: "content" | "wide";
   children: ReactNode;
 };
 
@@ -44,6 +46,7 @@ export function SectionWrapper({
   label,
   className,
   containerClassName,
+  width = "content",
   children,
 }: SectionWrapperProps) {
   return (
@@ -53,7 +56,9 @@ export function SectionWrapper({
       aria-label={label}
       className={cn(tones[tone], paddings[padding], className)}
     >
-      <Container className={containerClassName}>{children}</Container>
+      <Container className={containerClassName} width={width}>
+        {children}
+      </Container>
     </Tag>
   );
 }
