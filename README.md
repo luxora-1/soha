@@ -50,3 +50,6 @@ scripts/
 - `src/app/layout.tsx` sets `robots: { index: false }` while the site is
   pre-launch. Flip it at launch.
 - Set `NEXT_PUBLIC_SITE_URL` in Vercel so absolute metadata URLs are correct.
+- Set `NEXT_PUBLIC_ANALYTICS=on` in Vercel to enable Vercel Analytics at launch.
+- Photos: drop numbered files into `public/images/` (see the README there);
+  an optional hero clip goes in `public/video/01.mp4`.

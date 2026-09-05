@@ -43,6 +43,7 @@ export function Hero() {
               mdRatio="landscape"
               lgRatio="portrait"
               priority
+              withVideo
               className="motion-safe:animate-fade-up motion-safe:[animation-delay:150ms]"
             />
           </div>

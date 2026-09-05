@@ -86,15 +86,20 @@ export default function ProductPage() {
       </SectionWrapper>
 
       <SectionWrapper tone="alt" id="dosing" labelledBy="dosing-heading">
-        <FadeUp className="max-w-measure">
-          <Eyebrow>{content.dosing.eyebrow}</Eyebrow>
-          <h2 id="dosing-heading" className="mt-5">
-            Set by your clinician. Adjusted with you.
-          </h2>
-          <p className="mt-6 text-body-lg text-ink-muted">{content.dosing.intro}</p>
-          {/* CLAIM_PENDING_LEGAL_REVIEW: mg amounts per pump / per day. */}
-          {/* CLAIM_PENDING_LEGAL_REVIEW: application site and frequency specifics. */}
-        </FadeUp>
+        <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
+          <FadeUp className="max-w-measure lg:col-span-6">
+            <Eyebrow>{content.dosing.eyebrow}</Eyebrow>
+            <h2 id="dosing-heading" className="mt-5">
+              Set by your clinician. Adjusted with you.
+            </h2>
+            <p className="mt-6 text-body-lg text-ink-muted">{content.dosing.intro}</p>
+            {/* CLAIM_PENDING_LEGAL_REVIEW: mg amounts per pump / per day. */}
+            {/* CLAIM_PENDING_LEGAL_REVIEW: application site and frequency specifics. */}
+          </FadeUp>
+          <FadeUp delay={0.1} className="lg:col-span-5 lg:col-start-8">
+            <SiteImage slot="product-detail" ratio="landscape" />
+          </FadeUp>
+        </div>
         <ol className="mt-12 grid gap-6 md:grid-cols-3 lg:gap-8">
           {content.dosing.steps.map((step, index) => (
             <FadeUp

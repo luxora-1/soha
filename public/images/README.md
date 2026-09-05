@@ -13,6 +13,8 @@ rebuild or redeploy. Nothing else to change.
 | 04 | How it works, step 03 | landscape |
 | 05 | The Product page hero (Estrada packaging shot) | portrait |
 | 06 | Start your consult, right column on large screens | portrait |
+| 07 | How it works, wide band above the cycle section | wide (16:9) |
+| 08 | The Product page, beside "How it's dosed" (second Estrada shot) | landscape |
 
 Roughly 1600px on the long edge is plenty. Alt text lives in
 `src/config/images.ts` next to each number.

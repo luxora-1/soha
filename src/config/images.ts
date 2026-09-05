@@ -57,7 +57,26 @@ export const imageManifest = {
     alt: "",
     brief: "Start your consult, right column on large screens. Woman on a sofa with her phone, relaxed. Candidate: job 95693959.",
   },
+  "how-cycle": {
+    number: "07",
+    ratio: "wide",
+    alt: "",
+    brief: "How it works, wide band above the cycle section. Woman walking a garden path in golden light. Candidates: jobs f98ece6c, 062fdee1.",
+  },
+  "product-detail": {
+    number: "08",
+    ratio: "landscape",
+    alt: "The Estrada bottle with cream swirled around it.",
+    brief: "The Product page, beside \"How it's dosed\". Second Estrada render (client-supplied).",
+  },
 } as const satisfies Record<string, ImageSlot>;
+
+/**
+ * Optional ambient video for the hero. Drop public/video/01.mp4 (H.264, muted,
+ * a few seconds, loops cleanly) and the hero plays it behind the still, which
+ * remains the poster. Skipped for reduced-motion users and data-saver.
+ */
+export const heroVideo = { number: "01", extensions: ["mp4", "webm"] as const };
 
 export type ImageSlotName = keyof typeof imageManifest;
 

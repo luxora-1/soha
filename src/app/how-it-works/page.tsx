@@ -5,6 +5,7 @@ import { StepSection } from "@/components/sections/StepSection";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { PageIntro } from "@/components/ui/PageIntro";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { siteConfig } from "@/config/site";
 import { howItWorksContent as content } from "@/content/pages";
 
@@ -33,6 +34,12 @@ export default function HowItWorksPage() {
           tone={index % 2 === 0 ? "alt" : "base"}
         />
       ))}
+
+      <SectionWrapper tone="base" padding="none">
+        <FadeUp className="py-10 lg:py-14">
+          <SiteImage slot="how-cycle" ratio="landscape" mdRatio="wide" lgRatio="wide" sizes="(min-width: 1280px) 1200px, 100vw" />
+        </FadeUp>
+      </SectionWrapper>
 
       <SectionWrapper tone="alt" id="cycle" labelledBy="cycle-heading">
         <FadeUp className="max-w-measure">

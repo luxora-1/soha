@@ -2,7 +2,8 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import Image from "next/image";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
-import { imageExtensions, imageManifest, type ImageSlotName } from "@/config/images";
+import { AmbientVideo } from "@/components/media/AmbientVideo";
+import { heroVideo, imageExtensions, imageManifest, type ImageSlotName } from "@/config/images";
 import { cn } from "@/lib/cn";
 
 type Ratio = "portrait" | "landscape" | "square" | "wide";
@@ -35,6 +36,8 @@ type SiteImageProps = {
   sizes?: string;
   priority?: boolean;
   className?: string;
+  /** Layer public/video/<number>.mp4 over the still when present (hero only). */
+  withVideo?: boolean;
 };
 
 /** Finds public/images/<number>.<ext> for a slot, if present. */
@@ -46,6 +49,18 @@ function resolveImage(slot: ImageSlotName): string | null {
     }
   }
   return null;
+}
+
+/** Finds public/video/<number>.<ext> files for the hero, if present. */
+function resolveVideo(number: string): Array<{ src: string; type: string }> {
+  if (number !== heroVideo.number) return [];
+  const found: Array<{ src: string; type: string }> = [];
+  for (const ext of heroVideo.extensions) {
+    if (existsSync(join(process.cwd(), "public", "video", `${number}.${ext}`))) {
+      found.push({ src: `/video/${number}.${ext}`, type: `video/${ext}` });
+    }
+  }
+  return found;
 }
 
 /**
@@ -61,9 +76,11 @@ export function SiteImage({
   sizes = "(min-width: 1024px) 50vw, 100vw",
   priority = false,
   className,
+  withVideo = false,
 }: SiteImageProps) {
   const entry = imageManifest[slot];
   const src = resolveImage(slot);
+  const video = withVideo ? resolveVideo(entry.number) : [];
 
   if (!src) {
     return (
@@ -89,6 +106,9 @@ export function SiteImage({
       )}
     >
       <Image src={src} alt={entry.alt} fill sizes={sizes} priority={priority} className="object-cover" />
+      {video.length > 0 && (
+        <AmbientVideo sources={video} className="absolute inset-0 h-full w-full object-cover" />
+      )}
     </div>
   );
 }

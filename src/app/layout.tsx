@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
@@ -52,6 +53,8 @@ export default function RootLayout({
           </main>
           <Footer />
         </MotionProvider>
+        {/* Vercel Analytics: no cookies, stays inside the Vercel account. Off until launch. */}
+        {process.env.NEXT_PUBLIC_ANALYTICS === "on" && <Analytics />}
       </body>
     </html>
   );
