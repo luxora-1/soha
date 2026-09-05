@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
+import type { ReactNode } from "react";
 import { ImageSlot } from "@/components/landing/ImageSlot";
 import { VideoPlayer } from "@/components/landing/VideoPlayer";
 import { slot, type LandingSlotId } from "@/config/landing-images";
@@ -24,6 +25,9 @@ type VideoSlotProps = {
   sizes?: string;
   priority?: boolean;
   className?: string;
+  /** Anything laid over the poster, e.g. a title pill along the bottom. */
+  overlay?: ReactNode;
+  hoverZoom?: boolean;
 };
 
 /**
@@ -31,11 +35,12 @@ type VideoSlotProps = {
  * .webm) exists: the image stays as the poster and a play button opens the
  * video in a dialog. Without a video file it is simply the image.
  */
-export function VideoSlot({ id, label, sizes, priority, className }: VideoSlotProps) {
+export function VideoSlot({ id, label, sizes, priority, className, overlay, hoverZoom }: VideoSlotProps) {
   const sources = resolveVideo(id);
   return (
     <div className={cn("relative", className)}>
-      <ImageSlot {...slot(id)} sizes={sizes} priority={priority} />
+      <ImageSlot {...slot(id)} sizes={sizes} priority={priority} hoverZoom={hoverZoom} />
+      {overlay}
       {sources.length > 0 && <VideoPlayer sources={sources} label={label} />}
     </div>
   );

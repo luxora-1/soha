@@ -6,7 +6,7 @@ type SectionHeadingProps = {
   /** id of the h2, referenced by the section's aria-labelledby. */
   id: string;
   /** Optional pill above the headline; only where it adds information. */
-  label?: string;
+  label?: ReactNode;
   headline: ReactNode;
   subhead?: ReactNode;
   align?: "left" | "center";
@@ -15,7 +15,7 @@ type SectionHeadingProps = {
   className?: string;
 };
 
-/** Headline block shared by the landing sections. */
+/** Headline block shared by the landing sections: a small pill with an accent dot, the h2, an optional subhead. */
 export function SectionHeading({
   id,
   label,
@@ -30,14 +30,15 @@ export function SectionHeading({
       {label && (
         <p
           className={cn(
-            "inline-flex min-h-[2.25rem] items-center rounded-full px-4 text-base font-medium leading-none text-ink",
-            tone === "base" ? "bg-surface" : "bg-base",
+            "inline-flex min-h-[2.25rem] items-center gap-2 rounded-full px-4 text-base font-medium leading-none text-ink",
+            tone === "base" ? "bg-surface" : "bg-base shadow-subtle",
           )}
         >
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
           {label}
         </p>
       )}
-      <h2 id={id} className={cn(label && "mt-5")}>
+      <h2 id={id} className={cn(label ? "mt-5" : undefined)}>
         {headline}
       </h2>
       {subhead && <p className="mt-5 text-body-lg text-ink-muted">{subhead}</p>}

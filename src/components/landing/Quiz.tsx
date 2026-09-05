@@ -41,6 +41,8 @@ export function Quiz({ page, resultNotes }: QuizProps) {
   const [open, setOpen] = useState(false);
   const [location, setLocation] = useState("unknown");
   const [step, setStep] = useState(0);
+  /** 1 when moving forward, -1 when going back; the next step slides in from that side. */
+  const [direction, setDirection] = useState(1);
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState<string | null>(null);
@@ -101,7 +103,8 @@ export function Quiz({ page, resultNotes }: QuizProps) {
     if (question.type === "single") {
       setAnswers((a) => ({ ...a, [question.key]: [key] }));
       trackEvent("quiz_step", { page, step: question.key, count: 1 });
-      window.setTimeout(() => setStep((s) => Math.min(s + 1, EMAIL_STEP)), 220);
+      setDirection(1);
+      window.setTimeout(() => setStep((s) => Math.min(s + 1, EMAIL_STEP)), 260);
       return;
     }
     setAnswers((a) => {
@@ -113,9 +116,13 @@ export function Quiz({ page, resultNotes }: QuizProps) {
 
   const next = () => {
     if (question) trackEvent("quiz_step", { page, step: question.key, count: chosen.length });
+    setDirection(1);
     setStep((s) => Math.min(s + 1, EMAIL_STEP));
   };
-  const back = () => setStep((s) => Math.max(s - 1, 0));
+  const back = () => {
+    setDirection(-1);
+    setStep((s) => Math.max(s - 1, 0));
+  };
 
   const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -193,7 +200,7 @@ export function Quiz({ page, resultNotes }: QuizProps) {
         </div>
 
         <div className="flex-1 overflow-y-auto px-5 py-6 md:px-8 md:py-8" key={step}>
-          <div className="motion-safe:animate-fade-in">
+          <div className={direction === 1 ? "motion-safe:animate-slide-in" : "motion-safe:animate-slide-in-left"}>
             {question && (
               <>
                 <h2 ref={headingRef} tabIndex={-1} className="font-serif text-[1.75rem] leading-tight tracking-heading text-ink outline-none md:text-[2rem]">
@@ -210,8 +217,8 @@ export function Quiz({ page, resultNotes }: QuizProps) {
                           aria-pressed={selected}
                           onClick={() => choose(option.key)}
                           className={cn(
-                            "flex min-h-[3.25rem] w-full items-center justify-between gap-3 rounded-card px-4 py-3 text-left text-base text-ink transition-colors motion-reduce:transition-none",
-                            selected ? "bg-primary text-on-primary" : "bg-surface hover:bg-accent-soft/50",
+                            "flex min-h-[3.25rem] w-full items-center justify-between gap-3 rounded-card px-4 py-3 text-left text-base text-ink transition-[background-color,color,transform] duration-200 motion-safe:active:scale-[0.985] motion-reduce:transition-none",
+                            selected ? "bg-primary text-on-primary shadow-soft" : "bg-surface hover:bg-accent-soft/50",
                           )}
                         >
                           <span>{option.label}</span>
@@ -223,7 +230,7 @@ export function Quiz({ page, resultNotes }: QuizProps) {
                               selected ? "bg-base/20" : "bg-ink/10",
                             )}
                           >
-                            {selected && <span className="block h-2 w-2 rounded-full bg-on-primary" />}
+                            {selected && <span className="block h-2 w-2 rounded-full bg-base motion-safe:animate-pop" />}
                           </span>
                         </button>
                       </li>
@@ -297,16 +304,16 @@ export function Quiz({ page, resultNotes }: QuizProps) {
                   <>
                     <p className="mt-6 text-base font-medium text-ink">{quizCopy.result.youSaid}</p>
                     <ul className="mt-2 flex flex-wrap gap-2">
-                      {symptomsChosen.map((key) => (
-                        <li key={key} className="rounded-full bg-surface px-3 py-1.5 text-base text-ink">
+                      {symptomsChosen.map((key, i) => (
+                        <li key={key} style={{ animationDelay: `${i * 60}ms` }} className="rounded-full bg-surface px-3 py-1.5 text-base text-ink motion-safe:animate-fade-in">
                           {symptomOptions.find((o) => o.key === key)?.label ?? key}
                         </li>
                       ))}
                     </ul>
                     <ul className="mt-6 space-y-3">
-                      {symptomsChosen.map((key) =>
+                      {symptomsChosen.map((key, i) =>
                         resultNotes[key] ? (
-                          <li key={key} className="rounded-card bg-surface px-4 py-3 text-base text-ink">
+                          <li key={key} style={{ animationDelay: `${200 + i * 80}ms` }} className="rounded-card bg-surface px-4 py-3 text-base text-ink motion-safe:animate-fade-in">
                             {resultNotes[key]}
                           </li>
                         ) : null,

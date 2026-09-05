@@ -76,6 +76,33 @@ Notes by section:
 - **Featured in** — press logos, single colour on transparent, roughly 3:1.
 - **How it works** — small illustrations; simple line art in the accent colour reads best at 96px.
 
+## Reference stills standing in (temporary, 2026-09-05)
+
+REFERENCE_PHOTO_PLACEHOLDER: seven files in this folder are photographs taken
+from the two competitor pages supplied as design references, re-graded to the
+Warm Clay palette so the layout can be judged with real photography in place.
+They were put here on the client's instruction ("use the reference pictures,
+I'll replace later"). They are not Soha's to publish: replace every one of
+them before launch. The launch gate (`npm run launch-check`) fails while this
+marker remains.
+
+No photograph of an identifiable person is used as Soha's clinician or as a
+patient; the two people shown are lifestyle stand-ins only.
+
+| File                          | Source page | What it shows                                  | Treatment                                   |
+| ----------------------------- | ----------- | ---------------------------------------------- | ------------------------------------------- |
+| `hero-03.jpg`                 | Elsie       | Applying cream to the shoulder                 | 4:5 crop, warm grade                        |
+| `supports-lifestyle.jpg`      | Oestra      | Arms raised in the sun (cut-out)               | Set on a warm ground, warm grade            |
+| `comparison-patchwork.jpg`    | Elsie       | Patch, pill and a smear of cream (cut-out)     | Set on a warm ground with a soft shadow     |
+| `ingredient-estradiol.jpg`    | Elsie       | Macro crystals                                 | Warm tritone (ink → clay → cream)           |
+| `ingredient-progesterone.jpg` | Elsie       | Macro crystals                                 | Warm tritone                                |
+| `ingredient-base.jpg`         | Elsie       | Cream swoosh                                   | Warm tritone                                |
+| `how-03.jpg`                  | Elsie       | Parcel on a conveyor (small; shown at 96px)    | Warm grade                                  |
+
+The grading is reproducible: the same script (a short Pillow routine) can be
+applied to the Higgsfield renders above once they are downloaded, so every
+photograph on the page shares one warm cast.
+
 ## Generated stand-ins waiting in Higgsfield (2026-09-05)
 
 Nineteen placeholder photographs were generated in the Soha Higgsfield

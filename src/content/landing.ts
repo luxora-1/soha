@@ -37,7 +37,7 @@ export const landingContent = {
   quizCta: {
     label: "Take the 2-min quiz",
     short: "Take the quiz",
-    fit: "See if Estrada is right for you",
+    fit: "See if Estrada fits you",
     helper: "Two minutes. No payment.",
   },
 
@@ -114,6 +114,19 @@ export const landingContent = {
       },
     ],
     footnote: { text: "*Prescription-only. Prescribed by board-certified OB/GYNs. A 30-day supply, replenished monthly.", verify: "prescriber credentials and supply cadence" },
+    /**
+     * Two small cards floating over the hero photograph. The review is a
+     * TESTIMONIAL_PLACEHOLDER rendered inside <Unverified>; the chip is a
+     * plain fact.
+     */
+    badges: {
+      rx: "Prescription treatment",
+      review: {
+        quote: "I slept through the night for the first time in two years.",
+        name: "Karen, 52",
+        tag: "Verified patient",
+      },
+    },
   },
 
   credentials: {
@@ -182,7 +195,7 @@ export const landingContent = {
       { icon: "dial", label: "Dose adjustments if needed", verify: "dose adjustments included in the price" },
       { icon: "refund", label: "90-day money-back guarantee", verify: "guarantee terms" },
       { icon: "leaf", label: "20% off Fullscript supplements", verify: "Fullscript partnership and discount" },
-    ] satisfies Array<{ icon: "rx" | "truck" | "chat" | "card" | "shield" | "dial" | "refund" | "leaf"; label: string; verify?: string }>,
+    ] satisfies Array<{ icon: "rx" | "truck" | "chat" | "card" | "shield" | "dial" | "refund" | "leaf" | "pump"; label: string; verify?: string }>,
   },
 
   supports: {
@@ -210,7 +223,8 @@ export const landingContent = {
       slot: "comparison-single" satisfies LandingSlotId,
       title: "The Estrada way",
       claim: { text: "The same two hormones, compounded into one cream.", verify: "composition: equivalence to separate prescriptions" },
-      body: "One pump. One refill. One thing to remember.",
+      /** Three short lines under the product, set in italic serif. */
+      trio: ["One pump.", "One refill.", "One thing to remember."],
     },
   },
 
@@ -357,6 +371,8 @@ export const landingContent = {
 
   guarantee: {
     pill: { name: "Estrada", form: "Combination cream" },
+    /** The rotating seal: text around the ring, a figure in the middle. */
+    seal: { ring: "90-day money-back guarantee", center: "90", unit: "days", verify: "guarantee period" },
     headline: { text: "We're so confident you'll feel the difference that we back Estrada with a 90-day full refund guarantee.", verify: "guarantee terms" },
     helper: [
       "No insurance needed.",
@@ -372,13 +388,13 @@ export const landingContent = {
     starting: "Starting",
     subline: "No insurance needed. No surprise pharmacy bill.",
     includes: [
-      { label: "Your OB/GYN consult and prescription" },
-      { label: "Estrada, compounded for you and shipped to your door" },
-      { label: "Messaging with your clinician between visits", verify: "clinician messaging included in the plan" },
-      { label: "Dose adjustments", verify: "dose adjustments included in the price" },
-      { label: "Free shipping", verify: "shipping policy" },
-      { label: "Pause or cancel anytime", verify: "cancellation terms" },
-    ] satisfies Array<{ label: string; verify?: string }>,
+      { icon: "rx", label: "Your OB/GYN consult and prescription" },
+      { icon: "pump", label: "Estrada, compounded for you and shipped to your door" },
+      { icon: "chat", label: "Messaging with your clinician between visits", verify: "clinician messaging included in the plan" },
+      { icon: "dial", label: "Dose adjustments", verify: "dose adjustments included in the price" },
+      { icon: "truck", label: "Free shipping", verify: "shipping policy" },
+      { icon: "refund", label: "Pause or cancel anytime", verify: "cancellation terms" },
+    ] satisfies Array<{ icon: "rx" | "pump" | "chat" | "dial" | "truck" | "refund"; label: string; verify?: string }>,
     guarantee: {
       title: { text: "90-day guarantee", verify: "guarantee period" },
       body: { text: "If you don't feel a difference in 90 days, we refund you in full.", verify: "guarantee terms" },

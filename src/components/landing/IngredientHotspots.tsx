@@ -22,9 +22,11 @@ type IngredientHotspotsProps = {
 };
 
 /**
- * "+" markers over the product shot, each naming an ingredient. The active
- * ingredient's description shows in a card under the image (and the marker
- * fills in). Markers are buttons, so the whole thing works by keyboard.
+ * "+" markers over the product shot, each naming an ingredient along a
+ * dashed leader line. A slow ring pulses from the unselected markers to
+ * invite a tap; the active ingredient's description shows in a card under
+ * the image (and its marker fills in). Markers are buttons, so the whole
+ * thing works by keyboard.
  */
 export function IngredientHotspots({ image, items, label, className }: IngredientHotspotsProps) {
   const id = useId();
@@ -51,18 +53,20 @@ export function IngredientHotspots({ image, items, label, className }: Ingredien
                   aria-pressed={selected}
                   aria-controls={`${id}-detail`}
                   className={cn(
-                    "inline-flex h-9 w-9 items-center justify-center rounded-full shadow-soft transition-colors motion-reduce:transition-none",
+                    "relative isolate inline-flex h-10 w-10 items-center justify-center rounded-full shadow-soft transition-[background-color,transform] duration-300 ease-out motion-safe:hover:scale-105 motion-reduce:transition-none",
                     selected ? "bg-primary text-on-primary" : "bg-base/90 text-primary backdrop-blur-sm hover:bg-base",
+                    !selected &&
+                      "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-full after:bg-base/70 after:content-[''] motion-safe:after:animate-pulse-ring",
                   )}
                 >
-                  <PlusIcon className={cn("h-4 w-4 transition-transform motion-reduce:transition-none", selected && "rotate-45")} />
+                  <PlusIcon className={cn("h-4 w-4 transition-transform duration-300 motion-reduce:transition-none", selected && "rotate-45")} />
                   <span className="sr-only">{item.name}</span>
                 </button>
-                <span aria-hidden="true" className="hidden h-px w-8 bg-primary/50 sm:block" />
+                <span aria-hidden="true" className="hidden w-8 border-t border-dashed border-primary/60 sm:block" />
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "hidden rounded-full px-3 py-1 text-[0.875rem] font-medium shadow-subtle sm:inline-flex",
+                    "hidden rounded-full px-3 py-1.5 text-[0.875rem] font-medium shadow-subtle transition-colors duration-300 sm:inline-flex",
                     selected ? "bg-primary text-on-primary" : "bg-base/90 text-ink backdrop-blur-sm",
                   )}
                 >

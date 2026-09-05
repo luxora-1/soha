@@ -76,7 +76,36 @@
 
 }
 
+/* The quiz and video dialogs settle in from slightly below; their backdrops fade. */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    dialog[open] {
+      animation: dialog-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    dialog[open]::backdrop {
+      animation: backdrop-in 0.3s ease-out both;
+    }
+  }
+
   /* Skip-to-content link: visually hidden until focused. */
   .skip-link {
     @apply sr-only;

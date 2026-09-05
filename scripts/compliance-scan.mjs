@@ -35,6 +35,7 @@ export const MARKERS = [
   ["LEGAL_PLACEHOLDER", "Disclaimer / disclosure / policy wording pending legal review."],
   ["COPY_DRAFT", "Copy written by the developer, not supplied by the client. Needs brand + legal sign-off."],
   ["IMAGE_PLACEHOLDER", "Solid block standing in for brand photography. Swap for real imagery with alt text."],
+  ["REFERENCE_PHOTO_PLACEHOLDER", "Photographs taken from the competitor reference pages, re-graded as temporary stand-ins in public/images/landing. Not Soha's to publish: replace before launch (see that folder's README)."],
   ["SOCIAL_PLACEHOLDER", "The community feed shows labelled placeholder posts until INSTAGRAM_ACCESS_TOKEN is set. Connect the account (README, Community feed) before launch."],
   ["<Unverified note=", "A claim on the ad landing page rendered inside <Unverified>: a placeholder figure or an unsourced statement. Replace with a verified figure and remove the wrapper; UNVERIFIED.md is the per-claim checklist. Production builds fail while any remain."],
 ];

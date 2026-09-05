@@ -27,6 +27,8 @@ type ImageSlotProps = {
   fill?: boolean;
   /** Small thumbnails: show only a tiny id label in the placeholder. */
   compact?: boolean;
+  /** Ease the picture up a few percent while an ancestor `.group` is hovered. */
+  hoverZoom?: boolean;
 };
 
 /** public/images/landing/<id>.<ext>, if such a file exists. */
@@ -67,6 +69,8 @@ function placeholderStyle(id: string): React.CSSProperties {
   };
 }
 
+const zoom = "transition-transform duration-700 ease-out motion-safe:group-hover:scale-[1.04] motion-reduce:transition-none";
+
 /**
  * Server component. Renders the file at public/images/landing/{id}.{ext}
  * when one exists; otherwise an IMAGE_PLACEHOLDER at the same aspect ratio,
@@ -85,6 +89,7 @@ export function ImageSlot({
   className,
   fill = false,
   compact = false,
+  hoverZoom = false,
 }: ImageSlotProps) {
   const found = resolveFile(id);
   const frame = cn(fill ? "absolute inset-0 overflow-hidden" : "relative w-full overflow-hidden rounded-tile", className);
@@ -92,8 +97,10 @@ export function ImageSlot({
 
   if (!found) {
     return (
-      <div role="img" aria-label={alt} data-image-slot={id} className={cn(frame, "isolate")} style={{ ...ratio, ...placeholderStyle(id) }}>
-        <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-grain bg-[length:200px_200px] opacity-[0.16] mix-blend-multiply" />
+      <div role="img" aria-label={alt} data-image-slot={id} className={cn(frame, "isolate bg-surface")} style={ratio}>
+        <span aria-hidden="true" className={cn("absolute inset-0", hoverZoom && zoom)} style={placeholderStyle(id)}>
+          <span className="absolute inset-0 bg-grain bg-[length:200px_200px] opacity-[0.16] mix-blend-multiply" />
+        </span>
         <span
           className={cn(
             "absolute font-sans font-medium leading-none tracking-wide text-ink/70",
@@ -118,7 +125,7 @@ export function ImageSlot({
         sizes={sizes}
         priority={priority}
         unoptimized={found.ext === "svg"}
-        className={fit === "contain" ? "object-contain" : "object-cover"}
+        className={cn(fit === "contain" ? "object-contain" : "object-cover", hoverZoom && zoom)}
       />
     </div>
   );

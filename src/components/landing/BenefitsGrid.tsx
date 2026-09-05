@@ -5,7 +5,7 @@ import { FadeUp } from "@/components/motion/FadeUp";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { landingContent } from "@/content/landing";
 
-/** Eight tiles of what's included, each with a line icon. Claims are <Unverified>. */
+/** Eight tiles of what's included, each with a line icon in a tinted disc. Claims are <Unverified>. */
 export function BenefitsGrid() {
   const { benefits } = landingContent;
 
@@ -20,9 +20,11 @@ export function BenefitsGrid() {
               key={item.label}
               as="li"
               delay={index * 0.05}
-              className="flex min-h-[9rem] flex-col items-center justify-center gap-3 rounded-tile bg-base p-5 text-center shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift motion-reduce:transition-none"
+              className="group flex min-h-[10rem] flex-col items-center justify-center gap-4 rounded-tile bg-base p-5 text-center shadow-soft transition-[transform,box-shadow] duration-500 ease-out hover:shadow-lift motion-safe:hover:-translate-y-1 motion-reduce:transition-none"
             >
-              <Icon className="text-accent" />
+              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 text-accent transition-[transform,background-color] duration-500 ease-out group-hover:bg-accent/15 motion-safe:group-hover:scale-110 motion-reduce:transition-none">
+                <Icon className="h-6 w-6" />
+              </span>
               <p className="text-base font-medium leading-snug text-ink">
                 {item.verify ? <Unverified note={item.verify}>{item.label}</Unverified> : item.label}
               </p>
