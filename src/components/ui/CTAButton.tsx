@@ -6,7 +6,7 @@ type Variant = "primary" | "secondary";
 type Size = "md" | "sm";
 
 const base =
-  "inline-flex min-h-tap items-center justify-center gap-2 rounded-full text-center font-sans text-[1rem] font-medium leading-tight transition-colors duration-200 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-60";
+  "inline-flex min-h-tap items-center justify-center gap-2 rounded-full text-center font-sans text-base font-medium leading-tight transition-colors duration-200 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-60";
 
 const sizes: Record<Size, string> = {
   md: "px-8 py-4",

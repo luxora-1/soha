@@ -20,7 +20,6 @@ export function ClosingCTA() {
             See pricing
           </CTAButton>
         </div>
-        <p className="mt-4 text-caption text-ink-muted">{siteConfig.cta.helper}</p>
       </FadeUp>
     </SectionWrapper>
   );

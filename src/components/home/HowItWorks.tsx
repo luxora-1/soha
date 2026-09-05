@@ -13,13 +13,14 @@ export function HowItWorks() {
       id="how-it-works"
       labelledBy="how-it-works-heading"
     >
-      <FadeUp>
-        <Eyebrow as="h2" id="how-it-works-heading">
-          {howItWorks.eyebrow}
-        </Eyebrow>
+      <FadeUp className="max-w-measure">
+        <Eyebrow>{howItWorks.eyebrow}</Eyebrow>
+        <h2 id="how-it-works-heading" className="mt-5">
+          {howItWorks.headline}
+        </h2>
       </FadeUp>
 
-      <ol className="mt-10 grid gap-6 md:grid-cols-3 md:gap-4 lg:mt-14 lg:gap-8">
+      <ol className="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-3 lg:gap-8">
         {howItWorks.steps.map((step, index) => (
           <StepCard
             key={step.number}

@@ -12,13 +12,13 @@ export const homeContent = {
   hero: {
     /** Rendered as one h1: "One prescription. Not three." — the accent is set in italic. */
     headline: { lead: "One prescription.", accent: "Not three." },
-    /* COPY_DRAFT: hero subhead — convenience framing only, review before launch. */
     subhead:
-      "Clinician-prescribed menopause care, combined into a single regimen and shipped to your door. One thing to remember, not three.",
+      "Menopause treatment shouldn't mean juggling separate pills, patches, and creams from three different scripts. Soha combines what you need into one regimen — reviewed by a clinician, shipped to your door.",
   },
 
   howItWorks: {
     eyebrow: "How it works",
+    headline: "Three steps, and then it just arrives.",
     steps: [
       {
         number: "01",

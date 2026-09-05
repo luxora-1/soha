@@ -9,6 +9,14 @@ const ratios: Record<Ratio, string> = {
   wide: "aspect-[16/9]",
 };
 
+/** Same ratios, applied from the `md` breakpoint up. */
+const mdRatios: Record<Ratio, string> = {
+  portrait: "md:aspect-[4/5]",
+  landscape: "md:aspect-[4/3]",
+  square: "md:aspect-square",
+  wide: "md:aspect-[16/9]",
+};
+
 /** Same ratios, applied from the `lg` breakpoint up. */
 const lgRatios: Record<Ratio, string> = {
   portrait: "lg:aspect-[4/5]",
@@ -18,8 +26,10 @@ const lgRatios: Record<Ratio, string> = {
 };
 
 type ImagePlaceholderProps = {
-  /** Aspect ratio on small screens (and everywhere, unless `lgRatio` is set). */
+  /** Aspect ratio on small screens (and everywhere, unless overridden below). */
   ratio?: Ratio;
+  /** Aspect ratio from the `md` breakpoint up. */
+  mdRatio?: Ratio;
   /** Aspect ratio from the `lg` breakpoint up. */
   lgRatio?: Ratio;
   className?: string;
@@ -37,6 +47,7 @@ type ImagePlaceholderProps = {
  */
 export function ImagePlaceholder({
   ratio = "portrait",
+  mdRatio,
   lgRatio,
   className,
   brief,
@@ -48,11 +59,12 @@ export function ImagePlaceholder({
       className={cn(
         "relative w-full overflow-hidden rounded-2xl border border-ink/10 bg-accent-soft",
         ratios[ratio],
+        mdRatio && mdRatios[mdRatio],
         lgRatio && lgRatios[lgRatio],
         className,
       )}
     >
-      <span className="absolute inset-0 flex items-center justify-center font-sans text-eyebrow uppercase tracking-eyebrow text-ink-muted/70">
+      <span className="absolute inset-0 flex items-center justify-center font-sans text-eyebrow uppercase tracking-eyebrow text-ink-muted">
         IMAGE_PLACEHOLDER
       </span>
     </div>

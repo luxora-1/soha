@@ -10,15 +10,18 @@ export type NavLink = {
 
 export const siteConfig = {
   name: "Soha",
-  /** Used for absolute URLs in metadata. Set NEXT_PUBLIC_SITE_URL in Vercel. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  /**
+   * Absolute origin for metadata. Set NEXT_PUBLIC_SITE_URL in Vercel; when
+   * unset, Next falls back to the deployment URL on Vercel automatically.
+   */
+  url: process.env.NEXT_PUBLIC_SITE_URL,
   /* COPY_DRAFT: meta description — review before launch. */
   description:
     "Clinician-prescribed menopause care, combined into a single regimen and shipped to your door on a 28- or 84-day cycle.",
 
   nav: [
     { label: "How it works", href: "/how-it-works" },
-    { label: "The regimen", href: "/product" },
+    { label: "The Product", href: "/product" },
     { label: "Pricing", href: "/pricing" },
     { label: "FAQ", href: "/faq" },
   ] satisfies NavLink[],
@@ -26,12 +29,19 @@ export const siteConfig = {
   cta: {
     label: "Start your consult",
     href: "/start",
-    helper: "Takes about 10 minutes",
+    helper: "Takes about 10 minutes.",
   },
+
+  /**
+   * Support contact. Rendered as plain text while it is a placeholder and as a
+   * mailto link once a real address is set.
+   */
+  supportEmail: "[SUPPORT_EMAIL_PLACEHOLDER]",
 
   trustBar: [
     "Licensed clinicians",
-    "Pharmacy-dispensed",
+    // Non-breaking hyphen so the label never splits across lines.
+    "Pharmacy\u2011dispensed",
     "Discreet packaging",
     "Cancel anytime",
   ],
@@ -44,13 +54,13 @@ export const siteConfig = {
         heading: "Explore",
         links: [
           { label: "How it works", href: "/how-it-works" },
-          { label: "The regimen", href: "/product" },
+          { label: "The Product", href: "/product" },
           { label: "Pricing", href: "/pricing" },
           { label: "FAQ", href: "/faq" },
         ],
       },
       {
-        heading: "Get started",
+        heading: "Support",
         links: [
           { label: "Start your consult", href: "/start" },
           { label: "Questions", href: "/faq" },
@@ -72,7 +82,7 @@ export const siteConfig = {
      */
     disclosures: [
       /* LEGAL_PLACEHOLDER — [PHARMACY_NAME_PLACEHOLDER] must be replaced with the dispensing pharmacy's legal name before launch. */
-      "Soha is not a pharmacy. Prescriptions are filled and shipped by [PHARMACY_NAME_PLACEHOLDER], an independent, licensed pharmacy whose name and address appear on your medication label.",
+      "Soha is not a pharmacy. Prescriptions are filled by [PHARMACY_NAME_PLACEHOLDER], a licensed pharmacy whose name and address appear on your medication label.",
       /* LEGAL_PLACEHOLDER — standard informational disclaimer; wording pending legal review. */
       "The information on this site is for general informational purposes only and is not medical advice. Treatment decisions are made by a licensed clinician after an individual evaluation.",
     ],

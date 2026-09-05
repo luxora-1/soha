@@ -10,76 +10,100 @@
  *   node scripts/compliance-scan.mjs --strict       # exit 1 if any marker remains (launch gate)
  *   node scripts/compliance-scan.mjs --update-notes # rewrite the generated block in COMPLIANCE_NOTES.md
  *
- * Forbidden phrases always exit 1.
+ * Forbidden phrases always exit 1. The scan runs from the repo root regardless
+ * of the current working directory.
  */
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { join, relative } from "node:path";
+import { dirname, extname, join, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = process.cwd();
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const args = new Set(process.argv.slice(2));
 const strict = args.has("--strict");
 const updateNotes = args.has("--update-notes");
 
 /** Markers that must be resolved before launch, with what each one means. */
 export const MARKERS = [
-  ["CLAIM_PENDING_LEGAL_REVIEW", "Dosing specifics, mg amounts, or comparative claims. Counsel + clinical lead must approve wording."],
+  ["CLAIM_PENDING_LEGAL_REVIEW", "Dosing specifics, mg amounts, comparative claims, or any language stronger than the default wording. Counsel and the medical director must approve."],
   ["TESTIMONIAL_PLACEHOLDER", "Deliberately ugly stand-in for social proof. Replace with approved testimonials or remove."],
   ["NOT FOR LAUNCH", "Content that must not ship."],
   ["PHARMACY_NAME_PLACEHOLDER", "Insert the dispensing pharmacy's legal name. Soha is never the dispensing pharmacy."],
-  ["PRICING_PLACEHOLDER", "Pricing is not finalized. Values live only in the pricing config."],
-  ["LEGAL_PLACEHOLDER", "Disclaimer / disclosure wording pending legal review."],
-  ["COPY_DRAFT", "Copy written by the developer, not supplied in the brief. Needs brand + legal sign-off."],
+  ["SUPPORT_EMAIL_PLACEHOLDER", "Insert the monitored support address. Rendered as a mailto link automatically once set."],
+  ["PRICING_PLACEHOLDER", "Pricing is not finalized. Values live only in src/config/pricing.ts and render as \"$—\"."],
+  ["FAQ_ANSWER_PLACEHOLDER", "Answer text not yet supplied. Paste the approved answer verbatim."],
+  ["STATE_GATING_PENDING", "Served-state list must be gated before launch; pharmacy partners have state restrictions."],
+  ["LEGAL_PLACEHOLDER", "Disclaimer / disclosure / policy wording pending legal review."],
+  ["COPY_DRAFT", "Copy written by the developer, not supplied by the client. Needs brand + legal sign-off."],
   ["IMAGE_PLACEHOLDER", "Solid block standing in for brand photography. Swap for real imagery with alt text."],
 ];
 
 /**
- * Phrases that must never appear in the codebase, in any casing / spacing /
- * hyphenation (ASCII or Unicode dashes). Add entries as { label, re }.
+ * Phrases that must never appear anywhere in the repo (copy, comments,
+ * placeholders, identifiers). Each entry is { label, re }; `phrase()` builds a
+ * regex from fragments joined by an optional separator (space, ASCII hyphen,
+ * slash, or any Unicode dash) so hyphenation and casing variants are caught.
  *
  * History: the original brief barred "OB/GYN prescribed" and "bioidentical".
- * The client lifted both restrictions on 2026-09-05, so the list is empty.
- * Both remain factual claims (who prescribes / what the formulation is), so
- * wherever either is used it must sit next to a CLAIM_PENDING_LEGAL_REVIEW
- * marker. Example entry, kept for reference:
- *   { label: '"OB/GYN prescribed"',
- *     re: /ob\s*[\/\-\u2010-\u2015]?\s*gyn\s*[\-\u2010-\u2015]?\s*prescribed/i }
+ * The client lifted both on 2026-09-05 and confirmed the wording may be used
+ * freely, so the list is empty. Example entry, kept for reference:
+ *   { label: '"OB/GYN prescribed"', re: phrase("ob", "gyn", "prescribed") }
  */
+const SEP = "\\s*[\\/\\-\\u2010-\\u2015\\u2212]?\\s*";
+export const phrase = (...parts) => new RegExp(parts.join(SEP), "i");
 export const FORBIDDEN = [];
 
-const SKIP_DIRS = new Set(["node_modules", ".next", ".git", "out", "build", "screenshots"]);
-const EXT = [".ts", ".tsx", ".js", ".mjs", ".md", ".mdx", ".json", ".css", ".svg"];
-const SELF = new Set(["scripts/compliance-scan.mjs", "COMPLIANCE_NOTES.md"]);
+const SKIP_DIRS = new Set(["node_modules", ".next", ".git", "out", "build", "screenshots", ".vercel"]);
+const SKIP_FILES = new Set(["package-lock.json"]);
+const BINARY_EXT = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".ico", ".woff", ".woff2", ".ttf", ".otf", ".pdf", ".zip", ".mp4", ".mp3", ".webm"]);
+/** Files allowed to *name* the markers (they document them). Still scanned for forbidden phrases. */
+const MARKER_DOCS = new Set(["scripts/compliance-scan.mjs", "COMPLIANCE_NOTES.md", "README.md"]);
 
 function* walk(dir) {
   for (const name of readdirSync(dir)) {
-    if (SKIP_DIRS.has(name)) continue;
+    if (SKIP_DIRS.has(name) || SKIP_FILES.has(name)) continue;
     const full = join(dir, name);
     if (statSync(full).isDirectory()) yield* walk(full);
-    else if (EXT.some((e) => name.endsWith(e))) yield full;
+    else if (!BINARY_EXT.has(extname(name).toLowerCase())) yield full;
   }
 }
+
+/** Collapse JSX/template whitespace so a phrase split across lines still matches. */
+const normalize = (text) => text.replace(/\{\s*["'` ]\s*["'`]?\s*\}/g, " ").replace(/\s+/g, " ");
 
 const hits = [];
 const violations = [];
 for (const file of walk(root)) {
   const rel = relative(root, file);
-  if (SELF.has(rel)) continue;
-  const lines = readFileSync(file, "utf8").split("\n");
+  const text = readFileSync(file, "utf8");
+  const lines = text.split("\n");
+  const seenForbidden = new Set();
   lines.forEach((line, i) => {
-    for (const [marker] of MARKERS) {
-      if (line.includes(marker)) hits.push({ file: rel, line: i + 1, marker, text: line.trim() });
+    if (!MARKER_DOCS.has(rel)) {
+      for (const [marker] of MARKERS) {
+        if (line.includes(marker)) hits.push({ file: rel, line: i + 1, marker, text: line.trim() });
+      }
     }
     for (const f of FORBIDDEN) {
-      if (f.re.test(line)) violations.push({ file: rel, line: i + 1, label: f.label, text: line.trim() });
+      if (f.re.test(line)) {
+        violations.push({ file: rel, line: i + 1, label: f.label, text: line.trim() });
+        seenForbidden.add(f.label);
+      }
     }
   });
+  // Second pass over the whole file with whitespace collapsed (catches line-wrapped phrases).
+  const flat = normalize(text);
+  for (const f of FORBIDDEN) {
+    if (!seenForbidden.has(f.label) && f.re.test(flat)) {
+      violations.push({ file: rel, line: 0, label: f.label, text: "(phrase split across lines)" });
+    }
+  }
 }
 
 // ---- report ---------------------------------------------------------------
 
 if (violations.length) {
-  console.error("FORBIDDEN PHRASES FOUND — these must never appear anywhere in the codebase:");
-  for (const v of violations) console.error(`  ${v.file}:${v.line}  ${v.label}  ${v.text}`);
+  console.error("FORBIDDEN PHRASES FOUND — these must never appear anywhere in the repo:");
+  for (const v of violations) console.error(`  ${v.file}:${v.line || "?"}  [${v.label}]  ${v.text}`);
   console.error("");
 }
 

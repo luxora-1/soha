@@ -2,8 +2,13 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/config/site";
 
+const linkClass =
+  "-mx-2 inline-flex min-h-tap items-center px-2 text-base text-on-ink/85 transition-colors hover:text-on-ink focus-visible:outline-base motion-reduce:transition-none";
+
 export function Footer() {
   const year = new Date().getFullYear();
+  const email = siteConfig.supportEmail;
+  const emailIsPlaceholder = email.includes("PLACEHOLDER");
 
   return (
     <footer className="overflow-hidden bg-ink text-on-ink">
@@ -20,7 +25,7 @@ export function Footer() {
 
           <nav
             aria-label="Footer"
-            className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:col-span-7"
+            className="grid grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-10 sm:grid-cols-3 lg:col-span-7"
           >
             {siteConfig.footer.columns.map((column) => (
               <div key={column.heading}>
@@ -30,14 +35,24 @@ export function Footer() {
                 <ul className="mt-4">
                   {column.links.map((link) => (
                     <li key={link.href + link.label}>
-                      <Link
-                        href={link.href}
-                        className="inline-flex min-h-tap items-center text-[1rem] text-on-ink/85 transition-colors hover:text-on-ink focus-visible:outline-base motion-reduce:transition-none"
-                      >
+                      <Link href={link.href} className={linkClass}>
                         {link.label}
                       </Link>
                     </li>
                   ))}
+                  {column.heading === "Support" && (
+                    <li>
+                      {emailIsPlaceholder ? (
+                        <span className="inline-flex min-h-tap items-center text-base text-on-ink/85 [overflow-wrap:anywhere]">
+                          {email}
+                        </span>
+                      ) : (
+                        <a href={`mailto:${email}`} className={`${linkClass} [overflow-wrap:anywhere]`}>
+                          {email}
+                        </a>
+                      )}
+                    </li>
+                  )}
                 </ul>
               </div>
             ))}
@@ -47,12 +62,12 @@ export function Footer() {
         <div className="mt-14 border-t border-base/15 pt-8">
           <div className="max-w-measure space-y-3">
             {siteConfig.footer.disclosures.map((line) => (
-              <p key={line} className="text-[1rem] leading-relaxed text-on-ink/60">
+              <p key={line} className="text-base leading-relaxed text-on-ink/60">
                 {line}
               </p>
             ))}
           </div>
-          <p className="mt-8 text-[1rem] text-on-ink/60">
+          <p className="mt-8 text-base text-on-ink/60">
             &copy; {year} {siteConfig.name}. All rights reserved.
           </p>
         </div>

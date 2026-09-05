@@ -12,11 +12,8 @@ export function Hero() {
   const { hero } = homeContent;
 
   return (
-    <section
-      aria-labelledby="hero-heading"
-      className="bg-base pt-nav"
-    >
-      <Container className="py-16 md:py-20 lg:py-28">
+    <section aria-labelledby="hero-heading" className="bg-base pt-nav">
+      <Container className="py-section lg:py-section-lg">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
             <h1
@@ -41,7 +38,8 @@ export function Hero() {
 
           <div className="lg:col-span-5 lg:col-start-8">
             <ImagePlaceholder
-              ratio="landscape"
+              ratio="portrait"
+              mdRatio="landscape"
               lgRatio="portrait"
               brief="Hero — woman 45+, warm natural light, at home; editorial not clinical"
               className="motion-safe:animate-fade-up motion-safe:[animation-delay:150ms]"

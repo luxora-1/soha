@@ -20,6 +20,8 @@ npm run dev        # http://localhost:3000
 npm run build      # production build
 npm run lint       # eslint
 npm run typecheck  # tsc --noEmit
+npm run compliance # list every placeholder / claim marker by file:line
+npm run launch-check  # launch gate: fails while any marker remains
 ```
 
 ## Project layout
@@ -28,12 +30,13 @@ npm run typecheck  # tsc --noEmit
 src/
   app/            routes (App Router), global styles, metadata
   components/
+    StepCard.tsx  numbered step card (composes ui + motion)
     ui/           primitives: Container, CTAButton, Eyebrow, ImagePlaceholder
     layout/       Navbar, Footer
     motion/       FadeUp, MotionProvider
     sections/     SectionWrapper (bg alternation + padding rhythm)
     home/         homepage sections
-  config/         site config (nav, CTA, trust bar, footer)
+  config/         design tokens, site config (nav, CTA, trust bar, footer)
   content/        page copy, kept out of JSX for review
   lib/            fonts, small helpers
 scripts/
@@ -42,8 +45,8 @@ scripts/
 
 ## Before launch
 
-- Read `COMPLIANCE_NOTES.md` and run `node scripts/compliance-scan.mjs`.
-  Every marker it lists must be resolved or signed off.
+- Read `COMPLIANCE_NOTES.md` and run `npm run compliance`. Every marker it
+  lists must be resolved or signed off; `npm run launch-check` must pass.
 - `src/app/layout.tsx` sets `robots: { index: false }` while the site is
   pre-launch. Flip it at launch.
 - Set `NEXT_PUBLIC_SITE_URL` in Vercel so absolute metadata URLs are correct.

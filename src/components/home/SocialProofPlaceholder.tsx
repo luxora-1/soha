@@ -20,6 +20,7 @@ export function SocialProofPlaceholder() {
           fontSize: "18px",
           padding: "48px 24px",
           textAlign: "center",
+          overflowWrap: "anywhere",
         }}
       >
         TESTIMONIAL_PLACEHOLDER — NOT FOR LAUNCH

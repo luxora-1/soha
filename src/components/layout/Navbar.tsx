@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/config/site";
@@ -16,6 +16,7 @@ import { cn } from "@/lib/cn";
 export function Navbar() {
   const pathname = usePathname();
   const menuId = useId();
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -35,11 +36,14 @@ export function Navbar() {
     setOpen(false);
   }
 
-  // Close on Escape.
+  // Escape closes the menu and returns focus to the toggle.
   useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -51,9 +55,7 @@ export function Navbar() {
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 motion-reduce:transition-none",
-        solid
-          ? "border-accent-soft bg-base/95 backdrop-blur-sm"
-          : "border-transparent bg-transparent",
+        solid ? "border-accent-soft bg-base" : "border-transparent bg-transparent",
       )}
     >
       <nav aria-label="Main">
@@ -67,7 +69,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop links */}
-          <ul className="hidden items-center gap-8 md:flex">
+          <ul className="hidden items-center gap-6 md:flex lg:gap-8">
             {siteConfig.nav.map((item) => {
               const current = pathname === item.href;
               return (
@@ -76,10 +78,8 @@ export function Navbar() {
                     href={item.href}
                     aria-current={current ? "page" : undefined}
                     className={cn(
-                      "inline-flex min-h-tap items-center border-b border-transparent text-[1rem] transition-colors motion-reduce:transition-none",
-                      current
-                        ? "border-ink text-ink"
-                        : "text-ink-muted hover:text-ink",
+                      "inline-flex min-h-tap min-w-tap items-center justify-center border-b border-transparent px-1 text-base transition-colors motion-reduce:transition-none",
+                      current ? "border-ink text-ink" : "text-ink-muted hover:text-ink",
                     )}
                   >
                     {item.label}
@@ -97,6 +97,7 @@ export function Navbar() {
 
           {/* Mobile menu toggle */}
           <button
+            ref={toggleRef}
             type="button"
             className="inline-flex min-h-tap min-w-tap items-center justify-center rounded-full text-ink md:hidden"
             aria-expanded={open}
@@ -127,11 +128,11 @@ export function Navbar() {
           </button>
         </Container>
 
-        {/* Mobile menu panel */}
+        {/* Mobile menu panel — scrolls within the viewport on short screens. */}
         <div
           id={menuId}
           hidden={!open}
-          className="border-t border-accent-soft bg-base md:hidden"
+          className="max-h-[calc(100dvh-theme(spacing.nav))] overflow-y-auto border-t border-accent-soft bg-base md:hidden"
         >
           <Container className="flex flex-col gap-1 py-4">
             <ul>
@@ -154,7 +155,7 @@ export function Navbar() {
                 );
               })}
             </ul>
-            <div className="pt-4">
+            <div className="py-4">
               <CTAButton href={siteConfig.cta.href} className="w-full">
                 {siteConfig.cta.label}
               </CTAButton>

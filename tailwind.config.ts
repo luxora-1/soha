@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { palette } from "./src/config/design-tokens";
 
 /**
  * Soha design system.
@@ -16,16 +17,6 @@ import type { Config } from "tailwindcss";
  *    below 16px for the 45+ audience.
  *  - Borders instead of shadows. Cards are rounded-2xl, buttons rounded-full.
  */
-
-const palette = {
-  base: "#FDFBF8", // warm off-white — primary background
-  alt: "#F5EFE8", // soft sand — alternating sections
-  accentSoft: "#E8DDD3", // muted clay — cards / dividers
-  ink: "#2A2724", // near-black warm — body text
-  inkMuted: "#6B655E", // secondary text
-  brand: "#7C6A5A", // deep warm taupe — primary CTA
-  brandHover: "#635447",
-} as const;
 
 /**
  * Fluid size helper. Interpolates linearly between a mobile size (at 375px)
@@ -92,6 +83,9 @@ const config: Config = {
     outlineColor: ({ theme }) => ({
       ...theme("colors"),
       DEFAULT: palette.brand,
+      /** Light focus ring for dark surfaces (footer). */
+      base: palette.base,
+      alt: palette.alt,
     }),
     /** Almost no shadows. One barely-there option, used sparingly if at all. */
     boxShadow: {
@@ -117,12 +111,12 @@ const config: Config = {
         /** h1 — 40px → 68px, serif, weight 400. Restrained, editorial. */
         h1: [
           fluid(40, 68),
-          { lineHeight: "1.06", letterSpacing: "-0.02em", fontWeight: "400" },
+          { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" },
         ],
         /** h2 — 30px → 44px, serif, weight 400. */
         h2: [
           fluid(30, 44),
-          { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "400" },
+          { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "400" },
         ],
         /** h3 — 20px → 24px, sans, weight 500. */
         h3: [fluid(20, 24), { lineHeight: "1.3", fontWeight: "500" }],
@@ -139,8 +133,8 @@ const config: Config = {
             fontWeight: "500",
           },
         ],
-        /** caption — 15px, for supporting text (e.g. "Takes about 10 minutes"). */
-        caption: ["0.9375rem", { lineHeight: "1.5" }],
+        /** caption — 16px (the body floor), for supporting text under a CTA. */
+        caption: ["1rem", { lineHeight: "1.5" }],
       },
       letterSpacing: {
         heading: "-0.02em",
@@ -172,9 +166,6 @@ const config: Config = {
       },
       borderRadius: {
         card: "1rem", // == rounded-2xl
-      },
-      transitionTimingFunction: {
-        out: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       keyframes: {
         "fade-up": {
