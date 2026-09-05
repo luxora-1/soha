@@ -11,7 +11,7 @@ export function ClosingCTA() {
   const { closing } = landingContent;
 
   return (
-    <section id="waitlist" aria-labelledby="closing-heading" className="scroll-mt-20 bg-primary text-on-primary">
+    <section id="waitlist" aria-labelledby="closing-heading" className="relative -mt-8 scroll-mt-20 rounded-t-[2.5rem] bg-primary text-on-primary md:rounded-t-[3.5rem]">
       <Container className="py-section lg:py-section-lg">
         <div className="mx-auto max-w-2xl text-center">
           <h2 id="closing-heading" className="text-on-primary">

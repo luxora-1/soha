@@ -42,10 +42,18 @@ export function SocialPostCard({ post, href, sizes = "(min-width: 1024px) 25vw, 
           className="object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
         />
       ) : (
-        // IMAGE_PLACEHOLDER: no media on placeholder posts.
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-accent-soft/45 p-4 text-center">
-          <span className="rounded-full bg-base/75 px-3 py-1 font-sans text-[0.8125rem] font-medium leading-snug text-ink">{post.id}</span>
-          <span className="font-sans text-[0.75rem] text-ink-muted">1080 × 1080</span>
+        // IMAGE_PLACEHOLDER: no media on placeholder posts. Soft light on a tinted ground, id in the corner.
+        <div
+          className="absolute inset-0 isolate"
+          style={{
+            backgroundImage:
+              "radial-gradient(60% 55% at 30% 25%, rgb(var(--bg-rgb) / 0.85) 0%, rgb(var(--bg-rgb) / 0) 70%), radial-gradient(70% 70% at 75% 80%, rgb(var(--accent-rgb) / 0.22) 0%, rgb(var(--accent-rgb) / 0) 75%), linear-gradient(160deg, rgb(var(--accent-soft-rgb) / 0.75), rgb(var(--surface-rgb)))",
+          }}
+        >
+          <span aria-hidden="true" className="pointer-events-none absolute inset-0 bg-grain bg-[length:200px_200px] opacity-[0.16] mix-blend-multiply" />
+          <span className="absolute bottom-3 left-3 rounded-full bg-base/70 px-2.5 py-1 font-sans text-[0.6875rem] font-medium leading-none tracking-wide text-ink/70 backdrop-blur-sm">
+            {post.id}
+          </span>
         </div>
       )}
       {post.mediaType !== "image" && (

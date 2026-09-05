@@ -11,7 +11,7 @@ export function QualityAccordion() {
   const { quality } = landingContent;
 
   return (
-    <SectionWrapper tone="base" id="quality" labelledBy="quality-heading">
+    <SectionWrapper tone="base" id="quality" labelledBy="quality-heading" className="pb-[calc(theme(spacing.section)+2rem)] lg:pb-[calc(theme(spacing.section-lg)+2rem)]">
       <div className="grid gap-10 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-16 lg:gap-y-10">
         <SectionHeading
           id="quality-heading"

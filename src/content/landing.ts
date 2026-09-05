@@ -57,6 +57,8 @@ export const landingContent = {
     slides: ["hero-product", "hero-lifestyle", "hero-03", "hero-04"] satisfies LandingSlotId[],
     slidesLabel: "Estrada photos",
     pill: { name: "Estrada", form: "Combination cream" },
+    /** Small line above the headline, echoing the packaging tagline. */
+    kicker: "Ten seconds a day to feel like yourself again",
     rating: {
       value: { text: "4.8", verify: "star rating (average review score)" },
       outOf: "out of 5",
@@ -135,8 +137,8 @@ export const landingContent = {
 
   outcomes: {
     label: "Outcomes",
-    headline: "What women told us after eight weeks.",
-    lead: { text: "In an 8-week outcomes review of women using Estrada:", verify: "outcomes review exists and its length" },
+    headline: { lead: "Eight weeks on Estrada.", accent: "Here's what changed." },
+    lead: { text: "In an 8-week outcomes review, women using Estrada reported:", verify: "outcomes review exists and its length" },
     stats: [
       { value: "91%", label: "slept through the night more often" },
       { value: "87%", label: "had fewer hot flashes" },
@@ -150,6 +152,23 @@ export const landingContent = {
       verify: "outcomes source, method, and sample size",
     },
     note: "Individual results vary. Estrada is a prescription treatment, and your clinician decides whether it is right for you.",
+  },
+
+  /** Elsie-style product card: the treatment at a glance, with the quiz as the way in. */
+  treatment: {
+    label: "The treatment",
+    headline: { lead: "One bottle.", accent: "Everything you were prescribed." },
+    slot: "hero-product" satisfies LandingSlotId,
+    name: "Estrada",
+    form: "Combination cream",
+    /* PRICING_PLACEHOLDER: layout figure only, rendered inside <Unverified>. */
+    price: { text: "$99", verify: "price" },
+    per: "/mo",
+    starting: "Starting",
+    body: { text: "A personalized hormone cream made for your body. Your OB/GYN sets the exact estradiol and progesterone dose from your symptoms and history.", verify: "personalized dosing claim" },
+    stock: { text: "Ships in 3 to 5 business days after approval", verify: "delivery estimate" },
+    learnMore: "Learn more",
+    learnMoreHref: "#compare",
   },
 
   benefits: {
@@ -180,7 +199,8 @@ export const landingContent = {
   },
 
   problem: {
-    headline: { lead: "Most hormone therapy arrives in pieces.", accent: "Estrada arrives as one." },
+    headline: "Menopause care shouldn't feel like a to-do list.",
+    subhead: { lead: "Most hormone therapy arrives in pieces.", accent: "Estrada arrives as one." },
     patchwork: {
       slot: "comparison-patchwork" satisfies LandingSlotId,
       title: "The usual way",
@@ -393,7 +413,7 @@ export const landingContent = {
   },
 
   closing: {
-    headline: "Ready when you are.",
+    headline: "Ready to feel like yourself again?",
     subhead: "Take the two-minute quiz, or leave your email and we'll tell you the moment Estrada opens in your state.",
     or: "Or join the waitlist",
     helper: "No payment now. Leave the list anytime.",

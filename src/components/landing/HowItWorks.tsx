@@ -32,7 +32,7 @@ export function HowItWorks() {
         itemClassName="w-[78%] sm:w-[48%] md:w-[calc((100%-4.5rem)/4)]"
         controlsClassName="md:hidden"
         items={howItWorks.steps.map((step) => (
-          <div key={step.slot} className="flex h-full gap-4 rounded-tile bg-base p-4 shadow-soft md:flex-col md:p-5">
+          <div key={step.slot} className="flex h-full gap-4 rounded-tile bg-base p-4 shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift motion-reduce:transition-none md:flex-col md:p-5">
             <div className="w-20 shrink-0 md:w-24">
               <ImageSlot {...slot(step.slot)} sizes="96px" compact className="rounded-card" />
             </div>

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { FadeUp } from "@/components/motion/FadeUp";
 import { cn } from "@/lib/cn";
 
 type SectionHeadingProps = {
@@ -25,7 +26,7 @@ export function SectionHeading({
   className,
 }: SectionHeadingProps) {
   return (
-    <div className={cn("max-w-measure", align === "center" && "mx-auto text-center", className)}>
+    <FadeUp className={cn("max-w-measure", align === "center" && "mx-auto text-center", className)}>
       {label && (
         <p
           className={cn(
@@ -40,6 +41,6 @@ export function SectionHeading({
         {headline}
       </h2>
       {subhead && <p className="mt-5 text-body-lg text-ink-muted">{subhead}</p>}
-    </div>
+    </FadeUp>
   );
 }

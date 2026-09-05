@@ -263,6 +263,11 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(8px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        /** Slow drift on hero photographs. */
+        kenburns: {
+          "0%": { transform: "scale(1) translate3d(0,0,0)" },
+          "100%": { transform: "scale(1.07) translate3d(-1%, -1%, 0)" },
+        },
         /** A duplicated row gliding left by half its width loops seamlessly. */
         marquee: {
           "0%": { transform: "translateX(0)" },
@@ -276,6 +281,8 @@ const config: Config = {
         marquee: "marquee 45s linear infinite",
         /** Quiz steps, tab panels, and rotating messages. */
         "fade-in": "fade-in 0.35s ease-out both",
+        /** Hero photographs. */
+        kenburns: "kenburns 9s ease-out both",
       },
     },
   },

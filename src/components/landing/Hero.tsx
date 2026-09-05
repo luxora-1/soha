@@ -37,6 +37,7 @@ export function Hero() {
                     priority={i === 0}
                     fit={id === "hero-product" ? "contain" : "cover"}
                     sizes="(min-width: 1024px) 44vw, 100vw"
+                    className={id === "hero-product" ? undefined : "motion-safe:animate-kenburns"}
                   />
                 </div>
               ))}
@@ -49,7 +50,8 @@ export function Hero() {
               <RatingLine />
             </div>
 
-            <h1 id="hero-heading" className="mt-6 text-display">
+            <p className="mt-6 font-serif text-[1.25rem] italic leading-snug tracking-heading text-accent md:text-[1.375rem]">{hero.kicker}</p>
+            <h1 id="hero-heading" className="mt-3 text-display">
               {hero.headline.lead} <em className="italic">{hero.headline.accent}</em>
             </h1>
 

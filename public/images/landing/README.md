@@ -75,3 +75,39 @@ Notes by section:
 - **Estrada vs other methods** — `product-hotspots` sits under three "+" markers at fixed positions (progesterone upper right, estradiol left of centre, base lower right). Leave space around the dispenser.
 - **Featured in** — press logos, single colour on transparent, roughly 3:1.
 - **How it works** — small illustrations; simple line art in the accent colour reads best at 96px.
+
+## Generated stand-ins waiting in Higgsfield (2026-09-05)
+
+Nineteen placeholder photographs were generated in the Soha Higgsfield
+account so the layout can be judged before real photography exists. They
+could not be downloaded from the build environment (the image host is not on
+its network allow-list), so they are in the account's gallery. To use them:
+open each in Higgsfield, download it, name it exactly as below, and drop it
+into this folder. Every slot falls back to the labelled block if its file is
+missing. These are stand-ins, not brand photography; replace them.
+
+No people who could be mistaken for the medical director, patients, or press
+were generated: `founder-portrait`, `testimonial-*`, `qa-*`, `press-*`,
+`certification-*` and `how-*` stay as labelled blocks until real assets exist.
+
+| File name to use              | Higgsfield job                          | Model                   | What it shows                                              |
+| ----------------------------- | --------------------------------------- | ----------------------- | ---------------------------------------------------------- |
+| `hero-product.jpg`            | `8a39ec30-d7f2-4776-b476-c0c321b19129`  | marketing_studio_image  | Frosted pump dispenser, gold band, cream travertine        |
+| `product-hotspots.jpg`        | `f8948445-3781-4266-bada-c8671707ae37`  | marketing_studio_image  | Dispenser centred on clay backdrop, space for hotspots     |
+| `comparison-single.jpg`       | `507074e4-9930-400a-85c8-e351a128649c`  | marketing_studio_image  | One dispenser on linen                                     |
+| `comparison-patchwork.jpg`    | `3d06149c-8a38-438f-8294-fddaf72bd172`  | marketing_studio_image  | Scattered tablets, patch, tubes, pill bottle               |
+| `packaging-detail.jpg`        | `5e78a8be-a875-492b-95aa-f45905bc62ff`  | marketing_studio_image  | Embossed cream box close-up                                |
+| `hero-04.jpg`                 | `bc1b0c6c-e707-4317-922a-cf5073150882`  | marketing_studio_image  | Dispenser and box on a bathroom shelf                      |
+| `ingredient-estradiol.jpg`    | `d30cc948-bdcf-432e-8d57-21bbfcf65da6`  | marketing_studio_image  | Macro cream swirl, terracotta light                        |
+| `ingredient-progesterone.jpg` | `b0651d76-ade1-4e30-86b3-93b265dfd86d`  | marketing_studio_image  | Macro powder and wax droplet                               |
+| `ingredient-base.jpg`         | `46942914-77d9-4b8b-9066-cfb7324ce362`  | marketing_studio_image  | Macro matte cream with fingertip sweep                     |
+| `hero-lifestyle.jpg`          | `24b4700b-cf81-4308-afb0-b47adf4b521e`  | soul_2                  | Woman in her fifties by a window, linen shirt              |
+| `hero-03.jpg`                 | `9136c56d-6dc6-4268-932b-d5f34944c328`  | soul_2                  | Hands pressing one pump onto a forearm                     |
+| `supports-lifestyle.jpg`      | `ee42071f-6cd8-436b-8af9-493f4ae57717`  | soul_2                  | Two women laughing over coffee                             |
+| `timeline-week-2.jpg`         | `fee3ca1e-3807-4475-a112-db36d3d81868`  | soul_2                  | Asleep in linen bedding, dawn light                        |
+| `timeline-week-4.jpg`         | `698c7602-9607-4ca9-bef5-0187bf3d01c2`  | soul_2                  | Walking outdoors in a camel jacket                         |
+| `timeline-week-6.jpg`         | `c4ae9fd5-17fd-4885-aace-77a108fe22cd`  | soul_2                  | Working at a wooden table                                  |
+| `timeline-week-8.jpg`         | `902628d3-6a68-4dd8-93c9-8d29fb0e67c0`  | soul_2                  | Stretching after a walk, golden light                      |
+| `care-01.jpg`                 | `c9656821-b41f-4e4d-9b32-4dad05cd0f79`  | soul_2                  | Reading a message at a kitchen table                       |
+| `care-02.jpg`                 | `c2dfd74a-d0d1-4ad5-a105-8220e6b47247`  | soul_2                  | Clinician's hands writing notes, no face                   |
+| `care-03.jpg`                 | `3936df73-5f21-43ea-a481-e30aaf30bf80`  | soul_2                  | Clinician on a video call, seen from the side              |

@@ -19,10 +19,11 @@ export function Problem() {
         id="problem-heading"
         tone="surface"
         align="center"
-        headline={
-          <>
-            {problem.headline.lead} <em className="italic">{problem.headline.accent}</em>
-          </>
+        headline={problem.headline}
+        subhead={
+          <span className="font-serif text-[1.375rem] italic leading-snug tracking-heading text-primary md:text-[1.5rem]">
+            {problem.subhead.lead} <em>{problem.subhead.accent}</em>
+          </span>
         }
       />
 

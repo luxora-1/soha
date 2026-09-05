@@ -25,7 +25,7 @@ export function CareFeatures() {
         itemClassName="w-[85%] sm:w-[60%] md:w-[calc((100%-3rem)/3)]"
         controlsClassName="md:hidden"
         items={care.slides.map((item) => (
-          <div key={item.slot} className="flex h-full flex-col rounded-tile bg-surface p-4 md:p-5">
+          <div key={item.slot} className="flex h-full flex-col rounded-tile bg-surface p-4 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-soft motion-reduce:transition-none md:p-5">
             <ImageSlot {...slot(item.slot)} sizes="(min-width: 768px) 30vw, 85vw" className="rounded-card" />
             <h3 className="mt-5 font-serif text-[1.5rem] leading-tight tracking-heading text-ink">{item.title}</h3>
             <p className="mt-2 text-base text-ink-muted">

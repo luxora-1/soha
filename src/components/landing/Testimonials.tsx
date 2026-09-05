@@ -40,7 +40,7 @@ export function Testimonials() {
         itemClassName="w-[82%] sm:w-[60%] md:w-[calc((100%-3rem)/3)]"
         controlsClassName="md:hidden"
         items={testimonials.items.map((item) => (
-          <article key={item.slot} className="flex h-full flex-col rounded-tile bg-base p-4 shadow-soft md:p-5">
+          <article key={item.slot} className="flex h-full flex-col rounded-tile bg-base p-4 shadow-soft transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-lift motion-reduce:transition-none md:p-5">
             <VideoSlot id={item.slot} label={`${testimonials.videoLabel}: ${item.name}`} sizes="(min-width: 768px) 30vw, 80vw" />
             <blockquote className="mt-6 flex-1 font-serif text-[1.375rem] leading-snug tracking-heading text-ink">
               <Unverified note="testimonial quote">“{item.quote}”</Unverified>

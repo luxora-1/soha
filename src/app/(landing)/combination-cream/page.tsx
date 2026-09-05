@@ -19,6 +19,7 @@ import { Quiz } from "@/components/landing/Quiz";
 import { Supports } from "@/components/landing/Supports";
 import { Testimonials } from "@/components/landing/Testimonials";
 import { Timeline } from "@/components/landing/Timeline";
+import { TreatmentCard } from "@/components/landing/TreatmentCard";
 import { Unverified } from "@/components/landing/Unverified";
 import { LANDING_PAGE_ID, landingContent } from "@/content/landing";
 import { quizResultNotes } from "@/content/quiz";
@@ -51,6 +52,7 @@ export default function CombinationCreamPage() {
       <CredentialStrip />
       <Outcomes />
       <BenefitsGrid />
+      <TreatmentCard />
       <Supports />
       <Problem />
       <Compare />
