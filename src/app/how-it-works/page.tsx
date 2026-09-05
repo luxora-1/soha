@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { FadeUp } from "@/components/motion/FadeUp";
-import { SectionWrapper } from "@/components/sections/SectionWrapper";
+import { CycleTiles } from "@/components/home/CycleTiles";
+import { PhotoPanel } from "@/components/sections/PhotoPanel";
 import { StepSection } from "@/components/sections/StepSection";
+import { Container } from "@/components/ui/Container";
 import { CTAButton } from "@/components/ui/CTAButton";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { PageIntro } from "@/components/ui/PageIntro";
 import { SiteImage } from "@/components/ui/SiteImage";
 import { siteConfig } from "@/config/site";
@@ -22,6 +22,12 @@ export default function HowItWorksPage() {
         <p className="mt-4 text-caption text-ink-muted">{siteConfig.cta.helper}</p>
       </PageIntro>
 
+      <div className="bg-base pb-6 md:pb-10">
+        <Container width="wide">
+          <SiteImage slot="how-cycle" ratio="landscape" mdRatio="wide" lgRatio="wide" sizes="100vw" priority />
+        </Container>
+      </div>
+
       {content.steps.map((step, index) => (
         <StepSection
           key={step.number}
@@ -35,54 +41,23 @@ export default function HowItWorksPage() {
         />
       ))}
 
-      {/* Tone flips against the last step so neighbours never share a background. */}
-      <SectionWrapper
-        tone={content.steps.length % 2 === 0 ? "alt" : "base"}
+      <CycleTiles
         id="cycle"
-        labelledBy="cycle-heading"
-      >
-        <FadeUp className="mb-12 lg:mb-16">
-          <SiteImage
-            slot="how-cycle"
-            ratio="landscape"
-            mdRatio="wide"
-            lgRatio="wide"
-            sizes="(min-width: 1280px) 1200px, 100vw"
-          />
-        </FadeUp>
-        <FadeUp className="max-w-measure">
-          <Eyebrow>{content.cycle.eyebrow}</Eyebrow>
-          <h2 id="cycle-heading" className="mt-5">
-            {content.cycle.headline}
-          </h2>
-          <p className="mt-6 text-body-lg text-ink-muted">{content.cycle.intro}</p>
-        </FadeUp>
+        tone={content.steps.length % 2 === 0 ? "alt" : "base"}
+        eyebrow={content.cycle.eyebrow}
+        headline={content.cycle.headline}
+        intro={content.cycle.intro}
+        options={content.cycle.options}
+        note={content.cycle.note}
+      />
 
-        <ul className="mt-12 grid gap-6 md:grid-cols-2 lg:gap-8">
-          {content.cycle.options.map((option, index) => (
-            <FadeUp
-              key={option.days}
-              as="li"
-              delay={index * 0.1}
-              className="flex h-full flex-col rounded-2xl border border-accent-soft bg-base p-8 lg:p-10"
-            >
-              <span aria-hidden="true" className="font-serif text-[2.5rem] leading-none tracking-heading text-brand tabular-nums">
-                {option.days}
-              </span>
-              <h3 className="mt-6 text-ink">{option.title}</h3>
-              <p className="mt-3 max-w-measure text-body text-ink-muted">{option.body}</p>
-            </FadeUp>
-          ))}
-        </ul>
-        <p className="mt-6 text-base text-ink-muted">{content.cycle.note}</p>
-
-        <FadeUp className="mt-14 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <CTAButton href={siteConfig.cta.href}>{siteConfig.cta.label}</CTAButton>
-          <CTAButton href="/pricing" variant="secondary">
-            See pricing
-          </CTAButton>
-        </FadeUp>
-      </SectionWrapper>
+      <PhotoPanel
+        slot="home-closing"
+        headingId="how-closing-heading"
+        headline="Your regimen, simplified."
+        subhead="Start your consult and see what a clinician recommends for you."
+        secondary={{ label: "See pricing", href: "/pricing" }}
+      />
     </>
   );
 }

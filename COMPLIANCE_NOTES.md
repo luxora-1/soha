@@ -87,11 +87,11 @@ Dosing specifics, mg amounts, comparative claims, or any language stronger than 
 
 | File | Line | Context |
 | --- | ---: | --- |
-| `src/app/product/page.tsx` | 24 | {/* CLAIM_PENDING_LEGAL_REVIEW: the subhead compares Estrada to pills / creams / patches ("replaces"). Conveni… |
-| `src/app/product/page.tsx` | 74 | {/* CLAIM_PENDING_LEGAL_REVIEW: active ingredients / hormone names for "Your regimen" bullet. */} |
-| `src/app/product/page.tsx` | 85 | {/* CLAIM_PENDING_LEGAL_REVIEW: mg amounts per pump / per day. */} |
-| `src/app/product/page.tsx` | 86 | {/* CLAIM_PENDING_LEGAL_REVIEW: application site and frequency specifics. */} |
-| `src/app/product/page.tsx` | 103 | {/* CLAIM_PENDING_LEGAL_REVIEW: any comparison to oral / patch / separate-cream regimens beyond convenience. *… |
+| `src/app/product/page.tsx` | 22 | {/* CLAIM_PENDING_LEGAL_REVIEW: the subhead compares Estrada to pills / creams / patches ("replaces"). Conveni… |
+| `src/app/product/page.tsx` | 50 | {/* CLAIM_PENDING_LEGAL_REVIEW: active ingredients / hormone names for "Your regimen" bullet. */} |
+| `src/app/product/page.tsx` | 61 | {/* CLAIM_PENDING_LEGAL_REVIEW: mg amounts per pump / per day. */} |
+| `src/app/product/page.tsx` | 62 | {/* CLAIM_PENDING_LEGAL_REVIEW: application site and frequency specifics. */} |
+| `src/app/product/page.tsx` | 79 | {/* CLAIM_PENDING_LEGAL_REVIEW: any comparison to oral / patch / separate-cream regimens beyond convenience. *… |
 | `src/content/pages.ts` | 7 | * written here — they are marked CLAIM_PENDING_LEGAL_REVIEW in the JSX. |
 | `src/content/pages.ts` | 113 | /* COPY_DRAFT: no dosing specifics; each specific is a CLAIM_PENDING_LEGAL_REVIEW point in the JSX. Asserts do… |
 

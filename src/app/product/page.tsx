@@ -3,12 +3,10 @@ import { WhyOne } from "@/components/home/WhyOne";
 import { FadeUp } from "@/components/motion/FadeUp";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { StepCard } from "@/components/StepCard";
-import { CTAButton } from "@/components/ui/CTAButton";
+import { ProductHero } from "@/components/product/ProductHero";
+import { PhotoPanel } from "@/components/sections/PhotoPanel";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { FactsBar } from "@/components/ui/FactsBar";
-import { PageIntro } from "@/components/ui/PageIntro";
 import { SiteImage } from "@/components/ui/SiteImage";
-import { siteConfig } from "@/config/site";
 import { productContent as content } from "@/content/pages";
 
 export const metadata: Metadata = {
@@ -22,29 +20,7 @@ export default function ProductPage() {
   return (
     <>
       {/* CLAIM_PENDING_LEGAL_REVIEW: the subhead compares Estrada to pills / creams / patches ("replaces"). Convenience framing only — confirm with counsel. */}
-      <PageIntro
-        layout="split"
-        eyebrow={content.eyebrow}
-        headline={content.headline}
-        subhead={content.subhead}
-        aside={
-          <figure>
-            <SiteImage slot={product.imageSlot} ratio="portrait" mdRatio="landscape" lgRatio="portrait" priority />
-            <figcaption className="mt-4 flex items-baseline gap-2">
-              <span className="font-serif text-[1.5rem] leading-none tracking-heading text-ink">
-                {product.name}
-              </span>
-              <span className="text-base text-ink-muted">{product.byline}</span>
-            </figcaption>
-          </figure>
-        }
-      >
-        <CTAButton href={siteConfig.cta.href}>{siteConfig.cta.label}</CTAButton>
-        <p className="mt-4 text-caption text-ink-muted">{siteConfig.cta.helper}</p>
-      </PageIntro>
-
-      {/* Label lines, reproduced from the packaging. */}
-      <FactsBar items={product.labelClaims} label="From the label" variant="stack" />
+      <ProductHero />
 
       <SectionWrapper tone="base" id="in-the-box" labelledBy="in-the-box-heading">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
@@ -106,19 +82,12 @@ export default function ProductPage() {
       {/* Convenience claim only — shared with the homepage. */}
       <WhyOne tone="base" />
 
-      <SectionWrapper tone="alt" labelledBy="product-cta-heading">
-        <FadeUp className="mx-auto flex max-w-measure flex-col items-center text-center">
-          <h2 id="product-cta-heading">{content.closingHeadline}</h2>
-          <div className="mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row">
-            <CTAButton href={siteConfig.cta.href} className="w-full sm:w-auto">
-              {siteConfig.cta.label}
-            </CTAButton>
-            <CTAButton href="/pricing" variant="secondary" className="w-full sm:w-auto">
-              See pricing
-            </CTAButton>
-          </div>
-        </FadeUp>
-      </SectionWrapper>
+      <PhotoPanel
+        slot="home-closing"
+        headingId="product-cta-heading"
+        headline={content.closingHeadline}
+        secondary={{ label: "See pricing", href: "/pricing" }}
+      />
     </>
   );
 }

@@ -1,25 +1,45 @@
 import Link from "next/link";
 import { FadeUp } from "@/components/motion/FadeUp";
-import { SectionWrapper } from "@/components/sections/SectionWrapper";
+import { SectionWrapper, type SectionTone } from "@/components/sections/SectionWrapper";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Grain } from "@/components/ui/Grain";
 import { homeContent } from "@/content/home";
 import { cn } from "@/lib/cn";
 
-/** Two cycle tiles side by side: 28 days on sand, 84 days on brand. Both link to pricing. */
-export function CycleTiles() {
-  const { cycles } = homeContent;
+type CycleOption = { days: number; title: string; body: string };
 
+type CycleTilesProps = {
+  eyebrow?: string;
+  headline?: string;
+  intro?: string;
+  options?: readonly CycleOption[];
+  note?: string;
+  tone?: SectionTone;
+  id?: string;
+};
+
+/** Two cycle tiles side by side: 28 days on sand, 84 days on brand. Both link to pricing. */
+export function CycleTiles({
+  eyebrow = homeContent.cycles.eyebrow,
+  headline = homeContent.cycles.headline,
+  intro,
+  options = homeContent.cycles.options,
+  note,
+  tone = "base",
+  id = "cycles",
+}: CycleTilesProps) {
+  const headingId = `${id}-heading`;
   return (
-    <SectionWrapper tone="base" id="cycles" labelledBy="cycles-heading" padding="compact" className="lg:py-section">
+    <SectionWrapper tone={tone} id={id} labelledBy={headingId} padding="compact" className="lg:py-section">
       <FadeUp className="max-w-measure">
-        <Eyebrow>{cycles.eyebrow}</Eyebrow>
-        <h2 id="cycles-heading" className="mt-5">
-          {cycles.headline}
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h2 id={headingId} className="mt-5">
+          {headline}
         </h2>
+        {intro && <p className="mt-5 text-body-lg text-ink-muted">{intro}</p>}
       </FadeUp>
       <ul className="mt-8 grid grid-cols-2 gap-3 md:mt-12 md:gap-6 lg:gap-8">
-        {cycles.options.map((option, index) => {
+        {options.map((option, index) => {
           const dark = index === 1;
           return (
             <FadeUp key={option.days} as="li" delay={index * 0.1}>
@@ -43,7 +63,7 @@ export function CycleTiles() {
                     {option.body}
                   </span>
                   <span className="mt-3 inline-flex items-center gap-1 text-base font-medium underline underline-offset-4 opacity-90 group-hover:opacity-100 md:mt-5">
-                    {cycles.cta} <span aria-hidden="true">›</span>
+                    {homeContent.cycles.cta} <span aria-hidden="true">›</span>
                   </span>
                 </span>
               </Link>
@@ -51,6 +71,7 @@ export function CycleTiles() {
           );
         })}
       </ul>
+      {note && <p className="mt-6 text-base text-ink-muted">{note}</p>}
     </SectionWrapper>
   );
 }

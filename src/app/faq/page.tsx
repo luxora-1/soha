@@ -23,8 +23,8 @@ export default function FaqPage() {
         </div>
       </SectionWrapper>
 
-      <SectionWrapper tone="alt" labelledBy="faq-more-heading">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+      <SectionWrapper tone="base" padding="compact" width="wide" labelledBy="faq-more-heading">
+        <div className="grid gap-8 rounded-tile bg-alt p-6 md:p-10 lg:grid-cols-12 lg:items-center lg:p-14">
           <div className="lg:col-span-7">
             <h2 id="faq-more-heading">{faqPageContent.moreHeadline}</h2>
             <p className="mt-4 max-w-measure text-body text-ink-muted">
@@ -34,7 +34,9 @@ export default function FaqPage() {
             </p>
           </div>
           <div className="lg:col-span-5 lg:justify-self-end">
-            <CTAButton href={siteConfig.cta.href}>{siteConfig.cta.label}</CTAButton>
+            <CTAButton href={siteConfig.cta.href} className="w-full sm:w-auto">
+              {siteConfig.cta.label}
+            </CTAButton>
           </div>
         </div>
       </SectionWrapper>
