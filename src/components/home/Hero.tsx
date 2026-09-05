@@ -23,7 +23,8 @@ export function Hero() {
               id="hero-heading"
               className="motion-safe:animate-fade-up"
             >
-              {hero.headline}
+              {hero.headline.lead}{" "}
+              <em className="italic">{hero.headline.accent}</em>
             </h1>
             <p className="mt-6 max-w-measure text-body-lg text-ink-muted motion-safe:animate-fade-up motion-safe:[animation-delay:100ms]">
               {hero.subhead}

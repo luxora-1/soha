@@ -7,6 +7,7 @@ import { Fraunces, Inter } from "next/font/google";
  */
 export const serif = Fraunces({
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
   variable: "--font-serif",
   axes: ["opsz", "SOFT"],

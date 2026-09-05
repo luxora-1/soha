@@ -6,8 +6,8 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-ink text-on-ink">
-      <Container className="py-16 lg:py-20">
+    <footer className="overflow-hidden bg-ink text-on-ink">
+      <Container className="pt-16 lg:pt-20">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
             <p className="font-serif text-[2rem] leading-none tracking-heading">
@@ -56,6 +56,15 @@ export function Footer() {
             &copy; {year} {siteConfig.name}. All rights reserved.
           </p>
         </div>
+
+        {/* Oversized wordmark anchoring the page, in the DTC idiom. Decorative. */}
+        <p
+          aria-hidden="true"
+          className="pointer-events-none mt-12 select-none text-center font-serif leading-[0.78] tracking-heading text-on-ink/[0.08] lg:mt-16"
+          style={{ fontSize: "clamp(7rem, 33vw, 30rem)" }}
+        >
+          {siteConfig.name}
+        </p>
       </Container>
     </footer>
   );

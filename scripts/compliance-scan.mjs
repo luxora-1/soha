@@ -32,11 +32,19 @@ export const MARKERS = [
   ["IMAGE_PLACEHOLDER", "Solid block standing in for brand photography. Swap for real imagery with alt text."],
 ];
 
-/** Phrases that must never appear in the codebase, in any casing / spacing / hyphenation. */
-export const FORBIDDEN = [
-  { label: '"OB/GYN prescribed"', re: /ob\s*[\/-]?\s*gyn\s*-?\s*prescribed/i },
-  { label: '"bioidentical"', re: /bio\s*-?\s*identical/i },
-];
+/**
+ * Phrases that must never appear in the codebase, in any casing / spacing /
+ * hyphenation (ASCII or Unicode dashes). Add entries as { label, re }.
+ *
+ * History: the original brief barred "OB/GYN prescribed" and "bioidentical".
+ * The client lifted both restrictions on 2026-09-05, so the list is empty.
+ * Both remain factual claims (who prescribes / what the formulation is), so
+ * wherever either is used it must sit next to a CLAIM_PENDING_LEGAL_REVIEW
+ * marker. Example entry, kept for reference:
+ *   { label: '"OB/GYN prescribed"',
+ *     re: /ob\s*[\/\-\u2010-\u2015]?\s*gyn\s*[\-\u2010-\u2015]?\s*prescribed/i }
+ */
+export const FORBIDDEN = [];
 
 const SKIP_DIRS = new Set(["node_modules", ".next", ".git", "out", "build", "screenshots"]);
 const EXT = [".ts", ".tsx", ".js", ".mjs", ".md", ".mdx", ".json", ".css", ".svg"];

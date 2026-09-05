@@ -14,9 +14,13 @@ The scan always exits non-zero if a forbidden phrase appears anywhere.
 
 ## Standing rules (apply to every page, current and future)
 
-1. **Never** use the phrases "OB/GYN prescribed" or "bioidentical" (any
-   spelling or hyphenation). Use "clinician-guided" / "clinician-prescribed".
-   The scan enforces this.
+1. **Forbidden phrases: none at present.** The original brief barred
+   "OB/GYN prescribed" and "bioidentical"; the client lifted both
+   restrictions on 2026-09-05. Both remain factual claims (who prescribes /
+   what the formulation is), so any use must carry a
+   `CLAIM_PENDING_LEGAL_REVIEW` marker. The scan's forbidden-phrase list in
+   `scripts/compliance-scan.mjs` is kept so new phrases can be added.
+   Default wording elsewhere stays "clinician-guided" / "clinician-prescribed".
 2. **Soha is not the dispensing pharmacy.** The dispensing pharmacy's legal
    name and address appear on the medication label; Soha branding is
    secondary packaging only. No copy may state or imply otherwise. Wherever
