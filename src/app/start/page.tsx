@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { IntakeForm } from "@/components/intake/IntakeForm";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { PageIntro } from "@/components/ui/PageIntro";
 import { startContent as content } from "@/content/pages";
 
@@ -31,7 +31,7 @@ export default function StartPage() {
             </div>
           </div>
           <div className="hidden lg:col-span-5 lg:col-start-8 lg:block">
-            <ImagePlaceholder ratio="portrait" brief="Woman mid-40s on a sofa with her phone, relaxed" />
+            <SiteImage slot="start-aside" ratio="portrait" />
           </div>
         </div>
       </SectionWrapper>

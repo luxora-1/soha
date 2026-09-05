@@ -1,3 +1,5 @@
+import type { ImageSlotName } from "@/config/images";
+
 /**
  * Copy for the secondary pages. Client-supplied lines are used verbatim;
  * anything marked COPY_DRAFT was written by the developer and needs brand +
@@ -21,7 +23,7 @@ export const howItWorksContent = {
         "Answer a short set of questions about your symptoms, your history, and what you've already tried. It takes about 10 minutes and you can do it from your phone.",
         "There's nothing to book and no one to call. When you're done, your answers go straight to a clinician.",
       ],
-      imageBrief: "Woman mid-40s at a kitchen table with a laptop, morning light",
+      imageSlot: "how-step-01" satisfies ImageSlotName,
     },
     {
       number: "02",
@@ -33,7 +35,7 @@ export const howItWorksContent = {
         "A licensed clinician reads your intake and decides whether treatment is appropriate for you, and what it should look like. It's an individual evaluation, not an automated result.",
         "If treatment isn't right for you, we'll tell you — and you won't be charged for a regimen you can't use.",
       ],
-      imageBrief: "Clinician at a warm desk reviewing notes, no white coat",
+      imageSlot: "how-step-02" satisfies ImageSlotName,
     },
     {
       number: "03",
@@ -45,7 +47,7 @@ export const howItWorksContent = {
         "Your regimen arrives in one unbranded outer box, on the cycle you choose. Refills happen automatically, so there's nothing to remember.",
         "Follow-up questions are part of your plan. Message your clinician between visits, and pause or cancel from your account anytime.",
       ],
-      imageBrief: "Plain cream box on an entryway console, soft light",
+      imageSlot: "how-step-03" satisfies ImageSlotName,
     },
   ],
   cycle: {
@@ -84,7 +86,7 @@ export const productContent = {
     tagline: "feel like yourself again",
     /** Label lines reproduced from the packaging, in order. */
     labelClaims: ["Bioidentical hormones", "USA compounded", "OB/GYN prescribed"],
-    imageBrief: "Estrada pump bottle, frosted with gold band, on warm stone in morning light",
+    imageSlot: "product-hero" satisfies ImageSlotName,
   },
   inTheBox: {
     eyebrow: "What's in the box",

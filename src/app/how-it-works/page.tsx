@@ -28,7 +28,7 @@ export default function HowItWorksPage() {
           number={step.number}
           title={step.title}
           body={step.body}
-          imageBrief={step.imageBrief}
+          imageSlot={step.imageSlot}
           imageSide={index % 2 === 0 ? "right" : "left"}
           tone={index % 2 === 0 ? "alt" : "base"}
         />

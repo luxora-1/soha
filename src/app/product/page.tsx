@@ -4,7 +4,7 @@ import { FadeUp } from "@/components/motion/FadeUp";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { PageIntro } from "@/components/ui/PageIntro";
 import { siteConfig } from "@/config/site";
 import { productContent as content } from "@/content/pages";
@@ -26,7 +26,7 @@ export default function ProductPage() {
         subhead={content.subhead}
         aside={
           <figure>
-            <ImagePlaceholder ratio="portrait" brief={product.imageBrief} />
+            <SiteImage slot={product.imageSlot} ratio="portrait" priority />
             <figcaption className="mt-4 flex items-baseline gap-2">
               <span className="font-serif text-[1.5rem] leading-none tracking-heading text-ink">
                 {product.name}

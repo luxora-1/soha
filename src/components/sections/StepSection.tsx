@@ -1,14 +1,15 @@
 import { FadeUp } from "@/components/motion/FadeUp";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { SiteImage } from "@/components/ui/SiteImage";
+import type { ImageSlotName } from "@/config/images";
 import { cn } from "@/lib/cn";
 
 type StepSectionProps = {
   number: string;
   title: string;
   body: readonly string[];
-  imageBrief: string;
+  imageSlot: ImageSlotName;
   /** Alternate the image side down the page. */
   imageSide: "left" | "right";
   tone: "base" | "alt";
@@ -16,7 +17,7 @@ type StepSectionProps = {
 };
 
 /** One full section per step on /how-it-works, alternating text and image. */
-export function StepSection({ number, title, body, imageBrief, imageSide, tone, id }: StepSectionProps) {
+export function StepSection({ number, title, body, imageSlot, imageSide, tone, id }: StepSectionProps) {
   const headingId = `${id}-heading`;
   return (
     <SectionWrapper tone={tone} id={id} labelledBy={headingId}>
@@ -41,7 +42,7 @@ export function StepSection({ number, title, body, imageBrief, imageSide, tone, 
           delay={0.1}
           className={cn("lg:col-span-6", imageSide === "left" ? "lg:order-1 lg:col-start-1" : "lg:col-start-7")}
         >
-          <ImagePlaceholder ratio="landscape" brief={imageBrief} />
+          <SiteImage slot={imageSlot} ratio="landscape" />
         </FadeUp>
       </div>
     </SectionWrapper>

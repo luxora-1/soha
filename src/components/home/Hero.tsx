@@ -1,6 +1,6 @@
 import { CTAButton } from "@/components/ui/CTAButton";
 import { Container } from "@/components/ui/Container";
-import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { siteConfig } from "@/config/site";
 import { homeContent } from "@/content/home";
 
@@ -37,11 +37,12 @@ export function Hero() {
           </div>
 
           <div className="lg:col-span-5 lg:col-start-8">
-            <ImagePlaceholder
+            <SiteImage
+              slot="home-hero"
               ratio="portrait"
               mdRatio="landscape"
               lgRatio="portrait"
-              brief="Hero — woman 45+, warm natural light, at home; editorial not clinical"
+              priority
               className="motion-safe:animate-fade-up motion-safe:[animation-delay:150ms]"
             />
           </div>

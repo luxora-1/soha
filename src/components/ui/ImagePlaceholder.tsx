@@ -38,6 +38,8 @@ type ImagePlaceholderProps = {
    * Rendered as a data attribute only so it is easy to grep for.
    */
   brief?: string;
+  /** Visible label inside the block. Defaults to IMAGE_PLACEHOLDER. */
+  label?: string;
 };
 
 /**
@@ -51,6 +53,7 @@ export function ImagePlaceholder({
   lgRatio,
   className,
   brief,
+  label = "IMAGE_PLACEHOLDER",
 }: ImagePlaceholderProps) {
   return (
     <div
@@ -65,7 +68,7 @@ export function ImagePlaceholder({
       )}
     >
       <span className="absolute inset-0 flex items-center justify-center font-sans text-eyebrow uppercase tracking-eyebrow text-ink-muted">
-        IMAGE_PLACEHOLDER
+        {label}
       </span>
     </div>
   );
