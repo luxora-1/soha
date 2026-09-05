@@ -1,5 +1,5 @@
 import { FadeUp } from "@/components/motion/FadeUp";
-import { SectionWrapper } from "@/components/sections/SectionWrapper";
+import { SectionWrapper, type SectionTone } from "@/components/sections/SectionWrapper";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { homeContent } from "@/content/home";
 
@@ -10,11 +10,11 @@ import { homeContent } from "@/content/home";
  * simpler to manage than three separate prescriptions. It must not state or
  * imply that the combined regimen is medically superior or more effective.
  */
-export function WhyOne() {
+export function WhyOne({ tone = "alt" }: { tone?: SectionTone }) {
   const { whyOne } = homeContent;
 
   return (
-    <SectionWrapper tone="alt" id="why-one" labelledBy="why-one-heading">
+    <SectionWrapper tone={tone} id="why-one" labelledBy="why-one-heading">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
         <FadeUp className="lg:col-span-6">
           <Eyebrow>{whyOne.eyebrow}</Eyebrow>

@@ -17,7 +17,6 @@ export const howItWorksContent = {
     {
       number: "01",
       title: "Tell us what's going on",
-      summary: "A quick online visit. No waiting rooms, no guessing what to ask for.",
       /* COPY_DRAFT: expanded step 01. */
       body: [
         "Answer a short set of questions about your symptoms, your history, and what you've already tried. It takes about 10 minutes and you can do it from your phone.",
@@ -28,8 +27,6 @@ export const howItWorksContent = {
     {
       number: "02",
       title: "A clinician reviews your case",
-      summary:
-        "A licensed clinician evaluates your history and determines the right treatment for you — not a generic quiz result.",
       /* COPY_DRAFT: expanded step 02 (second sentence adapted from the client's FAQ answer). */
       body: [
         "A licensed clinician reads your intake and decides whether treatment is appropriate for you, and what it should look like. It's an individual evaluation, not an automated result.",
@@ -40,8 +37,6 @@ export const howItWorksContent = {
     {
       number: "03",
       title: "It ships, on your cycle",
-      summary:
-        "Your regimen arrives in one box, on a 28- or 84-day cycle. Refills happen automatically, so you're never scrambling.",
       /* COPY_DRAFT: expanded step 03 (shipping detail adapted from the client's FAQ answer). */
       body: [
         "Your regimen arrives in one unbranded outer box, on the cycle you choose. Refills happen automatically, so there's nothing to remember.",
@@ -66,10 +61,11 @@ export const howItWorksContent = {
       {
         days: 84,
         title: "Every 84 days",
-        /* COPY_DRAFT (framing line from the brief). */
+        /* COPY_DRAFT ("Fewer shipments, better price" is the brief's framing line; the rest is draft). */
         body: "One box every twelve weeks. Fewer shipments, better price — and nothing to think about for three months at a time.",
       },
     ],
+    /* COPY_DRAFT: cycle-switching note — confirm the account can do this. */
     note: "You can switch cycles from your account.",
   },
 } as const;
@@ -77,6 +73,7 @@ export const howItWorksContent = {
 export const productContent = {
   eyebrow: "The flagship",
   headline: "Three prescriptions, combined into one.",
+  /* Subhead is verbatim from the brief. It compares to pills / creams / patches; keep the framing convenience-only. */
   subhead:
     "A single topical regimen that replaces what's usually dispensed as separate pills, creams, and patches.",
   /** Product identity, from the client's packaging. */
@@ -90,6 +87,9 @@ export const productContent = {
   },
   inTheBox: {
     eyebrow: "What's in the box",
+    /* COPY_DRAFT: section headline + lead. */
+    headline: "One box. Everything you need.",
+    lead: "the line on the bottle. Here is what arrives with it.",
     /* COPY_DRAFT: three bullets; the first describes the product in general terms only. */
     items: [
       {
@@ -108,7 +108,9 @@ export const productContent = {
   },
   dosing: {
     eyebrow: "How it's dosed",
-    /* COPY_DRAFT: no dosing specifics; each specific is a CLAIM_PENDING_LEGAL_REVIEW point in the JSX. */
+    /* COPY_DRAFT: section headline. */
+    headline: "Set by your clinician. Adjusted with you.",
+    /* COPY_DRAFT: no dosing specifics; each specific is a CLAIM_PENDING_LEGAL_REVIEW point in the JSX. Asserts dosage form ("topically", "pump") — confirm with the client. */
     intro:
       "Your clinician sets your dose based on your history and symptoms, and adjusts it over time. Estrada is applied topically, as directed.",
     steps: [
@@ -117,6 +119,8 @@ export const productContent = {
       { title: "Adjusted over time", body: "Tell your clinician how you're feeling. Doses can change as you do." },
     ],
   },
+  /* COPY_DRAFT: closing CTA headline on the product page. */
+  closingHeadline: "See what a clinician recommends for you.",
 } as const;
 
 export const pricingContent = {
@@ -127,20 +131,35 @@ export const pricingContent = {
   toggleLabel: "Choose your cycle",
   /* COPY_DRAFT: label above the price while unfinalized. */
   pendingNote: "Final pricing will be published before launch.",
+  /* COPY_DRAFT: FAQ pointer under the card. */
+  faqPointer: "Questions about insurance, cancelling, or shipping?",
+  faqLink: "Read the FAQ",
+} as const;
+
+export const faqPageContent = {
+  /* COPY_DRAFT: FAQ meta description. */
+  description:
+    "Who prescribes, who fills your prescription, insurance, cancelling, shipping, and messaging your clinician.",
+  /* COPY_DRAFT: "still have a question" section. */
+  moreHeadline: "Still have a question?",
+  moreLead: "Email us at",
+  moreTrail: "and a person will reply.",
 } as const;
 
 export const startContent = {
   eyebrow: "Start your consult",
-  /* COPY_DRAFT: intake page headline + intro. */
+  /* COPY_DRAFT: intake page headline + intro. No timelines or next steps (client decision). */
   headline: "Let's start with the basics.",
-  intro:
-    "Four quick details to get you set up. Your full consult comes next and takes about 10 minutes.",
+  intro: "Four quick details to get you set up. We'll take it from there.",
   submit: "Continue",
   /** Confirmation copy — client-supplied. Nothing about timelines or next steps until the real intake flow exists. */
   confirmation: {
     headline: "Thanks — we'll be in touch shortly.",
   },
+  /* COPY_DRAFT: date-of-birth hint. LEGAL_PLACEHOLDER: the 18+ eligibility rule in src/lib/intake/validate.ts is a developer assumption pending confirmation. */
+  dobHint: "We use this to confirm you're eligible for a consult.",
   /* LEGAL_PLACEHOLDER: consent / privacy line under the form; wording pending legal review. */
-  privacyNote:
-    "Your details are used only to set up your consult. See our privacy policy for how we handle your information.",
+  privacyNote: "Your details are used only to set up your consult. See our",
+  privacyLinkLabel: "privacy policy",
+  privacyNoteTrail: "for how we handle your information.",
 } as const;

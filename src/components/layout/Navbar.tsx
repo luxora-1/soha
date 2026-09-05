@@ -78,8 +78,10 @@ export function Navbar() {
                     href={item.href}
                     aria-current={current ? "page" : undefined}
                     className={cn(
-                      "inline-flex min-h-tap min-w-tap items-center justify-center border-b border-transparent px-1 text-base transition-colors motion-reduce:transition-none",
-                      current ? "border-ink text-ink" : "text-ink-muted hover:text-ink",
+                      "inline-flex min-h-tap min-w-tap items-center justify-center border-b px-1 text-base transition-colors motion-reduce:transition-none",
+                      current
+                        ? "border-ink text-ink"
+                        : "border-transparent text-ink-muted hover:text-ink",
                     )}
                   >
                     {item.label}

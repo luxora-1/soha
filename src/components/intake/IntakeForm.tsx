@@ -1,6 +1,7 @@
 "use client";
 
-import { useId, useState } from "react";
+import Link from "next/link";
+import { useEffect, useId, useRef, useState } from "react";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { usStates } from "@/config/states";
 import { validateIntake } from "@/lib/intake/validate";
@@ -12,37 +13,70 @@ type Status = "idle" | "submitting" | "success" | "error";
 
 type IntakeFormProps = {
   submitLabel: string;
+  dobHint: string;
   privacyNote: string;
+  privacyLinkLabel: string;
+  privacyNoteTrail: string;
   confirmationHeadline: string;
 };
 
+type Values = Omit<IntakeSubmission, "idempotencyKey">;
+
 const fieldClass =
-  "block w-full min-h-[3.25rem] rounded-2xl border border-ink/30 bg-base px-4 py-3 text-body text-ink placeholder:text-ink-muted/70 focus:border-ink aria-[invalid=true]:border-brand";
+  "block w-full min-h-[3.25rem] rounded-2xl border border-ink-muted bg-base px-4 py-3 text-body text-ink placeholder:text-ink-muted/70 focus:border-ink aria-[invalid=true]:border-brand";
+
+function newKey(): string {
+  if (typeof crypto !== "undefined" && "randomUUID" in crypto) return crypto.randomUUID().replace(/-/g, "");
+  return Math.random().toString(36).slice(2) + Date.now().toString(36);
+}
 
 /**
  * Pre-launch intake entry. Posts to /api/intake, which forwards to the
  * configured intake provider. Validation runs client-side for instant
- * feedback and again on the server.
+ * feedback and again on the server. One idempotency key per form instance
+ * so retries of the same submission can be de-duplicated downstream.
  */
-export function IntakeForm({ submitLabel, privacyNote, confirmationHeadline }: IntakeFormProps) {
+export function IntakeForm({
+  submitLabel,
+  dobHint,
+  privacyNote,
+  privacyLinkLabel,
+  privacyNoteTrail,
+  confirmationHeadline,
+}: IntakeFormProps) {
   const id = useId();
-  const [values, setValues] = useState<IntakeSubmission>({ name: "", email: "", dateOfBirth: "", state: "" });
+  const [values, setValues] = useState<Values>({ name: "", email: "", dateOfBirth: "", state: "" });
   const [errors, setErrors] = useState<IntakeErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [serverMessage, setServerMessage] = useState<string | null>(null);
+  const [idempotencyKey] = useState(newKey);
+  const alertRef = useRef<HTMLParagraphElement>(null);
+  const successRef = useRef<HTMLHeadingElement>(null);
 
-  const update = (field: keyof IntakeSubmission) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setValues((v) => ({ ...v, [field]: event.target.value }));
-    if (errors[field]) setErrors((e) => ({ ...e, [field]: undefined }));
+  // Move focus to the server message or the confirmation once rendered.
+  useEffect(() => {
+    if (status === "error" && serverMessage) alertRef.current?.focus();
+    if (status === "success") successRef.current?.focus();
+  }, [status, serverMessage]);
+
+  const update =
+    (field: keyof Values) => (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setValues((v) => ({ ...v, [field]: event.target.value }));
+      if (errors[field]) setErrors((e) => ({ ...e, [field]: undefined }));
+    };
+
+  const focusFirstError = (errs: IntakeErrors) => {
+    const first = (Object.keys(errs) as Array<keyof IntakeErrors>).find((k) => errs[k]);
+    if (first) document.getElementById(`${id}-${first}`)?.focus();
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const result = validateIntake(values);
+    if (status === "submitting") return;
+    const result = validateIntake({ ...values, idempotencyKey });
     if (result.errors) {
       setErrors(result.errors);
-      const first = (Object.keys(result.errors) as Array<keyof IntakeErrors>)[0];
-      document.getElementById(`${id}-${first}`)?.focus();
+      focusFirstError(result.errors);
       return;
     }
     setStatus("submitting");
@@ -62,8 +96,14 @@ export function IntakeForm({ submitLabel, privacyNote, confirmationHeadline }: I
         setStatus("success");
         return;
       }
-      if (payload.errors) setErrors(payload.errors);
-      setServerMessage(payload.error ?? "Please check the highlighted fields.");
+      if (payload.errors && Object.keys(payload.errors).length) {
+        setErrors(payload.errors);
+        setServerMessage("Please check the highlighted fields.");
+        setStatus("error");
+        focusFirstError(payload.errors);
+        return;
+      }
+      setServerMessage(payload.error ?? "Something went wrong on our side. Please try again.");
       setStatus("error");
     } catch {
       setServerMessage("We couldn't reach the server. Check your connection and try again.");
@@ -73,13 +113,15 @@ export function IntakeForm({ submitLabel, privacyNote, confirmationHeadline }: I
 
   if (status === "success") {
     return (
-      <div role="status" aria-live="polite" className="rounded-2xl border border-accent-soft bg-base p-8 lg:p-10">
-        <h2 className="font-serif text-h2">{confirmationHeadline}</h2>
+      <div role="status" aria-live="polite">
+        <h2 ref={successRef} tabIndex={-1} className="font-serif text-h2 outline-none">
+          {confirmationHeadline}
+        </h2>
       </div>
     );
   }
 
-  const describedBy = (field: keyof IntakeSubmission, extra?: string) =>
+  const describedBy = (field: keyof Values, extra?: string) =>
     [errors[field] ? `${id}-${field}-error` : null, extra].filter(Boolean).join(" ") || undefined;
 
   return (
@@ -133,7 +175,6 @@ export function IntakeForm({ submitLabel, privacyNote, confirmationHeadline }: I
           type="date"
           autoComplete="bday"
           required
-          max={new Date().toISOString().slice(0, 10)}
           value={values.dateOfBirth}
           onChange={update("dateOfBirth")}
           aria-invalid={Boolean(errors.dateOfBirth)}
@@ -141,7 +182,7 @@ export function IntakeForm({ submitLabel, privacyNote, confirmationHeadline }: I
           className={cn(fieldClass, "mt-2")}
         />
         <p id={`${id}-dob-hint`} className="mt-2 text-base text-ink-muted">
-          We use this to confirm you&apos;re eligible for a consult.
+          {dobHint}
         </p>
         <FieldError id={`${id}-dateOfBirth-error`} message={errors.dateOfBirth} />
       </div>
@@ -159,7 +200,10 @@ export function IntakeForm({ submitLabel, privacyNote, confirmationHeadline }: I
           onChange={update("state")}
           aria-invalid={Boolean(errors.state)}
           aria-describedby={describedBy("state")}
-          className={cn(fieldClass, "mt-2 appearance-none bg-[url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2216%22 height=%2216%22 viewBox=%220 0 16 16%22><path fill=%22none%22 stroke=%22%236B655E%22 stroke-width=%221.5%22 d=%22M3 6l5 5 5-5%22/></svg>')] bg-[length:1rem_1rem] bg-[position:right_1rem_center] bg-no-repeat pr-12")}
+          className={cn(
+            fieldClass,
+            "mt-2 appearance-none bg-chevron bg-[length:1rem_1rem] bg-[position:right_1rem_center] bg-no-repeat pr-12",
+          )}
         >
           <option value="">Choose your state</option>
           {usStates.map((state) => (
@@ -172,17 +216,26 @@ export function IntakeForm({ submitLabel, privacyNote, confirmationHeadline }: I
       </div>
 
       {serverMessage && (
-        <p role="alert" className="rounded-2xl border border-brand/40 bg-alt px-4 py-3 text-base text-ink">
+        <p
+          ref={alertRef}
+          tabIndex={-1}
+          role="alert"
+          className="rounded-2xl border border-brand/40 bg-alt px-4 py-3 text-base text-ink"
+        >
           {serverMessage}
         </p>
       )}
 
       <div className="pt-2">
-        <CTAButton type="submit" disabled={status === "submitting"} className="w-full sm:w-auto">
+        <CTAButton type="submit" aria-disabled={status === "submitting"} className="w-full sm:w-auto">
           {status === "submitting" ? "Sending…" : submitLabel}
         </CTAButton>
         <p id={`${id}-privacy`} className="mt-4 max-w-measure text-base text-ink-muted">
-          {privacyNote}
+          {privacyNote}{" "}
+          <Link href="/privacy" className="text-ink underline underline-offset-4 hover:text-brand">
+            {privacyLinkLabel}
+          </Link>{" "}
+          {privacyNoteTrail}
         </p>
       </div>
     </form>

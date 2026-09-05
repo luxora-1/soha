@@ -41,10 +41,11 @@ export function PricingCard({ option, includes, currency, pendingNote }: Pricing
       <div className="mt-8 flex items-baseline gap-3">
         <span
           className="font-serif text-[3rem] leading-none tracking-heading text-ink tabular-nums lg:text-[3.75rem]"
-          aria-label={pending ? "Price to be announced" : price}
+          aria-hidden={pending ? "true" : undefined}
         >
           {price}
         </span>
+        {pending && <span className="sr-only">Price to be announced</span>}
         <span className="text-body text-ink-muted">{option.per}</span>
       </div>
       {pending && pendingNote && (

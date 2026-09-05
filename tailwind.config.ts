@@ -167,6 +167,10 @@ const config: Config = {
       borderRadius: {
         card: "1rem", // == rounded-2xl
       },
+      backgroundImage: {
+        /** Select chevron, drawn in ink-muted. Used with appearance-none selects. */
+        chevron: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='none' stroke='${encodeURIComponent(palette.inkMuted)}' stroke-width='1.5' d='M3 6l5 5 5-5'/></svg>")`,
+      },
       keyframes: {
         "fade-up": {
           "0%": { opacity: "0", transform: "translateY(40px)" },

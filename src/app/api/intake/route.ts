@@ -3,6 +3,9 @@ import { getIntakeProvider, validateIntake } from "@/lib/intake";
 
 export const runtime = "nodejs";
 
+/** Intake bodies are four short fields; anything larger is not a form post. */
+const MAX_BODY_BYTES = 16 * 1024;
+
 /**
  * POST /api/intake
  *
@@ -11,14 +14,32 @@ export const runtime = "nodejs";
  * route does not change.
  */
 export async function POST(request: Request) {
+  const contentType = request.headers.get("content-type") ?? "";
+  if (!contentType.toLowerCase().startsWith("application/json")) {
+    return NextResponse.json({ ok: false, error: "Send JSON." }, { status: 415 });
+  }
+
+  const declared = Number(request.headers.get("content-length") ?? "0");
+  if (declared > MAX_BODY_BYTES) {
+    return NextResponse.json({ ok: false, error: "Request too large." }, { status: 413 });
+  }
+
   let body: unknown;
   try {
-    body = await request.json();
+    const text = await request.text();
+    if (text.length > MAX_BODY_BYTES) {
+      return NextResponse.json({ ok: false, error: "Request too large." }, { status: 413 });
+    }
+    body = JSON.parse(text);
   } catch {
     return NextResponse.json({ ok: false, error: "Invalid request body." }, { status: 400 });
   }
 
-  const result = validateIntake((body ?? {}) as Record<string, unknown>);
+  if (typeof body !== "object" || body === null || Array.isArray(body)) {
+    return NextResponse.json({ ok: false, error: "Invalid request body." }, { status: 400 });
+  }
+
+  const result = validateIntake(body as Record<string, unknown>);
   if (result.errors) {
     return NextResponse.json({ ok: false, errors: result.errors }, { status: 422 });
   }

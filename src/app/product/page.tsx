@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { WhyOne } from "@/components/home/WhyOne";
 import { FadeUp } from "@/components/motion/FadeUp";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
+import { StepCard } from "@/components/StepCard";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { Eyebrow } from "@/components/ui/Eyebrow";
-import { SiteImage } from "@/components/ui/SiteImage";
+import { FactsBar } from "@/components/ui/FactsBar";
 import { PageIntro } from "@/components/ui/PageIntro";
+import { SiteImage } from "@/components/ui/SiteImage";
 import { siteConfig } from "@/config/site";
 import { productContent as content } from "@/content/pages";
 
@@ -19,6 +21,7 @@ export default function ProductPage() {
 
   return (
     <>
+      {/* CLAIM_PENDING_LEGAL_REVIEW: the subhead compares Estrada to pills / creams / patches ("replaces"). Convenience framing only — confirm with counsel. */}
       <PageIntro
         layout="split"
         eyebrow={content.eyebrow}
@@ -26,7 +29,7 @@ export default function ProductPage() {
         subhead={content.subhead}
         aside={
           <figure>
-            <SiteImage slot={product.imageSlot} ratio="portrait" priority />
+            <SiteImage slot={product.imageSlot} ratio="portrait" mdRatio="landscape" lgRatio="portrait" priority />
             <figcaption className="mt-4 flex items-baseline gap-2">
               <span className="font-serif text-[1.5rem] leading-none tracking-heading text-ink">
                 {product.name}
@@ -40,32 +43,18 @@ export default function ProductPage() {
         <p className="mt-4 text-caption text-ink-muted">{siteConfig.cta.helper}</p>
       </PageIntro>
 
-      {/* Label facts, reproduced from the packaging. */}
-      <section aria-label="From the label" className="border-y border-accent-soft bg-alt">
-        <div className="mx-auto box-content max-w-content px-6 py-5 md:px-8 md:py-6">
-          <ul className="grid grid-cols-1 gap-x-4 gap-y-3 text-center text-base text-ink-muted min-[375px]:grid-cols-3 md:flex md:items-center md:justify-center md:gap-x-3">
-            {product.labelClaims.map((claim) => (
-              <li
-                key={claim}
-                className="flex items-center justify-center gap-x-3 before:hidden before:text-ink-muted before:content-['·'] before:[font-size:1.5em] before:leading-none md:before:inline md:first:before:hidden"
-              >
-                {claim}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* Label lines, reproduced from the packaging. */}
+      <FactsBar items={product.labelClaims} label="From the label" variant="stack" />
 
       <SectionWrapper tone="base" id="in-the-box" labelledBy="in-the-box-heading">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <FadeUp className="lg:col-span-5">
             <Eyebrow>{content.inTheBox.eyebrow}</Eyebrow>
             <h2 id="in-the-box-heading" className="mt-5">
-              One box. Everything you need.
+              {content.inTheBox.headline}
             </h2>
             <p className="mt-6 max-w-measure text-body text-ink-muted">
-              <em className="font-serif not-italic text-ink">{product.tagline}</em> — the line on
-              the bottle. Here is what arrives with it.
+              <em className="font-serif not-italic text-ink">{product.tagline}</em> — {content.inTheBox.lead}
             </p>
           </FadeUp>
           <ul className="lg:col-span-6 lg:col-start-7">
@@ -90,7 +79,7 @@ export default function ProductPage() {
           <FadeUp className="max-w-measure lg:col-span-6">
             <Eyebrow>{content.dosing.eyebrow}</Eyebrow>
             <h2 id="dosing-heading" className="mt-5">
-              Set by your clinician. Adjusted with you.
+              {content.dosing.headline}
             </h2>
             <p className="mt-6 text-body-lg text-ink-muted">{content.dosing.intro}</p>
             {/* CLAIM_PENDING_LEGAL_REVIEW: mg amounts per pump / per day. */}
@@ -100,31 +89,26 @@ export default function ProductPage() {
             <SiteImage slot="product-detail" ratio="landscape" />
           </FadeUp>
         </div>
-        <ol className="mt-12 grid gap-6 md:grid-cols-3 lg:gap-8">
+        <ol className="mt-12 grid gap-6 lg:grid-cols-3 lg:gap-8">
           {content.dosing.steps.map((step, index) => (
-            <FadeUp
+            <StepCard
               key={step.title}
-              as="li"
+              number={`0${index + 1}`}
+              title={step.title}
+              body={step.body}
               delay={index * 0.1}
-              className="rounded-2xl border border-accent-soft bg-base p-8"
-            >
-              <span aria-hidden="true" className="font-serif text-[2rem] leading-none tracking-heading text-brand tabular-nums">
-                0{index + 1}
-              </span>
-              <h3 className="mt-6 text-ink">{step.title}</h3>
-              <p className="mt-3 text-body text-ink-muted">{step.body}</p>
-            </FadeUp>
+            />
           ))}
         </ol>
         {/* CLAIM_PENDING_LEGAL_REVIEW: any comparison to oral / patch / separate-cream regimens beyond convenience. */}
       </SectionWrapper>
 
       {/* Convenience claim only — shared with the homepage. */}
-      <WhyOne />
+      <WhyOne tone="base" />
 
       <SectionWrapper tone="alt" labelledBy="product-cta-heading">
         <FadeUp className="mx-auto flex max-w-measure flex-col items-center text-center">
-          <h2 id="product-cta-heading">See what a clinician recommends for you.</h2>
+          <h2 id="product-cta-heading">{content.closingHeadline}</h2>
           <div className="mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row">
             <CTAButton href={siteConfig.cta.href} className="w-full sm:w-auto">
               {siteConfig.cta.label}

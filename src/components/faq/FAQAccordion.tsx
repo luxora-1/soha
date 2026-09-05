@@ -6,28 +6,37 @@ import { cn } from "@/lib/cn";
 
 type FAQAccordionProps = {
   items: readonly FaqItem[];
+  /** Heading level for each question; 2 when the accordion sits directly under the page h1. */
+  headingLevel?: 2 | 3;
 };
 
 /**
- * Accessible accordion (WAI-ARIA pattern): each header is a button inside an
- * h3 with aria-expanded / aria-controls; each panel is a region labelled by
+ * Accessible accordion (WAI-ARIA pattern): each header is a button inside a
+ * heading with aria-expanded / aria-controls; each panel is a region labelled by
  * its button. Arrow keys, Home and End move between headers. Multiple panels
  * may be open. Deep links (#who-fills) open the matching item on load.
  */
-export function FAQAccordion({ items }: FAQAccordionProps) {
+export function FAQAccordion({ items, headingLevel = 2 }: FAQAccordionProps) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   const baseId = useId();
   const [open, setOpen] = useState<Set<string>>(() => new Set());
   const buttons = useRef<Array<HTMLButtonElement | null>>([]);
 
-  // Open the item named in the URL hash (e.g. /faq#who-fills).
+  // Open the item named in the URL hash (e.g. /faq#who-fills), on load and
+  // on same-page hash navigation.
   useEffect(() => {
-    const key = window.location.hash.replace(/^#/, "");
-    if (!key || !items.some((item) => item.key === key)) return;
-    const timer = window.setTimeout(() => {
+    const openFromHash = () => {
+      const key = window.location.hash.replace(/^#/, "");
+      if (!key || !items.some((item) => item.key === key)) return;
       setOpen((current) => new Set(current).add(key));
       document.getElementById(key)?.scrollIntoView({ block: "start" });
-    }, 0);
-    return () => window.clearTimeout(timer);
+    };
+    const timer = window.setTimeout(openFromHash, 0);
+    window.addEventListener("hashchange", openFromHash);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("hashchange", openFromHash);
+    };
   }, [items]);
 
   const toggle = (key: string) =>
@@ -58,7 +67,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
         const panelId = `${baseId}-panel-${item.key}`;
         return (
           <div key={item.key} id={item.key} className="scroll-mt-28">
-            <h3 className="text-h3">
+            <Heading className="font-sans text-h3 font-medium">
               <button
                 ref={(el) => {
                   buttons.current[index] = el;
@@ -83,7 +92,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
                   <span className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-current" />
                 </span>
               </button>
-            </h3>
+            </Heading>
             <div
               id={panelId}
               role="region"

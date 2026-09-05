@@ -62,12 +62,16 @@ export function getCycle(days: CycleDays): CycleOption {
   return found;
 }
 
-/** Renders a whole-currency price; `null` (unfinalized) renders as "$—". */
+/** Renders a whole-currency price; `null` (unfinalized) renders as the currency symbol plus "—". */
 export function formatPrice(price: number | null, currency: string = pricingConfig.currency): string {
-  if (price === null) return "$—";
-  return new Intl.NumberFormat("en-US", {
+  const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
     maximumFractionDigits: 0,
-  }).format(price);
+  });
+  if (price === null) {
+    const symbol = formatter.formatToParts(0).find((part) => part.type === "currency")?.value ?? "$";
+    return `${symbol}—`;
+  }
+  return formatter.format(price);
 }

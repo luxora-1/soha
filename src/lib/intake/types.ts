@@ -10,6 +10,11 @@ export type IntakeSubmission = {
   dateOfBirth: string;
   /** Two-letter US state code. */
   state: string;
+  /**
+   * Client-generated key, stable across retries of the same submission, so
+   * a provider can de-duplicate. Optional until a provider requires it.
+   */
+  idempotencyKey?: string;
 };
 
 export type IntakeReceipt = {
@@ -24,4 +29,9 @@ export type IntakeContext = {
   userAgent?: string;
   ip?: string;
   submittedAt: string;
+  /**
+   * Reserved for the consent record a real provider will need (policy
+   * version, timestamp). Nothing collects it yet — LEGAL_PLACEHOLDER.
+   */
+  consent?: { policyVersion: string; acceptedAt: string };
 };

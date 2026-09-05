@@ -35,13 +35,21 @@ export default function HowItWorksPage() {
         />
       ))}
 
-      <SectionWrapper tone="base" padding="none">
-        <FadeUp className="py-10 lg:py-14">
-          <SiteImage slot="how-cycle" ratio="landscape" mdRatio="wide" lgRatio="wide" sizes="(min-width: 1280px) 1200px, 100vw" />
+      {/* Tone flips against the last step so neighbours never share a background. */}
+      <SectionWrapper
+        tone={content.steps.length % 2 === 0 ? "alt" : "base"}
+        id="cycle"
+        labelledBy="cycle-heading"
+      >
+        <FadeUp className="mb-12 lg:mb-16">
+          <SiteImage
+            slot="how-cycle"
+            ratio="landscape"
+            mdRatio="wide"
+            lgRatio="wide"
+            sizes="(min-width: 1280px) 1200px, 100vw"
+          />
         </FadeUp>
-      </SectionWrapper>
-
-      <SectionWrapper tone="alt" id="cycle" labelledBy="cycle-heading">
         <FadeUp className="max-w-measure">
           <Eyebrow>{content.cycle.eyebrow}</Eyebrow>
           <h2 id="cycle-heading" className="mt-5">

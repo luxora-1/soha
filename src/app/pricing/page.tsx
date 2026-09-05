@@ -29,9 +29,9 @@ export default function PricingPage() {
 
       <SectionWrapper tone="base" padding="compact">
         <p className="text-center text-base text-ink-muted">
-          Questions about insurance, cancelling, or shipping?{" "}
+          {content.faqPointer}{" "}
           <Link href="/faq" className="inline-flex min-h-tap items-center text-ink underline underline-offset-4 hover:text-brand">
-            Read the FAQ
+            {content.faqLink}
           </Link>
         </p>
       </SectionWrapper>

@@ -25,7 +25,10 @@ export default function StartPage() {
             <div className="rounded-2xl border border-accent-soft bg-base p-6 sm:p-8 lg:p-10">
               <IntakeForm
                 submitLabel={content.submit}
+                dobHint={content.dobHint}
                 privacyNote={content.privacyNote}
+                privacyLinkLabel={content.privacyLinkLabel}
+                privacyNoteTrail={content.privacyNoteTrail}
                 confirmationHeadline={content.confirmation.headline}
               />
             </div>
