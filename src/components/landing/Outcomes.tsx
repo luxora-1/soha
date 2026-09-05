@@ -1,3 +1,4 @@
+import { CountUp } from "@/components/landing/CountUp";
 import { SectionHeading } from "@/components/landing/SectionHeading";
 import { Unverified } from "@/components/landing/Unverified";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
@@ -6,7 +7,9 @@ import { cn } from "@/lib/cn";
 
 /**
  * Five outcome statistics. Two columns on phones (the fifth spans both),
- * five across from md. Every figure and the source line are <Unverified>.
+ * five across from md. Each figure counts up from zero the first time it
+ * scrolls into view, staggered across the tiles. Every figure and the
+ * source line are <Unverified>.
  */
 export function Outcomes() {
   const { outcomes } = landingContent;
@@ -25,7 +28,9 @@ export function Outcomes() {
             )}
           >
             <p className="font-serif italic text-stat text-primary tabular-nums">
-              <Unverified note={`8-week outcome: ${stat.label}`}>{stat.value}</Unverified>
+              <Unverified note={`8-week outcome: ${stat.label}`}>
+                <CountUp value={stat.value} delay={index * 0.1} />
+              </Unverified>
             </p>
             <p className="text-base leading-snug text-ink-muted">{stat.label}</p>
           </li>
