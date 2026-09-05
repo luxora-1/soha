@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ClosingCTA } from "@/components/landing/ClosingCTA";
+import { CommunityRail } from "@/components/landing/CommunityRail";
 import { ComparisonTable } from "@/components/landing/ComparisonTable";
 import { CredentialStrip } from "@/components/landing/CredentialStrip";
 import { FAQ } from "@/components/landing/FAQ";
@@ -41,6 +42,7 @@ export default function CombinationCreamPage() {
       <Testimonials />
       <Pricing />
       <FAQ />
+      <CommunityRail />
       <ClosingCTA />
     </>
   );

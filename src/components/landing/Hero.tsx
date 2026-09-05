@@ -7,18 +7,20 @@ import { slot } from "@/config/landing-images";
 import { LANDING_PAGE_ID, landingContent } from "@/content/landing";
 
 /**
- * Hero: review badge, headline, subhead, price, primary CTA (the waitlist
- * form, collapsed to a button), delivery estimate, then the trust strip.
- * Product shot with the lifestyle portrait tucked over its corner.
+ * Hero. On phones the product shot leads, then the review badge, headline,
+ * subhead, price, primary CTA (the waitlist form, collapsed to a button),
+ * delivery estimate and the six-line checklist, so the checklist sits
+ * directly above the certification strip that follows. From lg the copy
+ * and the images sit side by side.
  */
 export function Hero() {
   const { hero } = landingContent;
 
   return (
     <section aria-labelledby="hero-heading" className="bg-base">
-      <Container className="pb-14 pt-8 md:pt-12 lg:pb-20 lg:pt-16">
+      <Container className="pb-14 pt-6 md:pt-10 lg:pb-20 lg:pt-16">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-12">
-          <div className="lg:col-span-6 motion-safe:animate-fade-up">
+          <div className="lg:col-span-6 motion-safe:animate-fade-up motion-safe:[animation-delay:120ms] lg:[animation-delay:0ms]">
             <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-base text-ink">
               <span className="flex items-center gap-0.5 text-accent" aria-hidden="true">
                 {Array.from({ length: 5 }, (_, i) => (
@@ -66,9 +68,18 @@ export function Hero() {
             <p className="mt-6 text-base text-ink-muted">
               <Unverified note={hero.delivery.verify}>{hero.delivery.text}</Unverified>
             </p>
+
+            <ul aria-label="Service details" className="mt-8 grid gap-3 sm:grid-cols-2 sm:gap-x-6">
+              {hero.trust.map((item) => (
+                <li key={item.label} className="flex items-center gap-3 text-base font-medium text-ink">
+                  <CheckIcon className="text-accent" />
+                  {item.verify ? <Unverified note={item.verify}>{item.label}</Unverified> : item.label}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <div className="lg:col-span-6 motion-safe:animate-fade-up motion-safe:[animation-delay:120ms]">
+          <div className="order-first lg:order-none lg:col-span-6 motion-safe:animate-fade-up lg:[animation-delay:120ms]">
             <div className="relative pb-10 pr-4 md:pb-12 md:pr-8">
               <ImageSlot
                 {...slot("hero-product")}
@@ -88,17 +99,6 @@ export function Hero() {
           </div>
         </div>
 
-        <ul
-          aria-label="Service details"
-          className="mt-14 grid grid-cols-2 gap-x-6 gap-y-4 md:flex md:flex-wrap md:justify-between lg:mt-20"
-        >
-          {hero.trust.map((item) => (
-            <li key={item.label} className="flex items-center gap-2.5 text-base text-ink">
-              <CheckIcon className="text-accent" />
-              {item.verify ? <Unverified note={item.verify}>{item.label}</Unverified> : item.label}
-            </li>
-          ))}
-        </ul>
       </Container>
     </section>
   );

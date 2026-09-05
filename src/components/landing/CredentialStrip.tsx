@@ -1,28 +1,25 @@
-import { ImageSlot } from "@/components/landing/ImageSlot";
+import { CertificationMarquee } from "@/components/landing/CertificationMarquee";
 import { Unverified } from "@/components/landing/Unverified";
 import { Container } from "@/components/ui/Container";
-import { slot } from "@/config/landing-images";
+import { Eyebrow } from "@/components/ui/Eyebrow";
 import { landingContent } from "@/content/landing";
 
-/** Thin band of certification marks, with the disclosure that they belong to the pharmacy. */
+/**
+ * "Clinically crafted. Quality assured." over a row of certification marks
+ * that glides across the band, with the disclosure that the marks belong to
+ * the pharmacy. Follows the hero's checklist directly.
+ */
 export function CredentialStrip() {
   const { credentials } = landingContent;
 
   return (
-    <section id="credentials" aria-labelledby="credentials-heading" className="bg-surface py-8 md:py-10">
+    <section aria-labelledby="credentials-heading" className="overflow-hidden bg-surface py-10 md:py-14">
       <Container>
-        <h2 id="credentials-heading" className="sr-only">
-          {credentials.heading}
-        </h2>
-        <div className="mx-auto max-w-4xl">
-          <ImageSlot
-            {...slot("trust-badges")}
-            sizes="(min-width: 1024px) 896px, 100vw"
-            fit="contain"
-            className="rounded-card"
-          />
-        </div>
-        <p className="mx-auto mt-4 max-w-measure text-center text-caption text-ink-muted">
+        <Eyebrow as="h2" id="credentials-heading" className="text-center">
+          {credentials.label}
+        </Eyebrow>
+        <CertificationMarquee items={credentials.items} className="mt-6 md:mt-8" />
+        <p className="mx-auto mt-6 max-w-measure text-center text-caption text-ink-muted">
           <Unverified note={credentials.caption.verify}>{credentials.caption.text}</Unverified> {credentials.trail}
         </p>
       </Container>

@@ -106,12 +106,40 @@ export const landingSlots = {
     alt: "Close crop of Estrada packaging showing its texture and finish.",
     description: "Close crop, packaging texture and finish.",
   },
-  "trust-badges": {
-    width: 1600,
+  "certification-01": {
+    width: 480,
     height: 320,
-    ratio: "5:1 (wide strip)",
-    alt: "Certification marks of the pharmacy that compounds Estrada.",
-    description: "Certification marks in a row, transparent or matching background.",
+    ratio: "3:2",
+    alt: "Certification mark 1 of the pharmacy that compounds Estrada.",
+    description: "Certification mark (e.g. PCAB), transparent or matching background.",
+  },
+  "certification-02": {
+    width: 480,
+    height: 320,
+    ratio: "3:2",
+    alt: "Certification mark 2 of the pharmacy that compounds Estrada.",
+    description: "Certification mark (e.g. NABP), same treatment.",
+  },
+  "certification-03": {
+    width: 480,
+    height: 320,
+    ratio: "3:2",
+    alt: "Certification mark 3 of the pharmacy that compounds Estrada.",
+    description: "Certification mark (e.g. LegitScript), same treatment.",
+  },
+  "certification-04": {
+    width: 480,
+    height: 320,
+    ratio: "3:2",
+    alt: "Certification mark 4 of the pharmacy that compounds Estrada.",
+    description: "Certification mark (e.g. state board of pharmacy), same treatment.",
+  },
+  "certification-05": {
+    width: 480,
+    height: 320,
+    ratio: "3:2",
+    alt: "Certification mark 5 of the pharmacy that compounds Estrada.",
+    description: "Certification mark (e.g. 503A registration), same treatment.",
   },
 } as const satisfies Record<string, LandingSlot>;
 

@@ -23,6 +23,7 @@ export const siteConfig = {
     { label: "How it works", href: "/how-it-works" },
     { label: "The Product", href: "/product" },
     { label: "Pricing", href: "/pricing" },
+    { label: "Community", href: "/community" },
     { label: "FAQ", href: "/faq" },
   ] satisfies NavLink[],
 
@@ -59,6 +60,7 @@ export const siteConfig = {
           { label: "How it works", href: "/how-it-works" },
           { label: "The Product", href: "/product" },
           { label: "Pricing", href: "/pricing" },
+          { label: "Community", href: "/community" },
           { label: "FAQ", href: "/faq" },
         ],
       },

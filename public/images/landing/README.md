@@ -28,12 +28,16 @@ manifest is the source of this table.
 | `testimonial-2`           | 800 × 800    | 1:1                 | Patient portrait 2.                                                  |
 | `testimonial-3`           | 800 × 800    | 1:1                 | Patient portrait 3.                                                  |
 | `packaging-detail`        | 1500 × 1000  | 3:2                 | Close crop, packaging texture and finish.                            |
-| `trust-badges`            | 1600 × 320   | 5:1 (wide strip)    | Certification marks in a row, transparent or matching background.    |
+| `certification-01`        | 480 × 320    | 3:2                 | Certification mark (e.g. PCAB), transparent or matching background.  |
+| `certification-02`        | 480 × 320    | 3:2                 | Certification mark (e.g. NABP), same treatment.                      |
+| `certification-03`        | 480 × 320    | 3:2                 | Certification mark (e.g. LegitScript), same treatment.               |
+| `certification-04`        | 480 × 320    | 3:2                 | Certification mark (e.g. state board of pharmacy), same treatment.   |
+| `certification-05`        | 480 × 320    | 3:2                 | Certification mark (e.g. 503A registration), same treatment.         |
 
 Where each appears:
 
-- **Hero** — `hero-product` large, `hero-lifestyle` tucked over its lower-right corner.
-- **Credential strip** — `trust-badges`, shown with `object-fit: contain` so a transparent PNG or SVG works best.
+- **Hero** — `hero-product` large, `hero-lifestyle` tucked over its lower-right corner. Leads the page on phones.
+- **Credential strip** — the five `certification-*` marks in gliding cards, shown with `object-fit: contain`, so transparent PNGs or SVGs work best.
 - **The problem** — `comparison-patchwork` (left card), `comparison-single` (right, dark card).
 - **Ingredients** — the three `ingredient-*` slots, one per card; 96px thumbnails on phones, full tiles from tablet up.
 - **Medical credibility** — `founder-portrait`.

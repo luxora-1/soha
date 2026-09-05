@@ -57,16 +57,29 @@ export const landingContent = {
       text: "Ships in 3 to 5 business days once your prescription is approved.",
       verify: "delivery estimate",
     },
+    /** Checklist under the CTA, in the client's order. Claims are <Unverified>. */
     trust: [
       { label: "Cancel anytime", verify: "cancellation terms" },
       { label: "Free shipping", verify: "shipping policy" },
+      { label: "20% off Fullscript supplements", verify: "Fullscript partnership and discount" },
       { label: "HSA/FSA eligible", verify: "HSA/FSA eligibility" },
       { label: "Prescription treatment" },
+      { label: "Unlimited access to healthcare experts", verify: "unlimited clinician access" },
     ] satisfies Array<{ label: string; verify?: string }>,
   },
 
   credentials: {
     heading: "Pharmacy certifications",
+    /** Client-supplied line, set in small caps above the marks. */
+    label: "Clinically crafted. Quality assured.",
+    /** Five marks that glide across the strip. Names are placeholders inside <Unverified>. */
+    items: [
+      { slot: "certification-01" satisfies LandingSlotId, name: "PCAB accredited", verify: "PCAB accreditation of the dispensing pharmacy" },
+      { slot: "certification-02" satisfies LandingSlotId, name: "NABP accredited", verify: "NABP accreditation" },
+      { slot: "certification-03" satisfies LandingSlotId, name: "LegitScript certified", verify: "LegitScript certification" },
+      { slot: "certification-04" satisfies LandingSlotId, name: "State-licensed pharmacy", verify: "state pharmacy licences" },
+      { slot: "certification-05" satisfies LandingSlotId, name: "503A compounding pharmacy", verify: "503A registration" },
+    ],
     caption: {
       text: "Certification marks belong to [PHARMACY_NAME_PLACEHOLDER], the licensed pharmacy that compounds and fills Estrada prescriptions.",
       verify: "pharmacy certifications shown in the strip",
@@ -348,6 +361,15 @@ export const landingContent = {
         ],
       },
     ] satisfies Array<{ key: string; question: string; answer: Segment[] }>,
+  },
+
+  /* COPY_DRAFT: community strip. Cards lead to /community, not out to Instagram. */
+  community: {
+    headline: "Follow along.",
+    subhead: "New posts from Soha on Instagram, and the conversations around them.",
+    label: "Recent Instagram posts",
+    cta: "See the community page",
+    href: "/community",
   },
 
   closing: {

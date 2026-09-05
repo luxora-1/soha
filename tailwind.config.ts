@@ -259,10 +259,17 @@ const config: Config = {
           "0%": { transform: "translateX(24px)", opacity: "0" },
           "100%": { transform: "translateX(0)", opacity: "1" },
         },
+        /** A duplicated row gliding left by half its width loops seamlessly. */
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         /** CSS-only fallback for the FadeUp motion wrapper. 0.5s ease-out. */
         "fade-up": "fade-up 0.5s ease-out both",
+        /** Certification marks on the landing page. */
+        marquee: "marquee 45s linear infinite",
       },
     },
   },

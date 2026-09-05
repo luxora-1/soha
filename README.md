@@ -33,22 +33,62 @@ src/
     (site)/            marketing pages, wrapped in the full navbar + footer
     (landing)/         standalone ad landing pages, stripped header + footer
       combination-cream/   the Estrada landing page (/estradiol redirects here)
-    api/               intake and waitlist stubs
+    api/               intake and waitlist stubs, community feed pagination
   components/
     StepCard.tsx  numbered step card (composes ui + motion)
     ui/           primitives: Container, CTAButton, Eyebrow, ImagePlaceholder
     layout/       Navbar, Footer, SiteShell
     landing/      landing page sections + ImageSlot, Unverified, WaitlistForm
+    social/       community feed: SocialPostCard, SocialFeedGrid
     motion/       FadeUp, MotionProvider
     sections/     SectionWrapper (bg alternation + padding rhythm)
     home/         homepage sections
   config/         design tokens (colour palette), image manifests, site config
   content/        page copy, kept out of JSX for review
-  lib/            fonts, analytics, UTM capture, waitlist, small helpers
+  lib/            fonts, analytics, UTM capture, waitlist, social feed, small helpers
 scripts/
   compliance-scan.mjs   lists every placeholder / claim marker by file:line
   unverified-list.mjs   lists every <Unverified> claim on the landing page
+  instagram-token.mjs   checks or refreshes the Instagram access token
 ```
+
+Copy `.env.example` to `.env.local` for local settings; everything in it is optional.
+
+## Community feed (Instagram)
+
+`/community` shows the posts of Soha's Instagram account, newest first,
+loading more as you scroll; the landing page shows a strip of the latest
+eight that leads to that page. Until an account is connected both render
+labelled placeholder posts (`SOCIAL_PLACEHOLDER`).
+
+The feed is read directly from the Instagram API (no third-party service),
+cached for an hour, and falls back to placeholders if the API call fails so
+the pages always render. Code: `src/lib/social` (providers), `/api/social`
+(pagination), `src/components/social` (cards, grid).
+
+To connect the account:
+
+1. In the Instagram app, make the account a **professional** account
+   (Business or Creator). Settings → Account type and tools.
+2. At [developers.facebook.com](https://developers.facebook.com/apps/),
+   create an app, add the **Instagram** product, and choose **API setup with
+   Instagram login**. Under "Generate access tokens", add the account as an
+   Instagram tester, then accept the invite in the Instagram app (Settings →
+   Apps and websites → Tester invites).
+3. Click **Generate token** next to the account and copy the long-lived token
+   it returns (valid 60 days).
+4. Set `INSTAGRAM_ACCESS_TOKEN` (and optionally `INSTAGRAM_HANDLE`) in Vercel
+   → Settings → Environment Variables, and redeploy. Locally, put them in
+   `.env.local`.
+5. Verify with `node scripts/instagram-token.mjs check`.
+
+Long-lived tokens expire 60 days after they were last refreshed. Run
+`node scripts/instagram-token.mjs refresh` at least monthly and paste the
+printed token into the environment variable. Displaying the account's own
+posts needs no Meta app review; the app can stay in development mode.
+
+To add another platform, implement `SocialProvider` in
+`src/lib/social/providers/` and register it in `getSocialProvider()`.
 
 ## Colour palette
 

@@ -2,8 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // No remote images yet: all imagery is IMAGE_PLACEHOLDER blocks until brand
-  // photography exists. Add `images.remotePatterns` here when a CDN is chosen.
+  images: {
+    // Site imagery is local (IMAGE_PLACEHOLDER blocks until brand photography
+    // exists). Remote images are the community feed's Instagram media.
+    remotePatterns: [
+      { protocol: "https", hostname: "**.cdninstagram.com" },
+      { protocol: "https", hostname: "**.fbcdn.net" },
+      // A local Graph API mock in development (see README, Community feed).
+      ...(process.env.NODE_ENV === "development"
+        ? [{ protocol: "http" as const, hostname: "localhost" }]
+        : []),
+    ],
+    // The optimizer refuses private IPs (SSRF guard). Development only, for the mock above.
+    dangerouslyAllowLocalIP: process.env.NODE_ENV === "development",
+  },
   async redirects() {
     return [
       /*
