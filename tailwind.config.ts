@@ -17,9 +17,8 @@ import {
  *
  * Colour: every utility reads a CSS custom property emitted by the palette
  * plugin at the bottom of this file (see src/config/design-tokens.ts). The
- * five candidate palettes are selected by `data-palette` on <html>; the
- * default is also written to :root. No hex values live here or in any
- * component — only in design-tokens.ts.
+ * palette is written to :root and selected by `data-palette` on <html>. No
+ * hex values live here or in any component — only in design-tokens.ts.
  *
  * Utility → token map:
  *   bg-base / border-base / text-on-*      --bg
@@ -54,7 +53,7 @@ const fluid = (minPx: number, maxPx: number, minVw = 375, maxVw = 1280) => {
 /** A colour utility that reads a palette variable and supports `/opacity` modifiers. */
 const token = (name: string) => `rgb(var(--${name}-rgb) / <alpha-value>)`;
 
-/** Emits the five palettes as CSS custom-property sets on :root / [data-palette]. */
+/** Emits each palette as a CSS custom-property set on :root / [data-palette]. */
 const palettePlugin = plugin(({ addBase }) => {
   const rules: Record<string, Record<string, string>> = {};
   for (const id of paletteOrder) {

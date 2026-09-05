@@ -1,6 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { DevTools } from "@/components/dev/DevTools";
 import { MotionProvider } from "@/components/motion/MotionProvider";
 import { defaultPalette, palettes } from "@/config/design-tokens";
 import { siteConfig } from "@/config/site";
@@ -40,15 +39,11 @@ export default function RootLayout({
     <html
       lang="en"
       data-palette={defaultPalette}
-      // The development palette switcher changes data-palette before hydration.
-      suppressHydrationWarning
       className={`${sans.variable} ${serif.variable}`}
       data-scroll-behavior="smooth"
       style={{ ["--header-h" as string]: siteConfig.announcement ? "7.25rem" : "4.5rem" }}
     >
       <body className="flex min-h-screen flex-col">
-        {/* Development only: palette switcher + ?palette= reader. Renders nothing in production builds. */}
-        <DevTools />
         <noscript>
           {/* Without JS the FadeUp wrappers never animate in; show them. */}
           <style>{`[data-fade-up]{opacity:1!important;transform:none!important}`}</style>

@@ -39,11 +39,10 @@ src/
     ui/           primitives: Container, CTAButton, Eyebrow, ImagePlaceholder
     layout/       Navbar, Footer, SiteShell
     landing/      landing page sections + ImageSlot, Unverified, WaitlistForm
-    dev/          development-only tooling (palette switcher)
     motion/       FadeUp, MotionProvider
     sections/     SectionWrapper (bg alternation + padding rhythm)
     home/         homepage sections
-  config/         design tokens (five palettes), image manifests, site config
+  config/         design tokens (colour palette), image manifests, site config
   content/        page copy, kept out of JSX for review
   lib/            fonts, analytics, UTM capture, waitlist, small helpers
 scripts/
@@ -51,13 +50,12 @@ scripts/
   unverified-list.mjs   lists every <Unverified> claim on the landing page
 ```
 
-## Colour palettes
+## Colour palette
 
-Five candidate palettes live in `src/config/design-tokens.ts` and are
+The palette (A · Warm Clay) lives in `src/config/design-tokens.ts` and is
 documented in `PALETTES.md`. Every colour on the site is a CSS custom
-property selected by `data-palette` on `<html>`; `defaultPalette` is the one
-default to change. In development a floating switcher cycles them and mirrors
-the choice into `?palette=`; neither exists in production builds.
+property written to `:root`, so no component carries a hex value. To trial
+another scheme, add an entry there and point `defaultPalette` at it.
 
 ## Ad landing page
 

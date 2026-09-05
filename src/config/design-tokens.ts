@@ -1,26 +1,29 @@
 /**
- * Soha colour palettes — the single source of truth.
+ * Soha colour palette — the single source of truth.
  *
- * Five candidate schemes are defined here. Each becomes a set of CSS custom
- * properties (see the palette plugin in tailwind.config.ts) selected by a
- * `data-palette` attribute on <html>. Every Tailwind colour utility on the
- * site reads from those variables, so no component carries a raw hex value
- * and switching the whole site to another scheme is changing
- * `defaultPalette` below. PALETTES.md documents the five with notes.
+ * Palette A · Warm Clay was chosen on 2026-09-05 from five candidates; the
+ * other four were removed (see PALETTES.md for the record). The palette
+ * becomes a set of CSS custom properties via the palette plugin in
+ * tailwind.config.ts, written to :root and selected by `data-palette` on
+ * <html>. Every Tailwind colour utility reads those variables, so no
+ * component carries a raw hex value.
+ *
+ * To trial another scheme: add an entry to `palettes` and `paletteOrder`,
+ * then point `defaultPalette` at it. Nothing else changes.
  *
  * Token roles:
  *   --bg           page ground
  *   --surface      alternating sections, cards, fields
  *   --accent-soft  tints, dividers, placeholder blocks
- *   --accent       small emphasis: stars, stat marks, verified ticks
+ *   --accent       small emphasis: stars, check marks, timeline dots
  *   --primary      buttons, dark panels, headline colour on tinted panels
  *   --ink          text
  *
- * Two tokens are derived from the six above so they follow each palette
+ * Two tokens are derived from the six above so they follow the palette
  * automatically: `ink-muted` (secondary text) and `primary-hover`.
  */
 
-export type PaletteId = "a" | "b" | "c" | "d" | "e";
+export type PaletteId = "a";
 
 export type PaletteTokens = {
   bg: string;
@@ -44,7 +47,7 @@ export const palettes: Record<PaletteId, Palette> = {
   a: {
     id: "a",
     name: "Warm Clay",
-    note: "The current brand direction. Warm, earthy, apothecary.",
+    note: "The brand direction. Warm, earthy, apothecary.",
     tokens: {
       bg: "#F7F3EC",
       surface: "#EFE7DA",
@@ -54,73 +57,17 @@ export const palettes: Record<PaletteId, Palette> = {
       ink: "#2E2320",
     },
   },
-  b: {
-    id: "b",
-    name: "Clinical Calm",
-    note: "Close to what the competitors use. Cool, soft, medical. Safe and proven in this category, but it looks like everyone else.",
-    tokens: {
-      bg: "#FBFBFD",
-      surface: "#F0F2F9",
-      accentSoft: "#C7CDE8",
-      accent: "#6B76C4",
-      primary: "#3B3F80",
-      ink: "#1F2233",
-    },
-  },
-  c: {
-    id: "c",
-    name: "Sage Apothecary",
-    note: "Muted green and deep ink. Calm and botanical without tipping into wellness cliché. Reads less gendered than most of the category.",
-    tokens: {
-      bg: "#F6F5F0",
-      surface: "#E8EAE1",
-      accentSoft: "#B9C4B0",
-      accent: "#7A8B6F",
-      primary: "#2C3A34",
-      ink: "#23291F",
-    },
-  },
-  d: {
-    id: "d",
-    name: "Ink & Amber",
-    note: "Near-black type on warm off-white, amber only as accent. High contrast and editorial. The most differentiated of the five and the most dependent on good photography.",
-    tokens: {
-      bg: "#FAF8F5",
-      surface: "#F0EBE3",
-      accentSoft: "#E0C9A0",
-      accent: "#C4873D",
-      primary: "#1C1A17",
-      ink: "#1C1A17",
-    },
-  },
-  e: {
-    id: "e",
-    name: "Plum & Blush",
-    note: "Deep plum with dusty rose. Warmest and most traditionally feminine. Risks looking like a supplement brand if the spacing isn't disciplined.",
-    tokens: {
-      bg: "#FCF8F8",
-      surface: "#F5EBEC",
-      accentSoft: "#DCC0C6",
-      accent: "#A85C72",
-      primary: "#4A2231",
-      ink: "#2B1A20",
-    },
-  },
 };
 
-/** Order the development switcher cycles through. */
-export const paletteOrder: readonly PaletteId[] = ["a", "b", "c", "d", "e"];
+/** Every palette the plugin emits, in order. */
+export const paletteOrder: readonly PaletteId[] = ["a"];
 
 /**
- * THE ONE DEFAULT. Change this letter and every page switches scheme.
- * The <html> element carries it as `data-palette`, and the matching token
- * set is also written to :root so the site is styled before hydration.
+ * THE ONE DEFAULT. The <html> element carries it as `data-palette`, and the
+ * matching token set is also written to :root so the site is styled before
+ * hydration.
  */
 export const defaultPalette: PaletteId = "a";
-
-export function isPaletteId(value: unknown): value is PaletteId {
-  return typeof value === "string" && value in palettes;
-}
 
 /* ---- colour helpers (build-time only; used by the Tailwind plugin) ------ */
 
@@ -205,7 +152,7 @@ export function cssVariablesFor(id: PaletteId): Record<string, string> {
 }
 
 /**
- * Development-tooling colour, deliberately outside the palettes: the yellow
+ * Development-tooling colour, deliberately outside the palette: the yellow
  * highlight behind <Unverified> claims. Never used by product UI.
  */
 export const devTokens = {
