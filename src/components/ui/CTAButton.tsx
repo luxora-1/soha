@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type Variant = "primary" | "secondary";
+type Variant = "primary" | "secondary" | "inverse";
 type Size = "md" | "sm";
 
 const base =
@@ -17,6 +17,8 @@ const variants: Record<Variant, string> = {
   primary: "bg-brand text-on-brand hover:bg-brand-hover active:bg-brand-hover",
   secondary:
     "border border-ink bg-transparent text-ink hover:bg-ink/5 active:bg-ink/10",
+  /** Light button for dark panels (bg-ink, bg-primary). */
+  inverse: "bg-base text-ink hover:bg-alt active:bg-alt focus-visible:outline-base",
 };
 
 type CommonProps = {

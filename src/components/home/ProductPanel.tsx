@@ -50,7 +50,7 @@ export function ProductPanel() {
                 ))}
               </ul>
               <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
-                <CTAButton href={siteConfig.cta.href} className="w-full bg-base text-ink hover:bg-alt active:bg-alt sm:w-auto">
+                <CTAButton href={siteConfig.cta.href} variant="inverse" className="w-full sm:w-auto">
                   {siteConfig.cta.label}
                 </CTAButton>
                 <Link

@@ -33,7 +33,7 @@ export function ProductHero() {
                 ))}
               </ul>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
-                <CTAButton href={siteConfig.cta.href} className="bg-base text-ink hover:bg-alt active:bg-alt">
+                <CTAButton href={siteConfig.cta.href} variant="inverse">
                   {siteConfig.cta.label}
                 </CTAButton>
                 <p className="text-caption text-on-ink/75">{siteConfig.cta.helper}</p>

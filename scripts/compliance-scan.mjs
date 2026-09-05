@@ -35,6 +35,7 @@ export const MARKERS = [
   ["LEGAL_PLACEHOLDER", "Disclaimer / disclosure / policy wording pending legal review."],
   ["COPY_DRAFT", "Copy written by the developer, not supplied by the client. Needs brand + legal sign-off."],
   ["IMAGE_PLACEHOLDER", "Solid block standing in for brand photography. Swap for real imagery with alt text."],
+  ["<Unverified note=", "A claim on the ad landing page rendered inside <Unverified>: a placeholder figure or an unsourced statement. Replace with a verified figure and remove the wrapper; UNVERIFIED.md is the per-claim checklist. Production builds fail while any remain."],
 ];
 
 /**
@@ -56,7 +57,14 @@ const SKIP_DIRS = new Set(["node_modules", ".next", ".git", "out", "build", "scr
 const SKIP_FILES = new Set(["package-lock.json"]);
 const BINARY_EXT = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".avif", ".ico", ".woff", ".woff2", ".ttf", ".otf", ".pdf", ".zip", ".mp4", ".mp3", ".webm"]);
 /** Files allowed to *name* the markers (they document them). Still scanned for forbidden phrases. */
-const MARKER_DOCS = new Set(["scripts/compliance-scan.mjs", "COMPLIANCE_NOTES.md", "README.md"]);
+const MARKER_DOCS = new Set([
+  "scripts/compliance-scan.mjs",
+  "scripts/unverified-list.mjs",
+  "COMPLIANCE_NOTES.md",
+  "UNVERIFIED.md",
+  "README.md",
+  "src/components/landing/Unverified.tsx",
+]);
 
 function* walk(dir) {
   for (const name of readdirSync(dir)) {

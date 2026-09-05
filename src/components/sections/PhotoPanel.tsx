@@ -29,7 +29,7 @@ export function PhotoPanel({ slot, headline, subhead, headingId, secondary }: Ph
             </h2>
             {subhead && <p className="mt-4 max-w-measure text-body-lg text-on-ink/85">{subhead}</p>}
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:gap-4">
-              <CTAButton href={siteConfig.cta.href} className="bg-base text-ink hover:bg-alt active:bg-alt">
+              <CTAButton href={siteConfig.cta.href} variant="inverse">
                 {siteConfig.cta.label}
               </CTAButton>
               {secondary && (

@@ -1,11 +1,8 @@
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
-import { DrawerProductCard } from "@/components/layout/DrawerProductCard";
-import { Footer } from "@/components/layout/Footer";
-import { Navbar } from "@/components/layout/Navbar";
+import { DevTools } from "@/components/dev/DevTools";
 import { MotionProvider } from "@/components/motion/MotionProvider";
-import { palette } from "@/config/design-tokens";
+import { defaultPalette, palettes } from "@/config/design-tokens";
 import { siteConfig } from "@/config/site";
 import { sans, serif } from "@/lib/fonts";
 import "./globals.css";
@@ -28,34 +25,35 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: palette.base,
+  themeColor: palettes[defaultPalette].tokens.bg,
 };
 
+/**
+ * Root layout: document, fonts, colour palette, motion defaults, analytics.
+ * Page chrome lives one level down — (site) wraps the marketing pages in the
+ * full navbar and footer, (landing) gives ad landing pages a stripped shell.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
+      data-palette={defaultPalette}
+      // The development palette switcher changes data-palette before hydration.
+      suppressHydrationWarning
       className={`${sans.variable} ${serif.variable}`}
       data-scroll-behavior="smooth"
       style={{ ["--header-h" as string]: siteConfig.announcement ? "7.25rem" : "4.5rem" }}
     >
       <body className="flex min-h-screen flex-col">
+        {/* Development only: palette switcher + ?palette= reader. Renders nothing in production builds. */}
+        <DevTools />
         <noscript>
           {/* Without JS the FadeUp wrappers never animate in; show them. */}
           <style>{`[data-fade-up]{opacity:1!important;transform:none!important}`}</style>
         </noscript>
-        <MotionProvider>
-          <a href="#main" className="skip-link">
-            Skip to content
-          </a>
-          <Navbar announcement={<AnnouncementBar />} drawerExtra={<DrawerProductCard />} />
-          <main id="main" className="flex-1">
-            {children}
-          </main>
-          <Footer />
-        </MotionProvider>
+        <MotionProvider>{children}</MotionProvider>
         {/* Vercel Analytics: no cookies, stays inside the Vercel account. Off until launch. */}
         {process.env.NEXT_PUBLIC_ANALYTICS === "on" && <Analytics />}
       </body>

@@ -71,7 +71,22 @@
   input,
   select,
   textarea {
-    accent-color: theme("colors.brand.DEFAULT");
+    accent-color: rgb(var(--primary-rgb));
+  }
+
+  /*
+    Palette switching: the five token sets are emitted by the palette plugin
+    in tailwind.config.ts (see src/config/design-tokens.ts). Changing
+    `data-palette` on <html> restyles the whole site; a short colour
+    transition keeps the development switcher from flashing.
+  */
+  html[data-palette] body {
+    transition: background-color 200ms ease, color 200ms ease;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html[data-palette] body {
+      transition: none;
+    }
   }
 }
 

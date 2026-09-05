@@ -1,5 +1,12 @@
 import type { Config } from "tailwindcss";
-import { palette } from "./src/config/design-tokens";
+import plugin from "tailwindcss/plugin";
+import {
+  cssVariablesFor,
+  defaultPalette,
+  devTokens,
+  paletteOrder,
+  rgbTriplet,
+} from "./src/config/design-tokens";
 
 /**
  * Soha design system.
@@ -8,14 +15,29 @@ import { palette } from "./src/config/design-tokens";
  * Aesthetic reference: modern women's-health DTC — elevated, warm, editorial.
  * Not a medical portal, not a pharmacy site, not crunchy-wellness.
  *
- * Rules encoded here:
- *  - Warm-neutral palette only. No pure white, no pure black, no clinical
- *    blues, no wellness greens. Tailwind's default palette is deliberately
- *    removed so those colours cannot be reached by accident.
- *  - Serif headings at weight 400 with tight tracking; geometric sans body.
+ * Colour: every utility reads a CSS custom property emitted by the palette
+ * plugin at the bottom of this file (see src/config/design-tokens.ts). The
+ * five candidate palettes are selected by `data-palette` on <html>; the
+ * default is also written to :root. No hex values live here or in any
+ * component — only in design-tokens.ts.
+ *
+ * Utility → token map:
+ *   bg-base / border-base / text-on-*      --bg
+ *   bg-alt, bg-surface                     --surface
+ *   accent-soft                            --accent-soft
+ *   accent                                 --accent
+ *   brand, primary (+ -hover)              --primary (+ derived hover)
+ *   ink, ink-muted                         --ink (+ derived muted)
+ *
+ * Other rules encoded here:
+ *  - Tailwind's default palette is removed so `bg-white`, `text-blue-500`
+ *    etc. simply do not exist.
+ *  - Serif headings at weight 400 with tight tracking; sans body.
  *  - Fluid type scale (mobile → desktop) via clamp(); body never drops
  *    below 16px for the 45+ audience.
- *  - Borders instead of shadows. Cards are rounded-2xl, buttons rounded-full.
+ *  - Cards are rounded-2xl / rounded-tile, buttons rounded-full. The
+ *    marketing pages use hairline borders; the landing page uses soft
+ *    shadows (shadow-soft) and no borders.
  */
 
 /**
@@ -29,6 +51,22 @@ const fluid = (minPx: number, maxPx: number, minVw = 375, maxVw = 1280) => {
   return `clamp(${r(minPx / 16)}rem, ${r(intercept / 16)}rem + ${r(slope * 100)}vw, ${r(maxPx / 16)}rem)`;
 };
 
+/** A colour utility that reads a palette variable and supports `/opacity` modifiers. */
+const token = (name: string) => `rgb(var(--${name}-rgb) / <alpha-value>)`;
+
+/** Emits the five palettes as CSS custom-property sets on :root / [data-palette]. */
+const palettePlugin = plugin(({ addBase }) => {
+  const rules: Record<string, Record<string, string>> = {};
+  for (const id of paletteOrder) {
+    const selector =
+      id === defaultPalette ? `:root, :root[data-palette="${id}"]` : `:root[data-palette="${id}"]`;
+    rules[selector] = cssVariablesFor(id);
+  }
+  // Development-only marker colour; not part of any palette.
+  rules[":root"] = { "--unverified-rgb": rgbTriplet(devTokens.unverified) };
+  addBase(rules);
+});
+
 const config: Config = {
   content: ["./src/**/*.{ts,tsx,mdx}"],
   theme: {
@@ -39,58 +77,75 @@ const config: Config = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      "accent-soft": palette.accentSoft,
+      inherit: "inherit",
+      "accent-soft": token("accent-soft"),
+      accent: token("accent"),
       ink: {
-        DEFAULT: palette.ink,
-        muted: palette.inkMuted,
+        DEFAULT: token("ink"),
+        muted: token("ink-muted"),
       },
+      /** `brand` is the original utility name; `primary` is the token name. Same variable. */
       brand: {
-        DEFAULT: palette.brand,
-        hover: palette.brandHover,
+        DEFAULT: token("primary"),
+        hover: token("primary-hover"),
       },
+      primary: {
+        DEFAULT: token("primary"),
+        hover: token("primary-hover"),
+      },
+      /** Yellow highlight behind <Unverified> claims. Development tooling only. */
+      unverified: token("unverified"),
     },
     /**
      * `bg-base` / `bg-alt` live only on backgroundColor so that `text-base`
      * keeps its Tailwind meaning (16px font size) instead of colliding with a
-     * colour called "base".
+     * colour called "base". `surface` is the token-named twin of `alt`.
      */
     backgroundColor: ({ theme }) => ({
       ...theme("colors"),
-      base: palette.base,
-      alt: palette.alt,
+      base: token("bg"),
+      alt: token("surface"),
+      surface: token("surface"),
     }),
     textColor: ({ theme }) => ({
       ...theme("colors"),
-      /** Light text for use on `bg-brand` and `bg-ink` surfaces. */
-      "on-brand": palette.base,
-      "on-ink": palette.base,
+      /** Light text for use on `bg-brand` / `bg-primary` and `bg-ink` surfaces. */
+      "on-brand": token("bg"),
+      "on-primary": token("bg"),
+      "on-ink": token("bg"),
     }),
     borderColor: ({ theme }) => ({
       ...theme("colors"),
-      DEFAULT: palette.accentSoft,
-      base: palette.base,
+      DEFAULT: token("accent-soft"),
+      base: token("bg"),
     }),
     ringColor: ({ theme }) => ({
       ...theme("colors"),
-      DEFAULT: palette.brand,
+      DEFAULT: token("primary"),
     }),
     ringOffsetColor: ({ theme }) => ({
       ...theme("colors"),
-      DEFAULT: palette.base,
-      base: palette.base,
-      alt: palette.alt,
+      DEFAULT: token("bg"),
+      base: token("bg"),
+      alt: token("surface"),
     }),
     outlineColor: ({ theme }) => ({
       ...theme("colors"),
-      DEFAULT: palette.brand,
-      /** Light focus ring for dark surfaces (footer). */
-      base: palette.base,
-      alt: palette.alt,
+      DEFAULT: token("primary"),
+      /** Light focus ring for dark surfaces (footer, dark panels). */
+      base: token("bg"),
+      alt: token("surface"),
     }),
-    /** Almost no shadows. One barely-there option, used sparingly if at all. */
+    /**
+     * Shadows are ink-tinted so they follow the palette. `subtle` is the
+     * marketing pages' barely-there option; `soft` and `lift` are the landing
+     * page's card shadows (it uses no borders).
+     */
     boxShadow: {
       none: "none",
-      subtle: "0 1px 2px 0 rgb(42 39 36 / 0.04)",
+      subtle: "0 1px 2px 0 rgb(var(--ink-rgb) / 0.04)",
+      soft: "0 1px 2px rgb(var(--ink-rgb) / 0.04), 0 18px 40px -24px rgb(var(--ink-rgb) / 0.22)",
+      lift: "0 2px 4px rgb(var(--ink-rgb) / 0.05), 0 28px 56px -28px rgb(var(--ink-rgb) / 0.3)",
     },
     extend: {
       fontFamily: {
@@ -113,6 +168,11 @@ const config: Config = {
           fluid(40, 68),
           { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" },
         ],
+        /** display — 44px → 80px, serif. Landing hero only. */
+        display: [
+          fluid(44, 80),
+          { lineHeight: "1.04", letterSpacing: "-0.025em", fontWeight: "400" },
+        ],
         /** h2 — 30px → 44px, serif, weight 400. */
         h2: [
           fluid(30, 44),
@@ -120,6 +180,8 @@ const config: Config = {
         ],
         /** h3 — 20px → 24px, sans, weight 500. */
         h3: [fluid(20, 24), { lineHeight: "1.3", fontWeight: "500" }],
+        /** stat — 48px → 72px, serif numerals for outcome tiles and prices. */
+        stat: [fluid(48, 72), { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "400" }],
         /** body — 16px → 18px, sans, line-height 1.65. Never below 16px. */
         body: [fluid(16, 18), { lineHeight: "1.65" }],
         /** body-lg — 18px → 20px, for subheads under h1/h2. */
@@ -174,18 +236,20 @@ const config: Config = {
         tile: "1.75rem",
       },
       backgroundImage: {
-        /** Select chevron, drawn in ink-muted. Used with appearance-none selects. */
-        chevron: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'><path fill='none' stroke='${encodeURIComponent(palette.inkMuted)}' stroke-width='1.5' d='M3 6l5 5 5-5'/></svg>")`,
+        /** Select chevron, drawn in the palette's muted ink (one data-URI per palette, see design-tokens.ts). */
+        chevron: "var(--chevron)",
         /** Film grain overlay for tiles and panels (use with mix-blend + low opacity). */
         grain: `url("data:image/svg+xml;utf8,${encodeURIComponent(
           "<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(#n)'/></svg>",
         )}")`,
         /** Warm placeholder gradient for image tiles. */
-        "tile-placeholder": `linear-gradient(160deg, ${palette.accentSoft} 0%, #D8C7B6 45%, ${palette.brand} 130%)`,
-        /** Bottom-up fade so cream text reads over any photo. */
-        "tile-fade": `linear-gradient(to top, rgb(42 39 36 / 0.82) 0%, rgb(42 39 36 / 0.35) 45%, rgb(42 39 36 / 0) 75%)`,
-        /** Soft warm glow for dark panels. */
-        glow: `radial-gradient(55% 60% at 72% 35%, rgb(124 106 90 / 0.55) 0%, rgb(124 106 90 / 0) 70%)`,
+        "tile-placeholder":
+          "linear-gradient(160deg, rgb(var(--accent-soft-rgb)) 0%, rgb(var(--accent-rgb) / 0.55) 45%, rgb(var(--primary-rgb)) 130%)",
+        /** Bottom-up fade so light text reads over any photo. */
+        "tile-fade":
+          "linear-gradient(to top, rgb(var(--ink-rgb) / 0.82) 0%, rgb(var(--ink-rgb) / 0.35) 45%, rgb(var(--ink-rgb) / 0) 75%)",
+        /** Soft glow for dark panels. */
+        glow: "radial-gradient(55% 60% at 72% 35%, rgb(var(--primary-rgb) / 0.55) 0%, rgb(var(--primary-rgb) / 0) 70%)",
       },
       keyframes: {
         "fade-up": {
@@ -203,7 +267,7 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [palettePlugin],
 };
 
 export default config;

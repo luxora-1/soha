@@ -28,20 +28,55 @@ npm run launch-check  # launch gate: fails while any marker remains
 
 ```
 src/
-  app/            routes (App Router), global styles, metadata
+  app/
+    layout.tsx         document, fonts, colour palette, analytics
+    (site)/            marketing pages, wrapped in the full navbar + footer
+    (landing)/         standalone ad landing pages, stripped header + footer
+      combination-cream/   the Estrada landing page (/estradiol redirects here)
+    api/               intake and waitlist stubs
   components/
     StepCard.tsx  numbered step card (composes ui + motion)
     ui/           primitives: Container, CTAButton, Eyebrow, ImagePlaceholder
-    layout/       Navbar, Footer
+    layout/       Navbar, Footer, SiteShell
+    landing/      landing page sections + ImageSlot, Unverified, WaitlistForm
+    dev/          development-only tooling (palette switcher)
     motion/       FadeUp, MotionProvider
     sections/     SectionWrapper (bg alternation + padding rhythm)
     home/         homepage sections
-  config/         design tokens, site config (nav, CTA, trust bar, footer)
+  config/         design tokens (five palettes), image manifests, site config
   content/        page copy, kept out of JSX for review
-  lib/            fonts, small helpers
+  lib/            fonts, analytics, UTM capture, waitlist, small helpers
 scripts/
   compliance-scan.mjs   lists every placeholder / claim marker by file:line
+  unverified-list.mjs   lists every <Unverified> claim on the landing page
 ```
+
+## Colour palettes
+
+Five candidate palettes live in `src/config/design-tokens.ts` and are
+documented in `PALETTES.md`. Every colour on the site is a CSS custom
+property selected by `data-palette` on `<html>`; `defaultPalette` is the one
+default to change. In development a floating switcher cycles them and mirrors
+the choice into `?palette=`; neither exists in production builds.
+
+## Ad landing page
+
+`/combination-cream` is a standalone page for paid traffic. It is not in the
+navigation. Its sections are in `src/components/landing/`, its copy in
+`src/content/landing.ts`, and its images resolve to
+`public/images/landing/{id}.{ext}` (shot list in that folder's README).
+
+- Every factual claim is wrapped in `<Unverified>`: highlighted in
+  development and on Vercel Preview, a build error in any other production
+  build. `UNVERIFIED.md` is the checklist; regenerate it with
+  `node scripts/unverified-list.mjs --update`. `ALLOW_UNVERIFIED=1 npm run build`
+  lets a placeholder build through for a local check.
+- The CTA is a waitlist email capture. `src/lib/waitlist/submit.ts` is the
+  handler to point at a real endpoint; today it posts to `/api/waitlist`,
+  which logs a masked line. UTM parameters are captured on arrival and sent
+  with the submission and the `waitlist_submit` event.
+- Events (`landing_view`, `waitlist_submit`) leave through
+  `src/lib/analytics.ts`, gated by `NEXT_PUBLIC_ANALYTICS=on` like page views.
 
 ## Before launch
 
@@ -52,4 +87,7 @@ scripts/
 - Set `NEXT_PUBLIC_SITE_URL` in Vercel so absolute metadata URLs are correct.
 - Set `NEXT_PUBLIC_ANALYTICS=on` in Vercel to enable Vercel Analytics at launch.
 - Photos: drop numbered files into `public/images/` (see the README there);
-  an optional hero clip goes in `public/video/01.mp4`.
+  an optional hero clip goes in `public/video/01.mp4`. Landing page images go
+  in `public/images/landing/` by slot id.
+- Resolve every item in `UNVERIFIED.md`; the landing page will not build for
+  production until they are gone.
