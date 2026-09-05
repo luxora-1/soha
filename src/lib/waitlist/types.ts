@@ -1,3 +1,4 @@
+import type { QuizAnswers } from "@/content/quiz";
 import type { UtmParams } from "@/lib/utm";
 
 /** What the waitlist form sends. The contract between the form, the API route, and any list provider. */
@@ -12,6 +13,8 @@ export type WaitlistSubmission = {
   referrer?: string;
   /** Client-generated key, stable across retries of the same submission, for de-duplication downstream. */
   idempotencyKey?: string;
+  /** Quiz answers when the signup came through the quiz: question key → option keys. */
+  quiz?: QuizAnswers;
 };
 
 export type WaitlistReceipt = {

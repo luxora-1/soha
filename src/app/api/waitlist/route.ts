@@ -82,6 +82,7 @@ async function deliver(
     utm: submission.utm,
     referrer: submission.referrer ?? null,
     idempotencyKey: submission.idempotencyKey ?? null,
+    quiz: submission.quiz ?? null,
     submittedAt: context.submittedAt,
   });
   return { id, receivedAt: new Date().toISOString() };

@@ -1,39 +1,53 @@
+import { Accordion } from "@/components/landing/Accordion";
+import { Carousel } from "@/components/landing/Carousel";
+import { CheckIcon, TruckIcon } from "@/components/landing/icons";
 import { ImageSlot } from "@/components/landing/ImageSlot";
-import { CheckIcon, StarIcon } from "@/components/landing/icons";
+import { ProductPill } from "@/components/landing/ProductPill";
+import { QuizCTA } from "@/components/landing/QuizCTA";
+import { RatingLine } from "@/components/landing/RatingLine";
 import { Unverified } from "@/components/landing/Unverified";
-import { WaitlistForm } from "@/components/landing/WaitlistForm";
 import { Container } from "@/components/ui/Container";
 import { slot } from "@/config/landing-images";
-import { LANDING_PAGE_ID, landingContent } from "@/content/landing";
+import { landingContent } from "@/content/landing";
 
 /**
- * Hero. On phones the product shot leads, then the review badge, headline,
- * subhead, price, primary CTA (the waitlist form, collapsed to a button),
- * delivery estimate and the six-line checklist, so the checklist sits
- * directly above the certification strip that follows. From lg the copy
- * and the images sit side by side.
+ * Hero. On phones the photo carousel leads, then the product pill and
+ * rating, headline, subhead, the "no patch, no pill" bullets, price, the
+ * quiz button, delivery line, the six-line checklist, and three short
+ * answers — so the checklist sits directly above the certification strip
+ * that follows. From lg the copy and the carousel sit side by side.
  */
 export function Hero() {
   const { hero } = landingContent;
 
   return (
     <section aria-labelledby="hero-heading" className="bg-base">
-      <Container className="pb-14 pt-6 md:pt-10 lg:pb-20 lg:pt-16">
-        <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-12">
-          <div className="lg:col-span-6 motion-safe:animate-fade-up motion-safe:[animation-delay:120ms] lg:[animation-delay:0ms]">
-            <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-base text-ink">
-              <span className="flex items-center gap-0.5 text-accent" aria-hidden="true">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <StarIcon key={i} />
-                ))}
-              </span>
-              <span>
-                <Unverified note={hero.rating.value.verify}>{hero.rating.value.text}</Unverified> {hero.rating.outOf}
-              </span>
-              <span className="text-ink-muted">
-                <Unverified note={hero.rating.count.verify}>{hero.rating.count.text}</Unverified> {hero.rating.countLabel}
-              </span>
-            </p>
+      <Container className="pb-12 pt-4 md:pt-8 lg:pb-20 lg:pt-12">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-12">
+          <div className="lg:order-2 lg:col-span-6 motion-safe:animate-fade-up">
+            <Carousel
+              label={hero.slidesLabel}
+              autoplayMs={5000}
+              itemClassName="w-full"
+              items={hero.slides.map((id, i) => (
+                <div key={id} className="relative aspect-[4/5] overflow-hidden rounded-tile bg-surface shadow-soft">
+                  <ImageSlot
+                    {...slot(id)}
+                    fill
+                    priority={i === 0}
+                    fit={id === "hero-product" ? "contain" : "cover"}
+                    sizes="(min-width: 1024px) 44vw, 100vw"
+                  />
+                </div>
+              ))}
+            />
+          </div>
+
+          <div className="lg:col-span-6 motion-safe:animate-fade-up motion-safe:[animation-delay:120ms]">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+              <ProductPill name={hero.pill.name} form={hero.pill.form} />
+              <RatingLine />
+            </div>
 
             <h1 id="hero-heading" className="mt-6 text-display">
               {hero.headline.lead} <em className="italic">{hero.headline.accent}</em>
@@ -45,27 +59,37 @@ export function Hero() {
               {hero.subhead.after}
             </p>
 
-            <p className="mt-8 flex items-baseline gap-2 text-body text-ink-muted">
+            <ul className="mt-5 flex flex-wrap gap-x-4 gap-y-1.5 text-base font-medium text-ink">
+              {hero.bullets.map((bullet) => {
+                const text = typeof bullet === "string" ? bullet : bullet.text;
+                return (
+                  <li key={text} className="flex items-center gap-2">
+                    <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+                    {typeof bullet === "string" ? bullet : <Unverified note={bullet.verify}>{bullet.text}</Unverified>}
+                  </li>
+                );
+              })}
+            </ul>
+
+            <p className="mt-7 flex items-baseline gap-2 text-body text-ink-muted">
               <span>{hero.price.lead}</span>
               <Unverified note={hero.price.amount.verify}>
-                <span className="font-serif text-[2.5rem] leading-none tracking-heading text-ink tabular-nums">
-                  {hero.price.amount.text}
-                </span>
+                <span className="font-serif text-[2.5rem] leading-none tracking-heading text-ink tabular-nums">{hero.price.amount.text}</span>
               </Unverified>
               <span>{hero.price.per}</span>
             </p>
 
-            <WaitlistForm
-              page={LANDING_PAGE_ID}
-              location="hero"
-              label={hero.cta}
-              helper={hero.ctaHelper}
-              collapsed
-              tone="base"
-              className="mt-6"
-            />
-
-            <p className="mt-6 text-base text-ink-muted">
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+              <QuizCTA location="hero" className="w-full sm:w-auto" />
+              <a href="#waitlist" className="inline-flex min-h-tap items-center justify-center text-base text-ink underline underline-offset-4">
+                {hero.secondary}
+              </a>
+            </div>
+            <p className="mt-3 text-base text-ink-muted">
+              <Unverified note={hero.cancel.verify}>{hero.cancel.text}</Unverified>
+            </p>
+            <p className="mt-4 flex items-center gap-2 font-sans text-eyebrow uppercase tracking-eyebrow text-ink-muted">
+              <TruckIcon className="h-5 w-5 text-accent" />
               <Unverified note={hero.delivery.verify}>{hero.delivery.text}</Unverified>
             </p>
 
@@ -77,28 +101,25 @@ export function Hero() {
                 </li>
               ))}
             </ul>
-          </div>
 
-          <div className="order-first lg:order-none lg:col-span-6 motion-safe:animate-fade-up lg:[animation-delay:120ms]">
-            <div className="relative pb-10 pr-4 md:pb-12 md:pr-8">
-              <ImageSlot
-                {...slot("hero-product")}
-                priority
-                sizes="(min-width: 1024px) 44vw, 100vw"
-                className="shadow-soft"
+            <div className="mt-8">
+              <Accordion
+                tone="base"
+                headingLevel={2}
+                label="About Estrada"
+                items={hero.accordion.map((item) => ({
+                  key: item.key,
+                  heading: item.title,
+                  body: <Unverified note={item.body.verify}>{item.body.text}</Unverified>,
+                }))}
               />
-              <div className="absolute bottom-0 right-0 w-[40%] max-w-[15rem]">
-                <ImageSlot
-                  {...slot("hero-lifestyle")}
-                  priority
-                  sizes="(min-width: 1024px) 18vw, 40vw"
-                  className="shadow-lift"
-                />
-              </div>
             </div>
+
+            <p className="mt-5 text-caption text-ink-muted">
+              <Unverified note={hero.footnote.verify}>{hero.footnote.text}</Unverified>
+            </p>
           </div>
         </div>
-
       </Container>
     </section>
   );

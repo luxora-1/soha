@@ -1,14 +1,16 @@
-import { ImageSlot } from "@/components/landing/ImageSlot";
+import { Carousel } from "@/components/landing/Carousel";
 import { CheckIcon } from "@/components/landing/icons";
+import { RatingLine } from "@/components/landing/RatingLine";
+import { SectionCTA } from "@/components/landing/SectionCTA";
 import { SectionHeading } from "@/components/landing/SectionHeading";
 import { Unverified } from "@/components/landing/Unverified";
+import { VideoSlot } from "@/components/landing/VideoSlot";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
-import { slot } from "@/config/landing-images";
 import { landingContent } from "@/content/landing";
 
 /**
- * Three testimonial cards: portrait, quote, name, verified tag. A swipeable
- * rail on phones, a grid from md.
+ * Testimonial carousel: portrait (a video, when one is dropped in), quote,
+ * name, verified tag, under the rating line.
  *
  * TESTIMONIAL_PLACEHOLDER: every quote, name and tag is a layout placeholder
  * rendered inside <Unverified>. Replace with approved testimonials.
@@ -18,18 +20,28 @@ export function Testimonials() {
 
   return (
     <SectionWrapper tone="alt" id="testimonials" labelledBy="testimonials-heading">
-      <SectionHeading id="testimonials-heading" tone="surface" align="center" headline={testimonials.headline} />
+      <SectionHeading
+        id="testimonials-heading"
+        tone="surface"
+        align="center"
+        headline={
+          <>
+            {testimonials.headline.lead} <em className="italic">{testimonials.headline.accent}</em>
+          </>
+        }
+        subhead={testimonials.intro}
+      />
+      <RatingLine className="mt-6 justify-center" />
 
-      <ul
-        aria-label="Testimonials"
-        className="-mx-6 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 scroll-px-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:mt-14 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:px-0"
-      >
-        {testimonials.items.map((item) => (
-          <li
-            key={item.slot}
-            className="flex w-[80%] shrink-0 snap-start flex-col rounded-tile bg-base p-4 shadow-soft md:w-auto md:p-5"
-          >
-            <ImageSlot {...slot(item.slot)} sizes="(min-width: 768px) 30vw, 80vw" className="rounded-card" />
+      <Carousel
+        className="mt-10 md:mt-14"
+        label={testimonials.carouselLabel}
+        bleed
+        itemClassName="w-[82%] sm:w-[60%] md:w-[calc((100%-3rem)/3)]"
+        controlsClassName="md:hidden"
+        items={testimonials.items.map((item) => (
+          <article key={item.slot} className="flex h-full flex-col rounded-tile bg-base p-4 shadow-soft md:p-5">
+            <VideoSlot id={item.slot} label={`${testimonials.videoLabel}: ${item.name}`} sizes="(min-width: 768px) 30vw, 80vw" />
             <blockquote className="mt-6 flex-1 font-serif text-[1.375rem] leading-snug tracking-heading text-ink">
               <Unverified note="testimonial quote">“{item.quote}”</Unverified>
             </blockquote>
@@ -42,9 +54,10 @@ export function Testimonials() {
                 <Unverified note="verified-patient status">{item.tag}</Unverified>
               </span>
             </p>
-          </li>
+          </article>
         ))}
-      </ul>
+      />
+      <SectionCTA location="testimonials" />
     </SectionWrapper>
   );
 }

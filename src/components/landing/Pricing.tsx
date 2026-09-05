@@ -1,12 +1,12 @@
 import { CheckIcon } from "@/components/landing/icons";
+import { QuizCTA } from "@/components/landing/QuizCTA";
 import { Unverified } from "@/components/landing/Unverified";
-import { WaitlistForm } from "@/components/landing/WaitlistForm";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
-import { LANDING_PAGE_ID, landingContent } from "@/content/landing";
+import { landingContent } from "@/content/landing";
 
 /**
- * One price, what's included, the guarantee, and the CTA. The price is a
- * layout placeholder inside <Unverified>; real pricing lives in
+ * One price, what's included, the guarantee, and the quiz button. The price
+ * is a layout placeholder inside <Unverified>; real pricing lives in
  * src/config/pricing.ts (PRICING_PLACEHOLDER).
  */
 export function Pricing() {
@@ -19,11 +19,12 @@ export function Pricing() {
           {pricing.headline}
         </h2>
 
-        <p className="mt-8 flex items-baseline justify-center gap-2">
+        <p className="mt-8 flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1">
           <Unverified note={pricing.amount.verify}>
             <span className="font-serif text-stat text-ink tabular-nums">{pricing.amount.text}</span>
           </Unverified>
           <span className="text-body-lg text-ink-muted">{pricing.per}</span>
+          <span className="w-full text-center font-sans text-eyebrow uppercase tracking-eyebrow text-ink-muted">{pricing.starting}</span>
         </p>
         <p className="mt-3 text-center text-body text-ink-muted">{pricing.subline}</p>
 
@@ -45,15 +46,12 @@ export function Pricing() {
           </p>
         </div>
 
-        <WaitlistForm
-          page={LANDING_PAGE_ID}
-          location="pricing"
-          label={pricing.cta}
-          helper={pricing.ctaHelper}
-          collapsed
-          tone="surface"
-          className="mt-8 flex flex-col items-center text-center"
-        />
+        <div className="mt-8 flex flex-col items-center gap-3 text-center">
+          <QuizCTA location="pricing" className="w-full sm:w-auto" />
+          <a href="#waitlist" className="inline-flex min-h-tap items-center text-base text-ink underline underline-offset-4">
+            {pricing.secondary}
+          </a>
+        </div>
       </div>
     </SectionWrapper>
   );

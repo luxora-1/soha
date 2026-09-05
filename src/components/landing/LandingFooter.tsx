@@ -10,7 +10,7 @@ export function LandingFooter() {
 
   return (
     <footer className="bg-surface text-ink">
-      <Container className="py-12 lg:py-16">
+      <Container className="py-12 pb-28 md:pb-12 lg:py-16 lg:pb-16">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-12">
           <div>
             <p className="font-serif text-[1.75rem] leading-none tracking-heading">{siteConfig.name}</p>

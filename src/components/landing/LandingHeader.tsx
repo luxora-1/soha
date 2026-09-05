@@ -1,10 +1,10 @@
-import { CTAButton } from "@/components/ui/CTAButton";
+import { QuizCTA } from "@/components/landing/QuizCTA";
 import { Container } from "@/components/ui/Container";
 import { siteConfig } from "@/config/site";
 import { landingContent } from "@/content/landing";
 
 /**
- * Stripped header for ad landing pages: the wordmark and one call to action.
+ * Stripped header for ad landing pages: the wordmark and the quiz button.
  * No navigation, so paid traffic has nowhere to leak; the wordmark is not a
  * link for the same reason. Sticky, translucent, no border.
  */
@@ -16,9 +16,7 @@ export function LandingHeader() {
           <span className="sr-only">{siteConfig.name}</span>
           <span aria-hidden="true">{siteConfig.name}</span>
         </span>
-        <CTAButton href="#waitlist" size="sm">
-          {landingContent.header.cta}
-        </CTAButton>
+        <QuizCTA location="header" label={landingContent.header.cta} size="sm" />
       </Container>
     </header>
   );

@@ -23,6 +23,10 @@ type ImageSlotProps = {
   fit?: "cover" | "contain";
   /** Extra classes on the frame (radius, shadow, …). */
   className?: string;
+  /** Fill a positioned parent instead of setting the slot's own aspect ratio (carousel frames). */
+  fill?: boolean;
+  /** Small thumbnails: the placeholder shows just the id in small type. */
+  compact?: boolean;
 };
 
 /** public/images/landing/<id>.<ext>, if such a file exists. */
@@ -52,10 +56,12 @@ export function ImageSlot({
   sizes = "(min-width: 1024px) 50vw, 100vw",
   fit = "cover",
   className,
+  fill = false,
+  compact = false,
 }: ImageSlotProps) {
   const found = resolveFile(id);
-  const frame = cn("relative w-full overflow-hidden rounded-tile", className);
-  const ratio = { aspectRatio: `${width} / ${height}` };
+  const frame = cn(fill ? "absolute inset-0 overflow-hidden" : "relative w-full overflow-hidden rounded-tile", className);
+  const ratio = fill ? undefined : { aspectRatio: `${width} / ${height}` };
 
   if (!found) {
     return (
@@ -66,14 +72,20 @@ export function ImageSlot({
         className={cn(frame, "bg-accent-soft/45")}
         style={ratio}
       >
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 p-4 text-center">
-          <span className="max-w-full rounded-full bg-base/75 px-3 py-1 font-sans text-[0.8125rem] font-medium leading-snug text-ink [overflow-wrap:anywhere]">
-            {id}
-          </span>
-          <span className="font-sans text-[0.75rem] tabular-nums text-ink-muted">
-            {width} × {height}
-          </span>
-        </div>
+        {compact ? (
+          <div className="absolute inset-0 flex items-center justify-center p-1.5 text-center">
+            <span className="font-sans text-[0.625rem] font-medium leading-tight text-ink [overflow-wrap:anywhere]">{id}</span>
+          </div>
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 p-4 text-center">
+            <span className="max-w-full rounded-full bg-base/75 px-3 py-1 font-sans text-[0.8125rem] font-medium leading-snug text-ink [overflow-wrap:anywhere]">
+              {id}
+            </span>
+            <span className="font-sans text-[0.75rem] tabular-nums text-ink-muted">
+              {width} × {height}
+            </span>
+          </div>
+        )}
       </div>
     );
   }

@@ -4,14 +4,14 @@ import { Unverified } from "@/components/landing/Unverified";
 import { SectionWrapper } from "@/components/sections/SectionWrapper";
 import { landingContent } from "@/content/landing";
 
-/** Eight questions. Answers that contain claims are <Unverified> paragraph by paragraph. */
+/** Getting-started questions. Answers that contain claims are <Unverified> paragraph by paragraph. */
 export function FAQ() {
   const { faq } = landingContent;
 
   return (
     <SectionWrapper tone="alt" id="faq" labelledBy="faq-heading">
-      <SectionHeading id="faq-heading" tone="surface" headline={faq.headline} />
-      <div className="mt-10 max-w-3xl md:mt-14">
+      <SectionHeading id="faq-heading" tone="surface" label={faq.label} headline={faq.headline} align="center" />
+      <div className="mx-auto mt-10 max-w-3xl md:mt-14">
         <Accordion
           tone="surface"
           headingLevel={3}

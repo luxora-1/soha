@@ -6,8 +6,11 @@ import { track } from "@vercel/analytics";
  *
  *  landing_view      a landing page rendered (fired once per page load)
  *  waitlist_submit   the landing page's conversion: an email joined the waitlist
+ *  quiz_open         the quiz dialog opened (with the CTA's location)
+ *  quiz_step         a quiz step was answered
+ *  quiz_complete     the quiz reached the email step and submitted
  */
-export type AnalyticsEvent = "landing_view" | "waitlist_submit";
+export type AnalyticsEvent = "landing_view" | "waitlist_submit" | "quiz_open" | "quiz_step" | "quiz_complete";
 
 export type AnalyticsProps = Record<string, string | number | boolean | null>;
 
