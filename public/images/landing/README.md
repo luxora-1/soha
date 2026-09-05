@@ -102,7 +102,7 @@ were generated: `founder-portrait`, `testimonial-*`, `qa-*`, `press-*`,
 | `ingredient-progesterone.jpg` | `b0651d76-ade1-4e30-86b3-93b265dfd86d`  | marketing_studio_image  | Macro powder and wax droplet                               |
 | `ingredient-base.jpg`         | `46942914-77d9-4b8b-9066-cfb7324ce362`  | marketing_studio_image  | Macro matte cream with fingertip sweep                     |
 | `hero-lifestyle.jpg`          | `24b4700b-cf81-4308-afb0-b47adf4b521e`  | soul_2                  | Woman in her fifties by a window, linen shirt              |
-| `hero-03.jpg`                 | `9136c56d-6dc6-4268-932b-d5f34944c328`  | soul_2                  | Hands pressing one pump onto a forearm                     |
+| `hero-03.jpg`                 | `2266c532-7523-42bc-b034-b909f0bc18ab`  | soul_2                  | Hands pressing one pump onto a forearm                     |
 | `supports-lifestyle.jpg`      | `ee42071f-6cd8-436b-8af9-493f4ae57717`  | soul_2                  | Two women laughing over coffee                             |
 | `timeline-week-2.jpg`         | `fee3ca1e-3807-4475-a112-db36d3d81868`  | soul_2                  | Asleep in linen bedding, dawn light                        |
 | `timeline-week-4.jpg`         | `698c7602-9607-4ca9-bef5-0187bf3d01c2`  | soul_2                  | Walking outdoors in a camel jacket                         |
