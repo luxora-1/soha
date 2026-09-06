@@ -1,6 +1,5 @@
 "use client";
 
-import { ArrowRightIcon } from "@/components/landing/icons";
 import { CTAButton } from "@/components/ui/CTAButton";
 import { landingContent } from "@/content/landing";
 import { cn } from "@/lib/cn";
@@ -25,10 +24,7 @@ type QuizCTAProps = {
   className?: string;
 };
 
-/**
- * Any "Take the quiz" button. Opens the single quiz dialog mounted on the
- * page. The arrow nudges right on hover.
- */
+/** Any "Take the quiz" button. Opens the single quiz dialog mounted on the page. */
 export function QuizCTA({ location, label = landingContent.quizCta.label, variant = "primary", size = "md", pulse = false, className }: QuizCTAProps) {
   return (
     <CTAButton
@@ -36,15 +32,13 @@ export function QuizCTA({ location, label = landingContent.quizCta.label, varian
       variant={variant}
       size={size}
       className={cn(
-        pulse &&
-          "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-full after:bg-brand/35 after:content-[''] motion-safe:after:animate-pulse-ring",
+        pulse && "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-full after:bg-brand/35 after:content-[''] motion-safe:after:animate-pulse-ring",
         className,
       )}
       onClick={() => openQuiz(location)}
       data-quiz-cta={location}
     >
       {label}
-      <ArrowRightIcon className="h-4 w-4 shrink-0 transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1" />
     </CTAButton>
   );
 }

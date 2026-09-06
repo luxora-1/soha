@@ -32,24 +32,6 @@ export function ArrowUpIcon({ className }: IconProps) {
   );
 }
 
-/** Right-pointing arrow for buttons and links. */
-export function ArrowRightIcon({ className }: IconProps) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" {...stroke} strokeWidth={2} className={cn("h-5 w-5", className)}>
-      <path d="M5 12h14M13 6l6 6-6 6" />
-    </svg>
-  );
-}
-
-/** Opening quotation mark, decorative, for testimonial cards. */
-export function QuoteIcon({ className }: IconProps) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className={cn("h-6 w-6", className)}>
-      <path d="M7.2 6C4.9 7.4 3.5 9.6 3.5 12.6c0 3 1.8 5.4 4.4 5.4 2 0 3.6-1.5 3.6-3.5 0-1.9-1.4-3.3-3.2-3.3-.4 0-.8.1-1.1.2.3-1.6 1.3-2.9 2.9-3.9L7.2 6zm9.5 0c-2.3 1.4-3.7 3.6-3.7 6.6 0 3 1.8 5.4 4.4 5.4 2 0 3.6-1.5 3.6-3.5 0-1.9-1.4-3.3-3.2-3.3-.4 0-.8.1-1.1.2.3-1.6 1.3-2.9 2.9-3.9L16.7 6z" />
-    </svg>
-  );
-}
-
 /** Right-pointing chevron; rotate for other directions. */
 export function ChevronIcon({ className }: IconProps) {
   return (

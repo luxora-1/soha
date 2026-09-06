@@ -30,16 +30,16 @@ export function CompareToggle({ label, options, panels, className }: CompareTogg
 
   return (
     <div className={className}>
-      <div className="flex justify-center">
+      <div className="flex">
         <div
           role="tablist"
           aria-label={label}
-          className="relative grid w-full max-w-md grid-cols-2 rounded-full bg-surface p-1 shadow-subtle"
+          className="relative grid w-full max-w-md grid-cols-2 rounded-full bg-base p-1 shadow-subtle"
         >
           <span
             aria-hidden="true"
             className={cn(
-              "absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-base shadow-soft transition-transform duration-300 motion-reduce:transition-none",
+              "absolute inset-y-1 left-1 w-[calc(50%-0.25rem)] rounded-full bg-primary shadow-soft transition-transform duration-300 motion-reduce:transition-none",
               active === 1 && "translate-x-full",
             )}
           />
@@ -56,7 +56,7 @@ export function CompareToggle({ label, options, panels, className }: CompareTogg
               onKeyDown={onKeyDown}
               className={cn(
                 "relative z-10 min-h-tap rounded-full px-4 text-base font-medium transition-colors motion-reduce:transition-none",
-                active === i ? "text-primary" : "text-ink-muted hover:text-ink",
+                active === i ? "text-on-primary" : "text-ink-muted hover:text-ink",
               )}
             >
               {option}

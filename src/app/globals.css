@@ -21,12 +21,46 @@
     html {
       scroll-behavior: auto;
     }
+  }
 
-    /* FadeUp wrappers: show the final state immediately, no movement. */
-    [data-fade-up] {
-      opacity: 1 !important;
-      transform: none !important;
+  /*
+    Motion (GSAP, src/lib/motion/orchestrate.ts). A one-line script in the
+    root layout stamps html[data-motion="js"] before first paint; only then,
+    and only when the viewer allows motion, are the elements the orchestrator
+    will reveal hidden until it does. Without JavaScript, or under
+    prefers-reduced-motion, everything renders in its final state.
+  */
+  @media (prefers-reduced-motion: no-preference) {
+    html[data-motion="js"] [data-reveal],
+    html[data-motion="js"] [data-reveal-hero],
+    html[data-motion="js"] [data-split] {
+      opacity: 0;
+      visibility: hidden;
     }
+  }
+
+  /* SplitText line masks clip tight to the line box; give descenders room. */
+  .split-line-mask {
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+  [data-split] {
+    text-wrap: wrap;
+  }
+
+  /* The eight-week timeline stacks its panels; only the active one shows before the script runs. */
+  /* The phone quiz bar: no JavaScript, no bar; with JavaScript, hidden until the motion script positions it. */
+  html:not([data-motion="js"]) [data-sticky] {
+    display: none;
+  }
+  html[data-motion="js"] [data-sticky] {
+    visibility: hidden;
+  }
+
+  [data-timeline-panel][data-active="false"],
+  [data-timeline-image][data-active="false"] {
+    opacity: 0;
+    visibility: hidden;
   }
 
   body {

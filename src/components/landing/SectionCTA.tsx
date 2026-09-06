@@ -9,13 +9,14 @@ type SectionCTAProps = {
   /** Small line under the button; may contain <Unverified> claims. */
   helper?: ReactNode;
   variant?: "primary" | "inverse";
+  align?: "center" | "left";
   className?: string;
 };
 
-/** The quiz button that closes most sections, centred, with an optional line beneath. */
-export function SectionCTA({ location, label, helper = landingContent.quizCta.helper, variant = "primary", className }: SectionCTAProps) {
+/** The quiz button that closes most sections, with an optional line beneath. */
+export function SectionCTA({ location, label, helper = landingContent.quizCta.helper, variant = "primary", align = "center", className }: SectionCTAProps) {
   return (
-    <div className={cn("mt-10 flex flex-col items-center gap-3 text-center md:mt-12", className)}>
+    <div className={cn("mt-10 flex flex-col gap-3 md:mt-12", align === "center" ? "items-center text-center" : "items-start", className)}>
       <QuizCTA location={location} label={label} variant={variant} className="w-full sm:w-auto" />
       {helper && <p className={cn("text-caption", variant === "inverse" ? "text-on-primary/75" : "text-ink-muted")}>{helper}</p>}
     </div>

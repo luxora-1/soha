@@ -217,7 +217,7 @@ const config: Config = {
       spacing: {
         /** Vertical rhythm for sections: py-section (mobile) / lg:py-section-lg */
         section: "5rem", // 80px  == py-20
-        "section-lg": "8rem", // 128px == py-32
+        "section-lg": "7rem", // 112px == py-28
         /** Navbar row height. */
         nav: "4.5rem", // 72px
         /** Announcement bar height. */
@@ -291,36 +291,12 @@ const config: Config = {
           "0%": { transform: "scale(1)", opacity: "0.6" },
           "100%": { transform: "scale(1.45)", opacity: "0" },
         },
-        /** Gentle bob for floating badges and the product shot. */
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-8px)" },
-        },
-        /** Very slow wander for the blurred colour fields behind the hero. */
-        drift: {
-          "0%": { transform: "translate3d(0, 0, 0) scale(1)" },
-          "50%": { transform: "translate3d(4%, -6%, 0) scale(1.08)" },
-          "100%": { transform: "translate3d(-3%, 4%, 0) scale(0.96)" },
-        },
         "spin-slow": {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
-        /** Selected-state dot appearing. */
-        pop: {
-          "0%": { transform: "scale(0.5)", opacity: "0" },
-          "60%": { transform: "scale(1.15)", opacity: "1" },
-          "100%": { transform: "scale(1)", opacity: "1" },
-        },
-        /** A stroke drawing itself along a path (pathLength="1", dasharray 1). */
-        draw: {
-          "0%": { strokeDashoffset: "1" },
-          "100%": { strokeDashoffset: "0" },
-        },
       },
       animation: {
-        /** CSS-only fallback for the FadeUp motion wrapper. 0.5s ease-out. */
-        "fade-up": "fade-up 0.5s ease-out both",
         /** Certification marks on the landing page. */
         marquee: "marquee 45s linear infinite",
         /** Quiz steps, tab panels, and rotating messages. */
@@ -333,12 +309,7 @@ const config: Config = {
         sheen: "sheen 0.9s ease-in-out both",
         /** Hero quiz button and ingredient markers. */
         "pulse-ring": "pulse-ring 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite",
-        float: "float 6s ease-in-out infinite",
-        "float-slow": "float 9s ease-in-out infinite",
-        drift: "drift 22s ease-in-out infinite alternate",
         "spin-slow": "spin-slow 28s linear infinite",
-        pop: "pop 0.35s cubic-bezier(0.16, 1, 0.3, 1) both",
-        draw: "draw 1.8s cubic-bezier(0.65, 0, 0.35, 1) both",
       },
     },
   },

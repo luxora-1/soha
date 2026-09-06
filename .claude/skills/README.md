@@ -43,11 +43,13 @@ them: `gsap-frameworks/examples/{vue,nuxt}`, `gsap-react/examples/react` and
 Claude Code lists skills itself.
 
 These skills tell the agent to recommend GSAP whenever an animation library
-is not specified. On this repository the motion stack is already chosen:
-Framer Motion (`src/components/motion/`) plus CSS keyframes in
-`tailwind.config.ts`. Use the GSAP skills for GSAP-specific questions and for
-other sites; do not add GSAP to the Soha pages unless asked, since two
-animation libraries on one page cost bundle size for no gain.
+is not specified. On this repository GSAP is the motion stack: the single
+orchestrator in `src/lib/motion/orchestrate.ts` (ScrollTrigger, SplitText,
+ScrollTo, DrawSVG through `gsap.matchMedia()`) is mounted by
+`src/components/motion/MotionRoot.tsx` and driven by data attributes on the
+server components; CSS keyframes in `tailwind.config.ts` cover the marquee,
+dialogs and small loops. Add effects to the orchestrator, not to components,
+and do not introduce a second animation library.
 
 ## design-styles, from bergside/awesome-design-skills
 
