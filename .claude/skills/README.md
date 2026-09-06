@@ -19,6 +19,32 @@ repository (project scope). Each lives in its own directory with a `SKILL.md`.
 | `plugin-settings` | This skill should be used when the user asks about "plugin settings", "store plugin configuration", "user-configurable plugin", ".local.md files", "plugin state… | anthropics/claude-code, `plugins/plugin-dev` |
 | `plugin-structure` | This skill should be used when the user asks to "create a plugin", "scaffold a plugin", "understand plugin structure", "organize plugin components", "set up… | anthropics/claude-code, `plugins/plugin-dev` |
 | `skill-development` | This skill should be used when the user wants to "create a skill", "add a skill to plugin", "write a new skill", "improve skill description", "organize skill… | anthropics/claude-code, `plugins/plugin-dev` |
+| `shadcn` | shadcn/ui's official skill: project context via `npx shadcn@latest info`, composition and styling rules, CLI, presets, registries, MCP server. Extended here with an offline copy of component docs and source (`references/`). | shadcn-ui/ui, `skills/shadcn` |
+| `migrate-radix-to-base` | shadcn/ui's official migration skill from Radix UI to Base UI, component by component. | shadcn-ui/ui, `skills/migrate-radix-to-base` |
+
+## Skills from shadcn-ui/ui
+
+Installed 2026-09-06 from <https://github.com/shadcn-ui/ui> at commit
+`7c9eaba` (CLI 4.21.0, MIT). The upstream install command is
+`npx skills add shadcn/ui`, which copies the same `skills/shadcn` folder; the
+two skills here are unchanged copies except for one section appended to
+`shadcn/SKILL.md` that points at `shadcn/references/`, an offline snapshot of
+the component documentation and source for the Base UI and Radix bases (see
+`shadcn/references/README.md`). The skill's own commands need the shadcn
+registry at `ui.shadcn.com`, which this hosted build environment blocks; the
+snapshot exists for that case. On a machine with normal network access the
+live CLI is preferred.
+
+The shadcn skill runs `npx shadcn@latest info --json` when it loads, to read
+the project's `components.json`. This repository has no `components.json`:
+the marketing site uses its own token system (`src/config/design-tokens.ts`),
+not shadcn components. Adding shadcn to this site would mean mapping its
+semantic colour variables onto that palette, a separate decision.
+
+Optional, on your own machine: `npx shadcn@latest mcp init --client claude`
+writes a `.mcp.json` for the shadcn MCP server (registry search, view and
+install as tools). It was not committed here because the registry is
+unreachable from the hosted environment.
 
 ## Skills from anthropics/claude-code
 
