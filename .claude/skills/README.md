@@ -21,6 +21,22 @@ repository (project scope). Each lives in its own directory with a `SKILL.md`.
 | `skill-development` | This skill should be used when the user wants to "create a skill", "add a skill to plugin", "write a new skill", "improve skill description", "organize skill… | anthropics/claude-code, `plugins/plugin-dev` |
 | `shadcn` | shadcn/ui's official skill: project context via `npx shadcn@latest info`, composition and styling rules, CLI, presets, registries, MCP server. Extended here with an offline copy of component docs and source (`references/`). | shadcn-ui/ui, `skills/shadcn` |
 | `migrate-radix-to-base` | shadcn/ui's official migration skill from Radix UI to Base UI, component by component. | shadcn-ui/ui, `skills/migrate-radix-to-base` |
+| `design-styles` | Catalog of 67 typeui.sh design-system presets (tokens for colour, type and spacing plus a guideline prompt each), with a workflow for picking a direction and applying its tokens. Styles live under `design-styles/styles/`. | bergside/awesome-design-skills |
+
+## design-styles, from bergside/awesome-design-skills
+
+Installed 2026-09-06 from <https://github.com/bergside/awesome-design-skills>
+at commit `f631a09` (MIT, Bergside 2026). Upstream is a registry of 67
+separate skill folders meant to be pulled one at a time with
+`npx typeui.sh pull <style>`. They are installed here as one umbrella skill,
+`design-styles`, with all 67 folders unchanged under `styles/`, a generated
+`catalog.md` and the upstream `index.json`. One skill rather than 67 keeps
+the session's skill list readable, avoids three name collisions (`shadcn`
+with the official shadcn skill, and the brand-named `claude` and `codex`),
+and matches how upstream expects a style to be chosen per project. The
+`registry-examples/` renders (12 MB of PNGs) were not copied; each style's
+render is at `https://typeui.sh/design-skills/<name>`. To make one style load
+on its own, follow the last section of `design-styles/SKILL.md`.
 
 ## Skills from shadcn-ui/ui
 
