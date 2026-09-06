@@ -22,6 +22,32 @@ repository (project scope). Each lives in its own directory with a `SKILL.md`.
 | `shadcn` | shadcn/ui's official skill: project context via `npx shadcn@latest info`, composition and styling rules, CLI, presets, registries, MCP server. Extended here with an offline copy of component docs and source (`references/`). | shadcn-ui/ui, `skills/shadcn` |
 | `migrate-radix-to-base` | shadcn/ui's official migration skill from Radix UI to Base UI, component by component. | shadcn-ui/ui, `skills/migrate-radix-to-base` |
 | `design-styles` | Catalog of 67 typeui.sh design-system presets (tokens for colour, type and spacing plus a guideline prompt each), with a workflow for picking a direction and applying its tokens. Styles live under `design-styles/styles/`. | bergside/awesome-design-skills |
+| `gsap-core` | Official GSAP skill for the core API — gsap.to(), from(), fromTo(), easing, duration, stagger, defaults, gsap.matchMedia() (responsive, prefers-reduced-motion). | greensock/gsap-skills |
+| `gsap-timeline` | Official GSAP skill for timelines — gsap.timeline(), position parameter, nesting, playback. | greensock/gsap-skills |
+| `gsap-scrolltrigger` | Official GSAP skill for ScrollTrigger — scroll-linked animations, pinning, scrub, triggers. | greensock/gsap-skills |
+| `gsap-plugins` | Official GSAP skill for GSAP plugins — registration, ScrollToPlugin, ScrollSmoother, Flip, Draggable, Inertia, Observer, SplitText, ScrambleText, SVG and physics plugins, CustomEase, EasePack, CustomWiggle, CustomBounce, GSDevTools. | greensock/gsap-skills |
+| `gsap-utils` | Official GSAP skill for gsap.utils — clamp, mapRange, normalize, interpolate, random, snap, toArray, wrap, pipe. | greensock/gsap-skills |
+| `gsap-react` | Official GSAP skill for React — useGSAP hook, refs, gsap.context(), cleanup. | greensock/gsap-skills |
+| `gsap-performance` | Official GSAP skill for performance — prefer transforms, avoid layout thrashing, will-change, batching. | greensock/gsap-skills |
+| `gsap-frameworks` | Official GSAP skill for Vue, Svelte, and other non-React frameworks — lifecycle, scoping selectors, cleanup on unmount. | greensock/gsap-skills |
+
+## GSAP skills, from greensock/gsap-skills
+
+Installed 2026-09-06 from <https://github.com/greensock/gsap-skills> at commit
+`aed9cfd` (v1.0.0, MIT, GreenSock). The eight skill folders are unchanged
+copies of the upstream `skills/` directory, which is also what
+`npx skills add https://github.com/greensock/gsap-skills` installs. The
+repository's runnable examples were placed inside the skills that refer to
+them: `gsap-frameworks/examples/{vue,nuxt}`, `gsap-react/examples/react` and
+`gsap-core/examples/vanilla`. The upstream `llms.txt` index was not copied;
+Claude Code lists skills itself.
+
+These skills tell the agent to recommend GSAP whenever an animation library
+is not specified. On this repository the motion stack is already chosen:
+Framer Motion (`src/components/motion/`) plus CSS keyframes in
+`tailwind.config.ts`. Use the GSAP skills for GSAP-specific questions and for
+other sites; do not add GSAP to the Soha pages unless asked, since two
+animation libraries on one page cost bundle size for no gain.
 
 ## design-styles, from bergside/awesome-design-skills
 
