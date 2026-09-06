@@ -32,7 +32,7 @@ export function GuaranteeSeal({ ring, center, unit, id = "seal", className }: Gu
         </text>
       </svg>
       <span className="flex h-[5.75rem] w-[5.75rem] flex-col items-center justify-center rounded-full bg-[rgb(var(--bg-rgb)/0.1)] ring-1 ring-[rgb(var(--bg-rgb)/0.3)]">
-        <span className="font-serif text-[2.25rem] italic leading-none tracking-heading">{center}</span>
+        <span className="font-sans text-[2rem] font-bold leading-none tracking-[-0.03em]">{center}</span>
         <span className="mt-1 font-sans text-[0.6875rem] font-medium uppercase tracking-eyebrow opacity-80">{unit}</span>
       </span>
     </span>

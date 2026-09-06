@@ -16,7 +16,7 @@ export function CareFeatures() {
         <h2 id="care-heading" className="text-h2">
           {care.headline}
         </h2>
-        <p className="mt-5 font-serif text-[1.5rem] italic leading-snug tracking-heading text-primary md:text-[1.75rem]">{care.subhead}</p>
+        <p className="mt-5 max-w-measure text-body-lg text-ink-muted">{care.subhead}</p>
       </div>
       <div data-reveal="">
         <Carousel
@@ -27,8 +27,8 @@ export function CareFeatures() {
           controlsClassName="md:hidden"
           items={care.slides.map((item) => (
             <div key={item.slot} className="flex h-full flex-col">
-              <ImageSlot {...slot(item.slot)} sizes="(min-width: 768px) 30vw, 85vw" className="rounded-[1.5rem]" />
-              <h3 className="mt-5 font-serif text-[1.5rem] leading-tight tracking-heading text-ink">{item.title}</h3>
+              <ImageSlot {...slot(item.slot)} sizes="(min-width: 768px) 30vw, 85vw" className="rounded-tile" />
+              <h3 className="mt-5 text-h3 text-ink">{item.title}</h3>
               <p className="mt-2 max-w-[24rem] text-base text-ink-muted">
                 <Unverified note={`care: ${item.body.verify}`}>{item.body.text}</Unverified>
               </p>

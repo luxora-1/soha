@@ -33,7 +33,7 @@ export function Testimonials() {
           itemClassName="w-[82%] sm:w-[60%] md:w-[calc((100%-3rem)/3)]"
           controlsClassName="md:hidden"
           items={testimonials.items.map((item) => (
-            <article key={item.slot} className="flex h-full flex-col rounded-[1.5rem] bg-base p-4 md:p-5">
+            <article key={item.slot} className="flex h-full flex-col rounded-tile bg-base p-4 md:p-5">
               <VideoSlot id={item.slot} label={`${testimonials.videoLabel}: ${item.name}`} sizes="(min-width: 768px) 30vw, 80vw" className="[&>div]:rounded-card" />
               <Unverified note="testimonial star rating" className="mt-5 self-start">
                 <span className="flex gap-0.5 text-accent" aria-hidden="true">
@@ -42,7 +42,7 @@ export function Testimonials() {
                   ))}
                 </span>
               </Unverified>
-              <blockquote className="mt-3 flex-1 font-serif text-[1.375rem] leading-snug tracking-heading text-ink">
+              <blockquote className="mt-3 flex-1 text-[1.25rem] font-semibold leading-snug tracking-[-0.015em] text-ink">
                 <Unverified note="testimonial quote">“{item.quote}”</Unverified>
               </blockquote>
               <p className="mt-5 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-base">

@@ -80,7 +80,8 @@ Notes by section:
 
 REFERENCE_PHOTO_PLACEHOLDER: seven files in this folder are photographs taken
 from the two competitor pages supplied as design references, re-graded to the
-Warm Clay palette so the layout can be judged with real photography in place.
+site palette (cool and neutral since the 2026-09-06 Periwinkle change) so the
+layout can be judged with real photography in place.
 They were put here on the client's instruction ("use the reference pictures,
 I'll replace later"). They are not Soha's to publish: replace every one of
 them before launch. The launch gate (`npm run launch-check`) fails while this
@@ -91,17 +92,17 @@ patient; the two people shown are lifestyle stand-ins only.
 
 | File                          | Source page | What it shows                                  | Treatment                                   |
 | ----------------------------- | ----------- | ---------------------------------------------- | ------------------------------------------- |
-| `hero-03.jpg`                 | Elsie       | Applying cream to the shoulder                 | 4:5 crop, warm grade                        |
-| `supports-lifestyle.jpg`      | Oestra      | Arms raised in the sun (cut-out)               | Set on a warm ground, warm grade            |
-| `comparison-patchwork.jpg`    | Elsie       | Patch, pill and a smear of cream (cut-out)     | Set on a warm ground with a soft shadow     |
-| `ingredient-estradiol.jpg`    | Elsie       | Macro crystals                                 | Warm tritone (ink → clay → cream)           |
-| `ingredient-progesterone.jpg` | Elsie       | Macro crystals                                 | Warm tritone                                |
-| `ingredient-base.jpg`         | Elsie       | Cream swoosh                                   | Warm tritone                                |
-| `how-03.jpg`                  | Elsie       | Parcel on a conveyor (small; shown at 96px)    | Warm grade                                  |
+| `hero-03.jpg`                 | Elsie       | Applying cream to the shoulder                 | 4:5 crop, cool grade                        |
+| `supports-lifestyle.jpg`      | Oestra      | Arms raised in the sun (cut-out)               | Set on a pale periwinkle ground, cool grade |
+| `comparison-patchwork.jpg`    | Elsie       | Patch, pill and a smear of cream (cut-out)     | Set on a pale periwinkle ground, soft shadow |
+| `ingredient-estradiol.jpg`    | Elsie       | Macro crystals                                 | Blue tritone (navy → periwinkle → pale)     |
+| `ingredient-progesterone.jpg` | Elsie       | Macro crystals                                 | Blue tritone                                |
+| `ingredient-base.jpg`         | Elsie       | Cream swoosh                                   | Blue tritone                                |
+| `how-03.jpg`                  | Elsie       | Parcel on a conveyor (small; shown at 96px)    | Cool grade                                  |
 
 The grading is reproducible: the same script (a short Pillow routine) can be
 applied to the Higgsfield renders above once they are downloaded, so every
-photograph on the page shares one warm cast.
+photograph on the page shares one cool, neutral cast.
 
 ## Generated stand-ins waiting in Higgsfield (2026-09-05)
 

@@ -14,14 +14,14 @@ export function Pricing() {
 
   return (
     <SectionWrapper tone="base" id="pricing" labelledBy="pricing-heading">
-      <div data-reveal="" className="mx-auto max-w-2xl rounded-[2rem] bg-surface p-6 shadow-lift sm:p-10 lg:p-12">
+      <div data-reveal="" className="mx-auto max-w-2xl rounded-tile bg-surface p-6 shadow-lift sm:p-10 lg:p-12">
         <h2 id="pricing-heading" className="text-center">
           {pricing.headline}
         </h2>
 
         <p className="mt-8 flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1">
           <Unverified note={pricing.amount.verify}>
-            <span className="font-serif text-stat text-ink tabular-nums">{pricing.amount.text}</span>
+            <span className="text-stat text-ink tabular-nums">{pricing.amount.text}</span>
           </Unverified>
           <span className="text-body-lg text-ink-muted">{pricing.per}</span>
           <span className="w-full text-center text-base text-ink-muted">{pricing.starting}</span>

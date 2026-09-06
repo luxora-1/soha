@@ -13,7 +13,7 @@ export function LandingFooter() {
       <Container className="py-12 pb-28 md:pb-12 lg:py-16 lg:pb-16">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-12">
           <div>
-            <p className="font-serif text-[1.75rem] leading-none tracking-heading">{siteConfig.name}</p>
+            <p className="font-sans text-[1.5rem] font-semibold leading-none tracking-[-0.02em] text-primary">{siteConfig.name}</p>
             <p className="mt-4 max-w-md text-base text-ink-muted">{footer.note}</p>
           </div>
           <nav aria-label="Legal">

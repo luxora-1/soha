@@ -42,7 +42,7 @@ export function Hero() {
                   autoplayMs={5000}
                   itemClassName="w-full"
                   items={hero.slides.map((id, i) => (
-                    <div key={id} className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-surface shadow-soft">
+                    <div key={id} className="relative aspect-[4/5] overflow-hidden rounded-tile bg-surface shadow-soft">
                       <ImageSlot
                         {...slot(id)}
                         fill
@@ -62,7 +62,7 @@ export function Hero() {
                         <StarIcon key={i} className="h-3.5 w-3.5" />
                       ))}
                     </span>
-                    <blockquote className="mt-2 font-serif text-[1.0625rem] leading-snug tracking-heading text-ink">
+                    <blockquote className="mt-2 text-[1rem] font-semibold leading-snug tracking-[-0.01em] text-ink">
                       <Unverified note="testimonial quote">“{hero.badges.review.quote}”</Unverified>
                     </blockquote>
                     <figcaption className="mt-3 flex items-center justify-between gap-3 text-[0.875rem] text-ink-muted">
@@ -85,11 +85,11 @@ export function Hero() {
               <RatingLine />
             </div>
 
-            <p data-reveal-hero="" data-delay={beat(1)} className="mt-6 font-serif text-[1.25rem] italic leading-snug tracking-heading text-accent md:text-[1.375rem]">
+            <p data-reveal-hero="" data-delay={beat(1)} className="mt-6 text-eyebrow font-semibold uppercase tracking-eyebrow text-primary">
               {hero.kicker}
             </p>
             <h1 id="hero-heading" data-split="" data-delay={beat(2)} className="mt-3 text-display">
-              {hero.headline.lead} <em className="italic">{hero.headline.accent}</em>
+              {hero.headline.lead} <em>{hero.headline.accent}</em>
             </h1>
 
             <p data-reveal-hero="" data-delay={beat(5)} className="mt-6 max-w-measure text-body-lg text-ink-muted">
@@ -114,7 +114,7 @@ export function Hero() {
               <p className="mt-7 flex items-baseline gap-2 text-body text-ink-muted">
                 <span>{hero.price.lead}</span>
                 <Unverified note={hero.price.amount.verify}>
-                  <span className="font-serif text-[2.5rem] leading-none tracking-heading text-ink tabular-nums">{hero.price.amount.text}</span>
+                  <span className="text-[2.25rem] font-bold leading-none tracking-[-0.03em] text-ink tabular-nums">{hero.price.amount.text}</span>
                 </Unverified>
                 <span>{hero.price.per}</span>
               </p>
@@ -128,14 +128,14 @@ export function Hero() {
               <p className="mt-3 text-base text-ink-muted">
                 <Unverified note={hero.cancel.verify}>{hero.cancel.text}</Unverified>
               </p>
-              <p className="mt-3 flex items-center gap-2 text-base text-ink-muted">
-                <TruckIcon className="h-5 w-5 text-accent" />
+              <p className="mt-3 flex items-center gap-2 text-eyebrow font-medium uppercase tracking-eyebrow text-primary">
+                <TruckIcon className="h-5 w-5 text-primary" />
                 <Unverified note={hero.delivery.verify}>{hero.delivery.text}</Unverified>
               </p>
             </div>
 
             <div data-reveal-hero="" data-delay={beat(8)} className="mt-8">
-              <ul aria-label="Service details" className="grid gap-x-6 gap-y-3 rounded-[1.5rem] bg-surface/70 p-5 sm:grid-cols-2 md:p-6">
+              <ul aria-label="Service details" className="grid gap-x-6 gap-y-3 rounded-tile bg-surface/70 p-5 sm:grid-cols-2 md:p-6">
                 {hero.trust.map((item) => (
                   <li key={item.label} className="flex items-center gap-3 text-base font-medium text-ink">
                     <CheckIcon className="text-accent" />

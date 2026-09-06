@@ -1,9 +1,13 @@
 /**
  * Soha colour palette — the single source of truth.
  *
- * Palette A · Warm Clay was chosen on 2026-09-05 from five candidates; the
- * other four were removed (see PALETTES.md for the record). The palette
- * becomes a set of CSS custom properties via the palette plugin in
+ * Palette B · Periwinkle became the default on 2026-09-06, on the client's
+ * instruction to take the brand identity of innerbalance.com (the Oestra
+ * pages) and bring the site into line with it. Palette A · Warm Clay, chosen
+ * on 2026-09-05, is kept so the change can be reversed by pointing
+ * `defaultPalette` back at "a". See PALETTES.md for the record.
+ *
+ * The palette becomes a set of CSS custom properties via the palette plugin in
  * tailwind.config.ts, written to :root and selected by `data-palette` on
  * <html>. Every Tailwind colour utility reads those variables, so no
  * component carries a raw hex value.
@@ -16,14 +20,15 @@
  *   --surface      alternating sections, cards, fields
  *   --accent-soft  tints, dividers, placeholder blocks
  *   --accent       small emphasis: stars, check marks, timeline dots
- *   --primary      buttons, dark panels, headline colour on tinted panels
+ *   --primary      buttons, pills, links, the wordmark
+ *   --panel        deep ground for the dark modules (stat tiles, guarantee, closing)
  *   --ink          text
  *
- * Two tokens are derived from the six above so they follow the palette
+ * Two tokens are derived from the seven above so they follow the palette
  * automatically: `ink-muted` (secondary text) and `primary-hover`.
  */
 
-export type PaletteId = "a";
+export type PaletteId = "a" | "b";
 
 export type PaletteTokens = {
   bg: string;
@@ -31,12 +36,13 @@ export type PaletteTokens = {
   accentSoft: string;
   accent: string;
   primary: string;
+  panel: string;
   ink: string;
 };
 
 export type Palette = {
   id: PaletteId;
-  /** Display name, e.g. "Warm Clay". */
+  /** Display name, e.g. "Periwinkle". */
   name: string;
   /** What the scheme is going for, so judgment calls can be made within it. */
   note: string;
@@ -47,27 +53,43 @@ export const palettes: Record<PaletteId, Palette> = {
   a: {
     id: "a",
     name: "Warm Clay",
-    note: "The brand direction. Warm, earthy, apothecary.",
+    note: "The 2026-09-05 direction. Warm, earthy, apothecary.",
     tokens: {
       bg: "#F7F3EC",
       surface: "#EFE7DA",
       accentSoft: "#C9A896",
       accent: "#B5643F",
       primary: "#6E2639",
+      panel: "#6E2639",
       ink: "#2E2320",
+    },
+  },
+  b: {
+    id: "b",
+    name: "Periwinkle",
+    note:
+      "The Inner Balance identity (innerbalance.com, sampled 2026-09-06): white ground, pale periwinkle sections, periwinkle actions, royal-blue text, navy panels. Cool, clinical, confident.",
+    tokens: {
+      bg: "#FFFFFF",
+      surface: "#E9EDF7",
+      accentSoft: "#C6CFEA",
+      accent: "#5471CC",
+      primary: "#5471CC",
+      panel: "#1E2949",
+      ink: "#183590",
     },
   },
 };
 
 /** Every palette the plugin emits, in order. */
-export const paletteOrder: readonly PaletteId[] = ["a"];
+export const paletteOrder: readonly PaletteId[] = ["a", "b"];
 
 /**
  * THE ONE DEFAULT. The <html> element carries it as `data-palette`, and the
  * matching token set is also written to :root so the site is styled before
  * hydration.
  */
-export const defaultPalette: PaletteId = "a";
+export const defaultPalette: PaletteId = "b";
 
 /* ---- colour helpers (build-time only; used by the Tailwind plugin) ------ */
 
@@ -109,16 +131,25 @@ function luminance(hex: string): number {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b;
 }
 
+/** WCAG contrast ratio between two hex colours. */
+function contrast(a: string, b: string): number {
+  const la = luminance(a);
+  const lb = luminance(b);
+  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+}
+
 export type DerivedTokens = {
-  /** Secondary text: ink softened toward the page ground. Stays ≥ 4.5:1 on --bg. */
+  /** Secondary text: ink softened toward the page ground, as far as keeps ≥ 4.5:1 on --bg. */
   inkMuted: string;
   /** Hover state for --primary: darkened toward ink, or lifted toward the ground when primary is already near-black. */
   primaryHover: string;
 };
 
 export function deriveTokens(t: PaletteTokens): DerivedTokens {
+  let mix = 0.32;
+  while (mix > 0 && contrast(mixHex(t.ink, t.bg, mix), t.bg) < 4.6) mix -= 0.02;
   return {
-    inkMuted: mixHex(t.ink, t.bg, 0.32),
+    inkMuted: mixHex(t.ink, t.bg, mix),
     primaryHover: luminance(t.primary) < 0.03 ? mixHex(t.primary, t.bg, 0.14) : mixHex(t.primary, t.ink, 0.22),
   };
 }
@@ -138,6 +169,7 @@ export function cssVariablesFor(id: PaletteId): Record<string, string> {
     ["accent-soft", tokens.accentSoft],
     ["accent", tokens.accent],
     ["primary", tokens.primary],
+    ["panel", tokens.panel],
     ["ink", tokens.ink],
     ["ink-muted", derived.inkMuted],
     ["primary-hover", derived.primaryHover],

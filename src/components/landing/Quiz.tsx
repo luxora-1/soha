@@ -175,7 +175,7 @@ export function Quiz({ page, resultNotes }: QuizProps) {
       <div className="flex h-full flex-col bg-base md:max-h-[92vh] md:rounded-tile md:shadow-lift">
         <div className="flex items-center justify-between gap-4 px-5 pt-5 md:px-8 md:pt-7">
           <div className="min-w-0">
-            <p id="quiz-title" className="font-serif text-[1.125rem] leading-tight tracking-heading text-ink">
+            <p id="quiz-title" className="text-[1.125rem] font-semibold leading-tight tracking-[-0.01em] text-ink">
               {quizCopy.title}
             </p>
             <p className="mt-1 text-[0.875rem] text-ink-muted">
@@ -203,7 +203,7 @@ export function Quiz({ page, resultNotes }: QuizProps) {
           <div className={direction === 1 ? "motion-safe:animate-slide-in" : "motion-safe:animate-slide-in-left"}>
             {question && (
               <>
-                <h2 ref={headingRef} tabIndex={-1} className="font-serif text-[1.75rem] leading-tight tracking-heading text-ink outline-none md:text-[2rem]">
+                <h2 ref={headingRef} tabIndex={-1} className="text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-ink outline-none md:text-[1.875rem]">
                   {question.question}
                 </h2>
                 <p className="mt-2 text-base text-ink-muted">{("hint" in question && question.hint) || (step === 0 ? quizCopy.intro : "")}</p>
@@ -242,7 +242,7 @@ export function Quiz({ page, resultNotes }: QuizProps) {
 
             {step === EMAIL_STEP && (
               <form noValidate onSubmit={submit}>
-                <h2 ref={headingRef} tabIndex={-1} className="font-serif text-[1.75rem] leading-tight tracking-heading text-ink outline-none md:text-[2rem]">
+                <h2 ref={headingRef} tabIndex={-1} className="text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-ink outline-none md:text-[1.875rem]">
                   {quizCopy.email.heading}
                 </h2>
                 <p className="mt-2 text-base text-ink-muted">{quizCopy.email.body}</p>
@@ -296,7 +296,7 @@ export function Quiz({ page, resultNotes }: QuizProps) {
 
             {step === RESULT_STEP && (
               <div role="status" aria-live="polite">
-                <h2 ref={headingRef} tabIndex={-1} className="font-serif text-[1.75rem] leading-tight tracking-heading text-ink outline-none md:text-[2rem]">
+                <h2 ref={headingRef} tabIndex={-1} className="text-[1.625rem] font-semibold leading-tight tracking-[-0.02em] text-ink outline-none md:text-[1.875rem]">
                   {quizCopy.result.heading}
                 </h2>
                 <p className="mt-2 text-base text-ink-muted">{quizCopy.result.lead}</p>

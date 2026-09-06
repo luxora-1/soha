@@ -12,7 +12,7 @@ export function FAQ() {
     <SectionWrapper tone="alt" id="faq" labelledBy="faq-heading">
       <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
         <SectionHeading id="faq-heading" tone="surface" label={faq.label} headline={faq.headline} className="lg:col-span-4" />
-        <div data-reveal="" className="rounded-[2rem] bg-base px-6 py-2 md:px-10 md:py-4 lg:col-span-8">
+        <div data-reveal="" className="rounded-tile bg-base px-6 py-2 md:px-10 md:py-4 lg:col-span-8">
           <Accordion
             variant="rows"
             tone="base"

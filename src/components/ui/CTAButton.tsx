@@ -6,17 +6,17 @@ type Variant = "primary" | "secondary" | "inverse";
 type Size = "md" | "sm";
 
 /**
- * Buttons are set in sentence case at the body size, semibold, so they read
- * as plain instructions ("Take the 2-min quiz") rather than shouting. They
- * lift a little on hover, settle on press, and a band of light sweeps across
- * the filled variants (a wide gradient whose position is animated).
+ * Buttons are pills with a small, tracked, uppercase label ("TAKE THE 2-MIN
+ * QUIZ"), the house style of the brand identity. They lift a little on hover,
+ * settle on press, and a band of light sweeps across the filled variants (a
+ * wide gradient whose position is animated).
  */
 const base =
-  "group relative isolate inline-flex min-h-tap items-center justify-center gap-2 whitespace-nowrap rounded-full text-center font-sans text-base font-semibold leading-tight transition-[transform,background-color,box-shadow,color] duration-300 ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.98] motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-60";
+  "group relative isolate inline-flex min-h-tap items-center justify-center gap-2 whitespace-nowrap rounded-full text-center font-sans text-[0.875rem] font-semibold uppercase leading-tight tracking-[0.08em] transition-[transform,background-color,box-shadow,color] duration-300 ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.98] motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-60";
 
 const sizes: Record<Size, string> = {
-  md: "px-7 py-[0.9375rem]",
-  sm: "px-5 py-2.5",
+  md: "px-8 py-[1.0625rem]",
+  sm: "px-5 py-3 text-[0.8125rem]",
 };
 
 /** The sweeping highlight: a gradient band far wider than the button, moved across it on hover. */

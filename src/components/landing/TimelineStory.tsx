@@ -50,7 +50,7 @@ export function TimelineStory({ steps, label, className }: TimelineStoryProps) {
               </div>
             ))}
           </div>
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem]">
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-tile">
             <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full text-base drop-shadow-[0_1px_2px_rgb(var(--ink-rgb)/0.45)]">
               <defs>
                 <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">

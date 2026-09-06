@@ -115,11 +115,11 @@ export function WaitlistForm({
         <h3
           ref={successRef}
           tabIndex={-1}
-          className={cn("font-serif text-[1.5rem] leading-tight tracking-heading outline-none", onPrimary ? "text-on-primary" : "text-ink")}
+          className={cn("text-[1.5rem] font-semibold leading-tight tracking-[-0.02em] outline-none", onPrimary ? "text-on-panel" : "text-ink")}
         >
           {copy.success.headline}
         </h3>
-        <p className={cn("mt-2 text-base", onPrimary ? "text-on-primary/80" : "text-ink-muted")}>{copy.success.body}</p>
+        <p className={cn("mt-2 text-base", onPrimary ? "text-on-panel/80" : "text-ink-muted")}>{copy.success.body}</p>
       </div>
     );
   }
@@ -131,7 +131,7 @@ export function WaitlistForm({
           {label}
         </CTAButton>
         {helper && (
-          <p className={cn("mt-3 text-caption", onPrimary ? "text-on-primary/70" : "text-ink-muted")}>{helper}</p>
+          <p className={cn("mt-3 text-caption", onPrimary ? "text-on-panel/70" : "text-ink-muted")}>{helper}</p>
         )}
       </div>
     );
@@ -173,7 +173,7 @@ export function WaitlistForm({
             <p
               id={`${id}-email-error`}
               role="alert"
-              className={cn("mt-2 px-2 text-base", onPrimary ? "text-on-primary" : "text-primary")}
+              className={cn("mt-2 px-2 text-base", onPrimary ? "text-on-panel" : "text-primary")}
             >
               {errors.email}
             </p>
@@ -191,18 +191,18 @@ export function WaitlistForm({
           role="alert"
           className={cn(
             "mt-3 rounded-card px-4 py-3 text-base outline-none",
-            onPrimary ? "bg-base/10 text-on-primary" : "bg-surface text-ink",
+            onPrimary ? "bg-base/10 text-on-panel" : "bg-surface text-ink",
           )}
         >
           {message}
         </p>
       )}
 
-      <p id={`${id}-privacy`} className={cn("mt-3 text-caption", onPrimary ? "text-on-primary/70" : "text-ink-muted")}>
+      <p id={`${id}-privacy`} className={cn("mt-3 text-caption", onPrimary ? "text-on-panel/70" : "text-ink-muted")}>
         {copy.privacy.lead}{" "}
         <Link
           href="/privacy"
-          className={cn("underline underline-offset-4", onPrimary ? "text-on-primary focus-visible:outline-base" : "text-ink")}
+          className={cn("underline underline-offset-4", onPrimary ? "text-on-panel focus-visible:outline-base" : "text-ink")}
         >
           {copy.privacy.link}
         </Link>

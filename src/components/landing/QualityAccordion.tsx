@@ -28,7 +28,7 @@ export function QualityAccordion() {
           />
         </div>
         <div data-reveal="" className="lg:col-span-5 lg:col-start-1 lg:row-start-2">
-          <ImageSlot {...slot(quality.image)} sizes="(min-width: 1024px) 40vw, 100vw" className="rounded-[2rem]" />
+          <ImageSlot {...slot(quality.image)} sizes="(min-width: 1024px) 40vw, 100vw" className="rounded-tile" />
         </div>
       </div>
     </SectionWrapper>

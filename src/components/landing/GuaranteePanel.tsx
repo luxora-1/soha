@@ -11,26 +11,26 @@ export function GuaranteePanel() {
   const { guarantee, quizCta } = landingContent;
 
   return (
-    <section aria-labelledby="guarantee-heading" className="relative isolate -mt-8 overflow-hidden rounded-t-[2.5rem] bg-primary text-on-primary md:rounded-t-[3.5rem]">
+    <section aria-labelledby="guarantee-heading" className="relative isolate -mt-8 overflow-hidden rounded-t-[2rem] bg-panel text-on-panel md:rounded-t-[2.5rem]">
       <span aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(70%_60%_at_50%_0%,rgb(var(--accent-rgb)/0.35),transparent_70%)]" />
       <Grain className="-z-10 opacity-[0.18] mix-blend-screen" />
       <span aria-hidden="true" className="absolute -bottom-40 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full border border-base/15 md:h-[40rem] md:w-[40rem]" />
       <span aria-hidden="true" className="absolute -bottom-56 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full border border-base/10 md:h-[52rem] md:w-[52rem]" />
       <Container className="relative py-section lg:py-section-lg">
         <div data-reveal="" className="mx-auto flex max-w-2xl flex-col items-center text-center">
-          <Unverified note={guarantee.seal.verify} className="text-on-primary">
+          <Unverified note={guarantee.seal.verify} className="text-on-panel">
             <GuaranteeSeal ring={guarantee.seal.ring} center={guarantee.seal.center} unit={guarantee.seal.unit} id="guarantee" />
           </Unverified>
           <div className="mt-8">
             <ProductPill name={guarantee.pill.name} form={guarantee.pill.form} tone="dark" />
           </div>
-          <h2 id="guarantee-heading" className="mt-8 text-on-primary">
+          <h2 id="guarantee-heading" className="mt-8 text-on-panel">
             <Unverified note={guarantee.headline.verify} className="text-ink">
               {guarantee.headline.text}
             </Unverified>
           </h2>
           <QuizCTA location="guarantee" label={quizCta.fit} variant="inverse" className="mt-10 w-full sm:w-auto" />
-          <p className="mt-4 text-caption text-on-primary/75">
+          <p className="mt-4 text-caption text-on-panel/75">
             {guarantee.helper.map((segment, i) => (
               <span key={typeof segment === "string" ? segment : segment.text}>
                 {i > 0 && " "}

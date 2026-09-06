@@ -34,12 +34,12 @@ export function Outcomes() {
             <li
               key={stat.label}
               className={cn(
-                "relative isolate flex flex-col justify-between gap-6 overflow-hidden rounded-[1.5rem] bg-primary p-5 text-on-primary md:min-h-[15.5rem] md:p-6",
+                "relative isolate flex flex-col justify-between gap-6 overflow-hidden rounded-tile bg-panel p-5 text-on-panel md:min-h-[15.5rem] md:p-6",
                 index === outcomes.stats.length - 1 && "col-span-2 md:col-span-1",
               )}
             >
               <span aria-hidden="true" className="absolute inset-0 -z-10 bg-[radial-gradient(80%_70%_at_50%_120%,rgb(var(--accent-rgb)/0.45),transparent_70%)]" />
-              <p className="flex items-start gap-1 font-serif italic text-stat text-on-primary tabular-nums">
+              <p className="flex items-start gap-1 text-stat text-on-panel tabular-nums">
                 <Unverified note={`8-week outcome: ${stat.label}`}>
                   <CountUp value={stat.value} delay={index * 0.1} />
                 </Unverified>
@@ -49,7 +49,7 @@ export function Outcomes() {
                 <span aria-hidden="true" className="block h-1 w-full overflow-hidden rounded-full bg-base/15">
                   <span data-fill={fill} data-delay={200 + index * 110} className="block h-full w-full origin-left scale-x-0 rounded-full bg-accent-soft" />
                 </span>
-                <p className="mt-3 text-base leading-snug text-on-primary/80">{stat.label}</p>
+                <p className="mt-3 text-base leading-snug text-on-panel/80">{stat.label}</p>
               </div>
             </li>
           );

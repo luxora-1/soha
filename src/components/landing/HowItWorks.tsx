@@ -17,7 +17,7 @@ export function HowItWorks() {
 
   return (
     <SectionWrapper tone="alt" id="how-it-works" labelledBy="how-heading">
-      <SectionHeading id="how-heading" tone="surface" headline={`${howItWorks.headline.lead} ${howItWorks.headline.accent}`} />
+      <SectionHeading id="how-heading" tone="surface" headline={<>{howItWorks.headline.lead} <em>{howItWorks.headline.accent}</em></>} />
       <div data-reveal="">
         <Carousel
           className="mt-10 md:mt-14"
@@ -30,8 +30,8 @@ export function HowItWorks() {
           items={howItWorks.steps.map((step, index) => (
             <div key={step.slot} className="flex h-full flex-col">
               <div className="relative">
-                <ImageSlot {...slot(step.slot)} sizes="(min-width: 768px) 22vw, 78vw" className="rounded-[1.5rem]" />
-                <span className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-base font-serif text-[1.125rem] leading-none text-ink shadow-soft">
+                <ImageSlot {...slot(step.slot)} sizes="(min-width: 768px) 22vw, 78vw" className="rounded-tile" />
+                <span className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-base font-sans text-[1rem] font-semibold leading-none text-primary shadow-soft">
                   {index + 1}
                 </span>
               </div>

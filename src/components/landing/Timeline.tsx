@@ -17,18 +17,18 @@ export function Timeline() {
 
   return (
     <SectionWrapper tone="base" id="timeline" labelledBy="timeline-heading">
-      <SectionHeading id="timeline-heading" label={timeline.label} headline={`${timeline.headline.lead} ${timeline.headline.accent}`} />
+      <SectionHeading id="timeline-heading" label={timeline.label} headline={<>{timeline.headline.lead} <em>{timeline.headline.accent}</em></>} />
       <TimelineStory
         className="mt-10 md:mt-14"
         label={timeline.tabsLabel}
         steps={timeline.steps.map((step) => ({
           key: step.key,
           label: step.short,
-          image: <ImageSlot {...slot(step.slot)} sizes="(min-width: 1024px) 44vw, 100vw" className="rounded-[2rem] shadow-soft" />,
+          image: <ImageSlot {...slot(step.slot)} sizes="(min-width: 1024px) 44vw, 100vw" className="rounded-tile shadow-soft" />,
           content: (
             <>
-              <p className="font-serif text-[1.5rem] italic leading-none tracking-heading text-primary">{step.week}</p>
-              <h3 className="mt-3 font-serif text-h2 text-ink">{step.title}</h3>
+              <p className="text-eyebrow font-semibold uppercase tracking-eyebrow text-primary">{step.week}</p>
+              <h3 className="mt-3 text-h2 text-ink">{step.title}</h3>
               <p className="mt-4 text-body-lg text-ink-muted">
                 <Unverified note={`timeline: what to expect at ${step.week.toLowerCase()}`}>{step.body}</Unverified>
               </p>

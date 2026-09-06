@@ -92,6 +92,8 @@ const config: Config = {
         DEFAULT: token("primary"),
         hover: token("primary-hover"),
       },
+      /** Deep ground for the dark modules: stat tiles, comparison column, guarantee, closing. */
+      panel: token("panel"),
       /** Yellow highlight behind <Unverified> claims. Development tooling only. */
       unverified: token("unverified"),
     },
@@ -111,6 +113,7 @@ const config: Config = {
       /** Light text for use on `bg-brand` / `bg-primary` and `bg-ink` surfaces. */
       "on-brand": token("bg"),
       "on-primary": token("bg"),
+      "on-panel": token("bg"),
       "on-ink": token("bg"),
     }),
     borderColor: ({ theme }) => ({
@@ -162,29 +165,29 @@ const config: Config = {
         ],
       },
       fontSize: {
-        /** h1 — 40px → 68px, serif, weight 400. Restrained, editorial. */
+        /** h1 — 36px → 60px, sans, weight 600, tight. */
         h1: [
-          fluid(40, 68),
-          { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "400" },
+          fluid(36, 60),
+          { lineHeight: "1.08", letterSpacing: "-0.025em", fontWeight: "600" },
         ],
-        /** display — 44px → 80px, serif. Landing hero only. */
+        /** display — 40px → 66px, sans, weight 600. Landing hero only. */
         display: [
-          fluid(44, 80),
-          { lineHeight: "1.04", letterSpacing: "-0.025em", fontWeight: "400" },
+          fluid(40, 66),
+          { lineHeight: "1.04", letterSpacing: "-0.03em", fontWeight: "600" },
         ],
-        /** h2 — 30px → 44px, serif, weight 400. */
+        /** h2 — 28px → 42px, sans, weight 600. */
         h2: [
-          fluid(30, 44),
-          { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "400" },
+          fluid(28, 42),
+          { lineHeight: "1.12", letterSpacing: "-0.025em", fontWeight: "600" },
         ],
-        /** h3 — 20px → 24px, sans, weight 500. */
-        h3: [fluid(20, 24), { lineHeight: "1.3", fontWeight: "500" }],
-        /** stat — 48px → 72px, serif numerals for outcome tiles and prices. */
-        stat: [fluid(48, 72), { lineHeight: "1", letterSpacing: "-0.02em", fontWeight: "400" }],
-        /** body — 16px → 18px, sans, line-height 1.65. Never below 16px. */
-        body: [fluid(16, 18), { lineHeight: "1.65" }],
+        /** h3 — 20px → 24px, sans, weight 600. */
+        h3: [fluid(20, 24), { lineHeight: "1.25", letterSpacing: "-0.01em", fontWeight: "600" }],
+        /** stat — 44px → 64px, bold sans numerals for outcome tiles and prices. */
+        stat: [fluid(44, 64), { lineHeight: "1", letterSpacing: "-0.03em", fontWeight: "700" }],
+        /** body — 16px → 18px, sans, line-height 1.55. Never below 16px. */
+        body: [fluid(16, 18), { lineHeight: "1.55" }],
         /** body-lg — 18px → 20px, for subheads under h1/h2. */
-        "body-lg": [fluid(18, 20), { lineHeight: "1.55" }],
+        "body-lg": [fluid(18, 20), { lineHeight: "1.5" }],
         /** eyebrow — 12px, sans, uppercase, tracking 0.12em. */
         eyebrow: [
           "0.75rem",
@@ -235,8 +238,8 @@ const config: Config = {
       },
       borderRadius: {
         card: "1rem", // == rounded-2xl
-        /** Large photo tiles and full-bleed panels. */
-        tile: "1.75rem",
+        /** Large photo tiles and panels. */
+        tile: "1.5rem",
       },
       backgroundImage: {
         /** Select chevron, drawn in the palette's muted ink (one data-URI per palette, see design-tokens.ts). */

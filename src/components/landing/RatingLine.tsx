@@ -8,7 +8,7 @@ export function RatingLine({ className, tone = "light" }: { className?: string; 
   const { rating } = landingContent.hero;
   const dark = tone === "dark";
   return (
-    <p className={cn("flex flex-wrap items-center gap-x-3 gap-y-1 text-base", dark ? "text-on-primary" : "text-ink", className)}>
+    <p className={cn("flex flex-wrap items-center gap-x-3 gap-y-1 text-base", dark ? "text-on-panel" : "text-ink", className)}>
       <span className="flex items-center gap-0.5 text-accent" aria-hidden="true">
         {Array.from({ length: 5 }, (_, i) => (
           <StarIcon key={i} />
@@ -17,7 +17,7 @@ export function RatingLine({ className, tone = "light" }: { className?: string; 
       <span>
         <Unverified note={rating.value.verify}>{rating.value.text}</Unverified> {rating.outOf}
       </span>
-      <span className={dark ? "text-on-primary/75" : "text-ink-muted"}>
+      <span className={cn("text-[0.8125rem] font-medium uppercase tracking-eyebrow", dark ? "text-on-panel/85" : "text-primary")}>
         <Unverified note={rating.count.verify}>{rating.count.text}</Unverified> {rating.countLabel}
       </span>
     </p>

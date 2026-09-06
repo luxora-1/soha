@@ -92,7 +92,7 @@ To add another platform, implement `SocialProvider` in
 
 ## Colour palette
 
-The palette (A · Warm Clay) lives in `src/config/design-tokens.ts` and is
+The palette (B · Periwinkle, with A · Warm Clay kept for rollback) lives in `src/config/design-tokens.ts` and is
 documented in `PALETTES.md`. Every colour on the site is a CSS custom
 property written to `:root`, so no component carries a hex value. To trial
 another scheme, add an entry there and point `defaultPalette` at it.

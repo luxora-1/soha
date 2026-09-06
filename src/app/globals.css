@@ -71,25 +71,26 @@
     @apply bg-accent-soft text-ink;
   }
 
-  /* Editorial headings: serif, weight 400, tight tracking (from the type scale). */
+  /* Headings: the sans, weight 600, tight tracking (from the type scale). An <em>
+     inside a heading is the one place the serif appears: an italic accent word. */
   h1 {
-    @apply font-serif text-h1;
+    @apply font-sans text-h1;
     text-wrap: balance;
   }
 
   h2 {
-    @apply font-serif text-h2;
+    @apply font-sans text-h2;
     text-wrap: balance;
+  }
+
+  h1 em,
+  h2 em {
+    @apply font-serif font-normal italic;
   }
 
   h3 {
     @apply font-sans text-h3;
     text-wrap: balance;
-  }
-
-  /* Slightly softer optical cut of Fraunces for warmth. */
-  .font-serif {
-    font-variation-settings: "SOFT" 30;
   }
 
   p {

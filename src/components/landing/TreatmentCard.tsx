@@ -18,8 +18,8 @@ export function TreatmentCard() {
   return (
     <SectionWrapper tone="base" id="treatment" labelledBy="treatment-heading" padding="compact" className="lg:py-section">
       <SectionHeading id="treatment-heading" label={treatment.label} align="center" headline={`${treatment.headline.lead} ${treatment.headline.accent}`} />
-      <article data-reveal="" className="mx-auto mt-10 grid max-w-4xl overflow-hidden rounded-[2rem] bg-surface shadow-lift md:mt-14 md:grid-cols-2">
-        <div className="relative isolate flex items-center justify-center overflow-hidden bg-ink p-8 md:p-12">
+      <article data-reveal="" className="mx-auto mt-10 grid max-w-4xl overflow-hidden rounded-tile bg-surface shadow-lift md:mt-14 md:grid-cols-2">
+        <div className="relative isolate flex items-center justify-center overflow-hidden bg-panel p-8 md:p-12">
           <span aria-hidden="true" className="absolute left-1/2 top-1/2 -z-10 h-[78%] w-[78%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary" />
           <span aria-hidden="true" className="absolute inset-0 -z-10 bg-glow" />
           <div className="w-full max-w-[18rem]">
@@ -30,7 +30,7 @@ export function TreatmentCard() {
           <ProductPill name={treatment.name} form={treatment.form} />
           <p className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
             <Unverified note={treatment.price.verify}>
-              <span className="font-serif text-[2.75rem] leading-none tracking-heading text-ink tabular-nums">{treatment.price.text}</span>
+              <span className="text-[2.5rem] font-bold leading-none tracking-[-0.03em] text-ink tabular-nums">{treatment.price.text}</span>
             </Unverified>
             <span className="text-body-lg text-ink-muted">{treatment.per}</span>
             <span className="text-base text-ink-muted">{treatment.starting}</span>

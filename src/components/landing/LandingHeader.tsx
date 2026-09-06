@@ -17,7 +17,7 @@ export function LandingHeader() {
       <div className="transition-[padding] duration-300 ease-out group-data-[scrolled]:px-3 group-data-[scrolled]:pt-2 md:group-data-[scrolled]:px-6 motion-reduce:transition-none">
         <div className="mx-auto box-content max-w-none bg-base/85 backdrop-blur-md transition-[border-radius,box-shadow,max-width] duration-300 ease-out group-data-[scrolled]:max-w-content group-data-[scrolled]:rounded-full group-data-[scrolled]:shadow-soft motion-reduce:transition-none">
           <div className="mx-auto flex h-nav max-w-content items-center justify-between gap-4 px-6 transition-[height,padding] duration-300 ease-out group-data-[scrolled]:h-16 group-data-[scrolled]:px-5 md:px-8 md:group-data-[scrolled]:px-6 motion-reduce:transition-none">
-            <span className="font-serif text-[1.75rem] leading-none tracking-heading text-ink">
+            <span className="font-sans text-[1.5rem] font-semibold leading-none tracking-[-0.02em] text-primary">
               <span className="sr-only">{siteConfig.name}</span>
               <span aria-hidden="true">{siteConfig.name}</span>
             </span>

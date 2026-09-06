@@ -86,7 +86,7 @@ export function IngredientHotspots({ image, items, label, className }: Ingredien
           aria-label={current.name}
           className="mt-4 rounded-card bg-base p-5 shadow-soft"
         >
-          <p className="font-serif text-[1.5rem] leading-tight tracking-heading text-ink">{current.name}</p>
+          <p className="text-[1.375rem] font-semibold leading-tight tracking-[-0.02em] text-ink">{current.name}</p>
           <div key={current.key} className="mt-2 text-body text-ink-muted motion-safe:animate-fade-in">
             {current.content}
           </div>

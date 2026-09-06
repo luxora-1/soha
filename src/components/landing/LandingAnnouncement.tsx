@@ -27,7 +27,7 @@ export function LandingAnnouncement({ messages, label }: LandingAnnouncementProp
     <div
       role="region"
       aria-label={label}
-      className="bg-primary text-on-primary"
+      className="bg-ink text-on-ink"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}

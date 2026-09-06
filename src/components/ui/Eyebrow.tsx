@@ -9,7 +9,7 @@ type EyebrowProps = {
   children: ReactNode;
 };
 
-/** Small uppercase label that sits above a heading. 12px / 0.12em tracking. */
+/** Small uppercase label that sits above a heading. 12px / 0.12em tracking, in the brand colour. */
 export function Eyebrow({
   as: Tag = "p",
   className,
@@ -20,7 +20,7 @@ export function Eyebrow({
     <Tag
       id={id}
       className={cn(
-        "font-sans text-eyebrow uppercase tracking-eyebrow text-ink-muted",
+        "font-sans text-eyebrow uppercase tracking-eyebrow text-primary",
         className,
       )}
     >

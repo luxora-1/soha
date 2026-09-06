@@ -45,7 +45,7 @@ export function MedicalCredibility() {
         </div>
 
         <figure data-reveal="" className="lg:col-span-5 lg:col-start-1 lg:row-start-1">
-          <VideoSlot id={medical.portrait} label={medical.videoLabel.text} sizes="(min-width: 1024px) 40vw, 100vw" className="[&>div]:rounded-[2rem]" />
+          <VideoSlot id={medical.portrait} label={medical.videoLabel.text} sizes="(min-width: 1024px) 40vw, 100vw" className="[&>div]:rounded-tile" />
           <figcaption className="mt-4 text-base">
             <span className="block font-medium text-ink">
               <Unverified note={medical.name.verify}>{medical.name.text}</Unverified>
@@ -71,7 +71,7 @@ export function MedicalCredibility() {
       </div>
 
       <div className="mt-16 md:mt-20">
-        <p data-reveal="" className="max-w-measure font-serif text-h2 text-ink">
+        <p data-reveal="" className="max-w-measure text-h2 text-ink">
           {medical.qa.headline}
         </p>
         <div data-reveal="">
@@ -87,7 +87,7 @@ export function MedicalCredibility() {
                   id={item.slot}
                   label={`Play: ${item.title}`}
                   sizes="(min-width: 768px) 25vw, 80vw"
-                  className="[&>div]:rounded-[1.5rem]"
+                  className="[&>div]:rounded-tile"
                   overlay={
                     <span aria-hidden="true" className="pointer-events-none absolute inset-x-4 bottom-4 rounded-card bg-primary/90 px-4 py-2.5 text-center text-[0.9375rem] font-medium leading-snug text-on-primary backdrop-blur-sm">
                       {item.title}

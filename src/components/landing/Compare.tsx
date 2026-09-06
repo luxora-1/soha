@@ -26,7 +26,7 @@ export function Compare() {
       <IngredientHotspots
         className="lg:col-span-5"
         label={compare.hotspots.label}
-        image={<ImageSlot {...slot(compare.hotspots.slot)} sizes="(min-width: 1024px) 40vw, 100vw" className="rounded-[2rem]" />}
+        image={<ImageSlot {...slot(compare.hotspots.slot)} sizes="(min-width: 1024px) 40vw, 100vw" className="rounded-tile" />}
         items={compare.hotspots.items.map((item) => ({
           key: item.key,
           name: item.name,
@@ -41,14 +41,14 @@ export function Compare() {
         </p>
         <ul data-reveal="" className="mt-6 grid gap-4 sm:grid-cols-3">
           {compare.ingredients.cards.map((card) => (
-            <li key={card.name} className="relative isolate overflow-hidden rounded-card bg-ink text-on-ink">
+            <li key={card.name} className="relative isolate overflow-hidden rounded-card bg-panel text-on-panel">
               <div className="relative aspect-[4/3] sm:aspect-[3/4]">
                 <ImageSlot {...slot(card.slot)} fill sizes="(min-width: 1024px) 22vw, (min-width: 640px) 30vw, 100vw" />
-                <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgb(var(--ink-rgb)/0.92)_0%,rgb(var(--ink-rgb)/0.55)_45%,rgb(var(--ink-rgb)/0)_75%)]" />
+                <span aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(to_top,rgb(var(--panel-rgb)/0.92)_0%,rgb(var(--panel-rgb)/0.55)_45%,rgb(var(--panel-rgb)/0)_75%)]" />
                 <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-                  <h3 className="font-serif text-[1.5rem] leading-tight tracking-heading text-on-ink">{card.name}</h3>
-                  <p className="mt-2 text-[0.9375rem] leading-snug text-on-ink/85">
-                    <Unverified note={`ingredient: what ${card.name.toLowerCase()} does`} className="text-ink">
+                  <h3 className="text-[1.375rem] font-semibold leading-tight tracking-[-0.02em] text-on-panel">{card.name}</h3>
+                  <p className="mt-2 text-[0.9375rem] leading-snug text-on-panel/85">
+                    <Unverified note={`ingredient: what ${card.name.toLowerCase()} does`} className="text-panel">
                       {card.body}
                     </Unverified>
                   </p>
@@ -66,18 +66,18 @@ export function Compare() {
   const otherPanel = (
     <div>
       <div className="max-w-measure">
-        <h3 className="font-serif text-h2 text-ink">{table.headline}</h3>
+        <h3 className="text-h2 text-ink">{table.headline}</h3>
         <p className="mt-4 text-body-lg text-ink-muted">
           <Unverified note={table.subhead.verify}>{table.subhead.text}</Unverified>
         </p>
       </div>
-      <div data-reveal="" role="table" aria-label={table.headline} className="mt-10 overflow-hidden rounded-[1.5rem] bg-base p-2 md:p-3">
+      <div data-reveal="" role="table" aria-label={table.headline} className="mt-10 overflow-hidden rounded-tile bg-base p-2 md:p-3">
         <div role="rowgroup">
           <div role="row" className="grid grid-cols-2 gap-x-2 md:grid-cols-[minmax(10rem,1fr)_2fr_2fr] md:gap-x-3">
             <div role="columnheader" className="hidden px-4 py-3 text-base text-ink-muted md:block md:px-5 md:py-4">
               {table.columns.criterion}
             </div>
-            <div role="columnheader" className="rounded-t-card bg-primary px-4 pb-3 pt-4 text-base font-medium text-on-primary md:px-5 md:pt-5">
+            <div role="columnheader" className="rounded-t-card bg-panel px-4 pb-3 pt-4 text-base font-medium text-on-panel md:px-5 md:pt-5">
               {table.columns.estrada}
             </div>
             <div role="columnheader" className="px-4 pb-3 pt-4 text-base font-medium text-ink md:px-5 md:pt-5">
@@ -94,7 +94,7 @@ export function Compare() {
               <div
                 role="cell"
                 className={cn(
-                  "relative bg-primary px-4 py-4 text-base text-on-primary before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-base/15 md:px-5 md:before:inset-x-5",
+                  "relative bg-panel px-4 py-4 text-base text-on-panel before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-base/15 md:px-5 md:before:inset-x-5",
                   index === last && "rounded-b-card pb-5",
                 )}
               >
@@ -123,7 +123,7 @@ export function Compare() {
         panels={[estradaPanel, otherPanel]}
       />
       <div data-reveal="" className="mt-14 max-w-measure md:mt-20">
-        <h3 className="font-serif text-h2 text-ink">{compare.works.headline}</h3>
+        <h3 className="text-h2 text-ink">{compare.works.headline}</h3>
         <p className="mt-4 text-body-lg text-ink-muted">
           <Unverified note={compare.works.body.verify}>{compare.works.body.text}</Unverified>
         </p>
