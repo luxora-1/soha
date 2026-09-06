@@ -5,7 +5,7 @@ repository (project scope). Each lives in its own directory with a `SKILL.md`.
 
 | Skill | What it is for | Source |
 | ----- | -------------- | ------ |
-| `frontend-design` | Distinctive visual direction for new UI; avoids templated defaults. | Anthropic |
+| `frontend-design` | Distinctive visual direction for new UI; avoids templated defaults. | anthropics/claude-code, `plugins/frontend-design` v1.1.0 (checked identical to upstream at commit `ab9b2cf`, 2026-09-06) |
 | `ui-ux-pro-max` | Searchable design intelligence: 79 UI styles, 192 product palettes and reasoning profiles, 74 font pairings, 119 UX guidelines, icons, GSAP presets, chart types, and per-stack guidance (Next.js, React, Tailwind, …). Drives a `--design-system` recommendation for a new page or product. | nextlevelbuilder/ui-ux-pro-max-skill |
 | `design-system` | Three-layer design tokens (primitive → semantic → component), component specs, Tailwind integration, plus HTML slide generation. | nextlevelbuilder/ui-ux-pro-max-skill |
 | `brand` | Brand voice, visual identity, messaging framework, asset rules and consistency checks. | nextlevelbuilder/ui-ux-pro-max-skill |
