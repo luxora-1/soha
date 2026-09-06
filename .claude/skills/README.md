@@ -10,6 +10,33 @@ repository (project scope). Each lives in its own directory with a `SKILL.md`.
 | `design-system` | Three-layer design tokens (primitive → semantic → component), component specs, Tailwind integration, plus HTML slide generation. | nextlevelbuilder/ui-ux-pro-max-skill |
 | `brand` | Brand voice, visual identity, messaging framework, asset rules and consistency checks. | nextlevelbuilder/ui-ux-pro-max-skill |
 | `ui-styling` | shadcn/ui and Tailwind references: components, theming, dark mode, responsive utilities. | nextlevelbuilder/ui-ux-pro-max-skill |
+| `claude-opus-4-5-migration` | Migrate prompts and code from Claude Sonnet 4.0, Sonnet 4.5, or Opus 4.1 to Opus 4.5. Use when the user wants to update their codebase, prompts, or API calls to use… | anthropics/claude-code, `plugins/claude-opus-4-5-migration` |
+| `writing-rules` | This skill should be used when the user asks to "create a hookify rule", "write a hook rule", "configure hookify", "add a hookify rule", or needs guidance on hookify… | anthropics/claude-code, `plugins/hookify` |
+| `agent-development` | This skill should be used when the user asks to "create an agent", "add an agent", "write a subagent", "agent frontmatter", "when to use description", "agent… | anthropics/claude-code, `plugins/plugin-dev` |
+| `command-development` | This skill should be used when the user asks to "create a slash command", "add a command", "write a custom command", "define command arguments", "use command… | anthropics/claude-code, `plugins/plugin-dev` |
+| `hook-development` | This skill should be used when the user asks to "create a hook", "add a PreToolUse/PostToolUse/Stop hook", "validate tool use", "implement prompt-based hooks", "use… | anthropics/claude-code, `plugins/plugin-dev` |
+| `mcp-integration` | This skill should be used when the user asks to "add MCP server", "integrate MCP", "configure MCP in plugin", "use .mcp.json", "set up Model Context Protocol",… | anthropics/claude-code, `plugins/plugin-dev` |
+| `plugin-settings` | This skill should be used when the user asks about "plugin settings", "store plugin configuration", "user-configurable plugin", ".local.md files", "plugin state… | anthropics/claude-code, `plugins/plugin-dev` |
+| `plugin-structure` | This skill should be used when the user asks to "create a plugin", "scaffold a plugin", "understand plugin structure", "organize plugin components", "set up… | anthropics/claude-code, `plugins/plugin-dev` |
+| `skill-development` | This skill should be used when the user wants to "create a skill", "add a skill to plugin", "write a new skill", "improve skill description", "organize skill… | anthropics/claude-code, `plugins/plugin-dev` |
+
+## Skills from anthropics/claude-code
+
+Installed 2026-09-06 from <https://github.com/anthropics/claude-code> at
+commit `ab9b2cf` (the repository's `plugins/` marketplace, MIT licence in its
+`LICENSE.md`). Every skill that marketplace ships is here: `frontend-design`
+(v1.1.0, the one used for website work), `claude-opus-4-5-migration`,
+hookify's `writing-rules` (its `examples/` folder was copied into the skill
+and the one reference to `${CLAUDE_PLUGIN_ROOT}` in it points there now), and
+the seven `plugin-dev` skills for writing Claude Code plugins. The
+`plugin-dev` and `mcp-integration` texts mention `${CLAUDE_PLUGIN_ROOT}` as
+subject matter, which is correct and was left alone.
+
+Not installed from that repository: its slash commands, agents and hooks
+(code-review, pr-review-toolkit, feature-dev, commit-commands, agent-sdk-dev,
+security-guidance, ralph-wiggum and the two output styles). Those are plugins
+rather than skills and are best added on a machine with `/plugin marketplace
+add anthropics/claude-code`.
 
 ## ui-ux-pro-max and companions
 
